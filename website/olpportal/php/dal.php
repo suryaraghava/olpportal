@@ -8,27 +8,24 @@ require 'database.php';
 
 class useraccounts
 {
-    /* Account StaffID : Check */
-    function  checkStaffID($staffID)
-    {
-        $result="NotExist";
-        $sql="SELECT * FROM `userregistration` WHERE `staffID`='".$staffID."'";
-         $dbObj=new InteractDatabase();
-         $res = $dbObj->getData($sql);
-        
-        if ($res->num_rows > 0) {
-            $result="Exist";
-        }
-       return $result;
-    }
-    
     /* Account creation : Insertion */
     function getRegister($username, $password, $firstName, $lastName, $staffID, $mobile, $emailID, $designation)
     {
+         $register='None';
          $dbObj=new InteractDatabase();
          $acc=new useraccounts();
+         $usernameCheck=$acc->checkUsernameExist($username);
          $staffIDCheck=$acc->checkStaffID($staffID);
-         if($staffIDCheck=='NotExist') {
+         if($staffIDCheck=='NotExist' && $usernameCheck=='NotExist') { 
+             $register='Add'; 
+             
+         } else {
+             if($staffIDCheck=='Exist') { echo "StaffIDExist";        }
+             else if($usernameCheck=='Exist') { echo "UsernameExist"; }
+             else { echo "Error";}
+         } 
+         
+         if($register=='Add') {
              /* Inserting into userregistration table */
                 $rtquery="INSERT INTO `userregistration`";
                 $rtquery=$rtquery."(`firstName`, `lastName`, `staffID`, `mobile`, `emailID`, `designation`) ";
@@ -49,11 +46,40 @@ class useraccounts
                
             echo "UserRegistered";
          }
-         else {
-             echo "StaffIDExist";
-         } 
     }
+
+            /* Account StaffID : Check */
+            function  checkStaffID($staffID)
+            {
+                $result="NotExist";
+                $sql="SELECT * FROM `userregistration` WHERE `staffID`='".$staffID."'";
+                 $dbObj=new InteractDatabase();
+                 $res = $dbObj->getData($sql);
+
+                if ($res->num_rows > 0) {
+                    $result="Exist";
+                }
+               return $result;
+            }
+    
+            /* Account UserName : Check */
+            function checkUsernameExist($username)
+            {
+                $result="NotExist";
+                $sql="SELECT * FROM `userlogin` WHERE `username`='".$username."'";
+                 $dbObj=new InteractDatabase();
+                 $res = $dbObj->getData($sql);
+
+                if ($res->num_rows > 0) {
+                    $result="Exist";
+                }
+               return $result;
+            }
+
+    
 }
 
 $acc=new useraccounts();
+
+/* Get Registration */
 $acc->getRegister("Test", "password", "firstName", "lastName", "1234", "mobile", "abcd", "designation");
