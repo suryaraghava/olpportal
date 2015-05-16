@@ -40,10 +40,12 @@ class UserAccounts
                 $dejson=json_decode($jsonObj);
                 $regId=$dejson[0]->{'idUserRegistration'};
 
-
+                $utilObj=new Utils();
+                $otpCode=$utilObj->randomNumber(5);
+                
              /* Inserting into userlogin table */
-               $ltquery="INSERT INTO `userlogin`(`username`, `password`, `active`, `idUserRegistration`)";
-               $ltquery=$ltquery." VALUES ('".$username."','".$password."', 0,".$regId.");";
+               $ltquery="INSERT INTO `userlogin`(`username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`)";
+               $ltquery=$ltquery." VALUES ('".$username."','".$password."', 0,".$regId.",'".$otpCode."',0);";
                $dbObj->addupdateData($ltquery);
                
             echo "UserRegistered";
@@ -113,47 +115,17 @@ class UserAccounts
                 $dbObj=new InteractDatabase();
                 $dbObj->addupdateData($sql);
             }
+
+            function updateOTPCode()
+            {
+                $sql="";
+            }
+            
 }
 
 
-class Courses
-{
-    function addCourses($courseName, $courseNum)
-    /* Adding Courses and It returns Primary Key */
-    {
-        $dbObj=new InteractDatabase();
-        $isql="INSERT INTO `courses`(`courseName`, `courseNumber`) VALUES ('".$courseName."',".$courseNum.")";
-        $gsql="SELECT * FROM `courses` WHERE `courseName`='".$courseName."' AND `courseNumber`=".$courseNum.";";
-        
-        $dbObj->addupdateData($isql);
-        $json=$dbObj->getJSONData($gsql);
-        $dejson=json_decode($json);
-        $courseId=$dejson[0]->{'idCourses'};
-        
-        return $courseId;
-    }
-    
-    function addCourseLink($courseId, $courseVideo, $coursePDF)
-    {
-        $dbObj=new InteractDatabase();
-        
-        $sql="INSERT INTO `courselinks`(`courseID`, `courseVideoLink`, `coursePDFLink`) ";
-        $sql.="VALUES (".$courseId.",'".$courseVideo."','".$coursePDF."')";
-        
-        $dbObj->addupdateData($sql);
-    }
-    
-    function viewCourseDetails()
-    {
-        $sql="SELECT * FROM `courses`,`courselinks` WHERE courses.idCourses=courselinks.courseID";
-        $dbObj=new InteractDatabase();
-        $json=$dbObj->getJSONData($sql);
-        
-        echo $json;
-    }
-    
-    
-}
+
+
 $acc=new UserAccounts();
 
 /* Get Registration */
