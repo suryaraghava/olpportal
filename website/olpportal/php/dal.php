@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'database.php';
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -8,6 +9,7 @@ require 'database.php';
 
 class useraccounts
 {
+    /* USER REGISTRATION FORM */
     /* Account creation : Insertion */
     function getRegister($username, $password, $firstName, $lastName, $staffID, $mobile, $emailID, $designation)
     {
@@ -76,10 +78,46 @@ class useraccounts
                return $result;
             }
 
-    
+    /* LOGIN FORM */
+    function getloginSession($login, $pwd)
+    /* $login can be email or username, it validates with password and gets data */
+    {
+        $sql="SELECT * FROM `userregistration`, `userlogin` ";
+        $sql=$sql."WHERE userregistration.idUserRegistration=userlogin.idUserRegistration ";
+        $sql=$sql."AND (userregistration.emailID='".$login."' OR userlogin.username='".$login."') ";
+        $sql=$sql."AND userlogin.password='".$pwd."'";
+        
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        $dejson=json_decode($json);
+        
+        $_SESSION[constant("SESSION_USER_REGID")]=$dejson[0]->{'idUserRegistration'};
+        $_SESSION[constant("SESSION_USER_LOGID")]=$dejson[0]->{'idUserLogin'};
+        $_SESSION[constant("SESSION_USER_USERNAME")]=$dejson[0]->{'username'};
+        $_SESSION[constant("SESSION_USER_PASSWORD")]=$dejson[0]->{'password'};
+        $_SESSION[constant("SESSION_USER_FIRSTNAME")]=$dejson[0]->{'firstName'};
+        $_SESSION[constant("SESSION_USER_LASTNAME")]=$dejson[0]->{'lastName'};
+        $_SESSION[constant("SESSION_USER_STAFFID")]=$dejson[0]->{'staffID'};
+        $_SESSION[constant("SESSION_USER_MOBILE")]=$dejson[0]->{'mobile'};
+        $_SESSION[constant("SESSION_USER_EMAIL")]=$dejson[0]->{'emailID'};
+        $_SESSION[constant("SESSION_USER_DESIGNATION")]=$dejson[0]->{'designation'};
+        $_SESSION[constant("SESSION_USER_ACTIVE")]=$dejson[0]->{'active'}; 
+    }
+            /* Update Forgot Password using username */
+            function updatePassword($login, $newpwd)
+            {
+                $sql="UPDATE `userlogin` SET `password`='".$newpwd."' ";
+                $sql.="WHERE userlogin.idUserRegistration=(SELECT `idUserRegistration` FROM ";
+                $sql.="`userregistration` WHERE `emailID`='".$login."') OR userlogin.username='".$login."';";
+               
+                $dbObj=new InteractDatabase();
+                $dbObj->addupdateData($sql);
+            }
 }
 
 $acc=new useraccounts();
 
 /* Get Registration */
-$acc->getRegister("Test", "password", "firstName", "lastName", "1234", "mobile", "abcd", "designation");
+// $acc->getRegister("Test", "password", "firstName", "lastName", "1234", "mobile", "abcd", "designation");
+
+$acc->getloginSession("Test", "password");
