@@ -23,7 +23,7 @@ class useraccounts
     }
     
     /* Account creation : Insertion */
-    function getRegister($userID, $password, $firstName, $lastName, $staffID, $mobile, $emailID, $designation)
+    function getRegister($username, $password, $firstName, $lastName, $staffID, $mobile, $emailID, $designation)
     {
          $dbObj=new InteractDatabase();
          $acc=new useraccounts();
@@ -43,8 +43,8 @@ class useraccounts
 
 
              /* Inserting into userlogin table */
-               $ltquery="INSERT INTO `userlogin`(`userID`, `password`, `active`, `idUserRegistration`)";
-               $ltquery=$ltquery." VALUES (".$userID.",'".$password."', 0,".$regId.");";
+               $ltquery="INSERT INTO `userlogin`(`username`, `password`, `active`, `idUserRegistration`)";
+               $ltquery=$ltquery." VALUES ('".$username."','".$password."', 0,".$regId.");";
                $dbObj->addupdateData($ltquery);
                
             echo "UserRegistered";
