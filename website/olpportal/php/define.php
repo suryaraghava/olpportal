@@ -11,6 +11,12 @@ define("DB_NAME","olpportal", true);
 define("DB_USER","root", true);
 define("DB_PASSWORD","@anupanup123", true);
 
+/* SMS-LANE */
+define("SMSPHONE_USERNAME","anupchinney", true);
+define("SMSPHONE_PASSWORD","@anupanup123", true);
+define("SMSPHONE_REGNUMBER","919160869337", true);
+define("SMSPHONE_FL","0", true);
+        
 /* USER-SESSIONS */
 define("SESSION_USER_REGID","SESSION_USER_REGID", true);
 define("SESSION_USER_LOGID","SESSION_USER_LOGID", true);

@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+require 'database.php';
 /* 
  * Questions Class includes testdetails table, testquestions table, testresults table
  */
