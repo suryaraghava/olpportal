@@ -56,4 +56,4 @@ class useraccounts
 }
 
 $acc=new useraccounts();
-$acc->getRegister("1", "password", "firstName", "lastName", "staffID", "mobile", "emailID", "designation");
+$acc->getRegister("Test", "password", "firstName", "lastName", "1234", "mobile", "abcd", "designation");
