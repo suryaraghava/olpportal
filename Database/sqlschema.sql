@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 16, 2015 at 04:39 PM
+-- Generation Time: May 16, 2015 at 06:55 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -65,33 +65,6 @@ CREATE TABLE IF NOT EXISTS `courseuserview` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `otp`
---
-
-CREATE TABLE IF NOT EXISTS `otp` (
-  `idOTP` int(11) NOT NULL AUTO_INCREMENT,
-  `userID` int(11) DEFAULT NULL,
-  `otp` varchar(45) DEFAULT NULL,
-  `active` bit(1) DEFAULT NULL,
-  PRIMARY KEY (`idOTP`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `questionoption`
---
-
-CREATE TABLE IF NOT EXISTS `questionoption` (
-  `idQuestionOption` int(11) NOT NULL AUTO_INCREMENT,
-  `questionID` int(11) DEFAULT NULL,
-  `options` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idQuestionOption`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `testdetails`
 --
 
@@ -110,7 +83,12 @@ CREATE TABLE IF NOT EXISTS `testdetails` (
 
 CREATE TABLE IF NOT EXISTS `testquestions` (
   `idTestQuestions` int(11) NOT NULL AUTO_INCREMENT,
+  `idTestDetails` int(11) NOT NULL,
   `question` varchar(45) DEFAULT NULL,
+  `option1` varchar(45) NOT NULL,
+  `option2` varchar(45) NOT NULL,
+  `option3` varchar(45) NOT NULL,
+  `option4` varchar(45) NOT NULL,
   `answer` varchar(45) DEFAULT NULL,
   `active` bit(1) DEFAULT NULL,
   PRIMARY KEY (`idTestQuestions`)
@@ -171,8 +149,17 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
   `password` varchar(45) DEFAULT NULL,
   `active` bit(1) DEFAULT NULL,
   `idUserRegistration` int(11) DEFAULT NULL,
+  `OTPCode` varchar(45) NOT NULL,
+  `OTPCount` int(11) NOT NULL,
   PRIMARY KEY (`idUserLogin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `userlogin`
+--
+
+INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`) VALUES
+(1, 'Test', 'password', b'0', 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -191,7 +178,14 @@ CREATE TABLE IF NOT EXISTS `userregistration` (
   PRIMARY KEY (`idUserRegistration`),
   UNIQUE KEY `staffID` (`staffID`),
   UNIQUE KEY `staffID_2` (`staffID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `userregistration`
+--
+
+INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `staffID`, `mobile`, `emailID`, `designation`) VALUES
+(1, 'firstName', 'lastName', '1234', 'mobile', 'abcd', 'designation');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
