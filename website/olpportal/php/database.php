@@ -1,5 +1,5 @@
 <?php
-require 'define.php';
+ require 'define.php';
 
 class Utils
 {

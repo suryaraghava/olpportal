@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'database.php';
+ require 'database.php';
 /* 
  * UserAccounts Class includes userregistration table, userlogin table
  */
@@ -43,7 +43,7 @@ class UserAccounts
                 
              /* Inserting into userlogin table */
                $ltquery="INSERT INTO `userlogin`(`username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`)";
-               $ltquery=$ltquery." VALUES ('".$username."','".$password."', 0,".$regId.",'".$otpCode."',0);";
+               $ltquery=$ltquery." VALUES ('".$username."','".md5($password)."', 0,".$regId.",'".$otpCode."',0);";
                $dbObj->addupdateData($ltquery);
                
             echo "UserRegistered";
@@ -85,12 +85,18 @@ class UserAccounts
         $sql="SELECT * FROM `userregistration`, `userlogin` ";
         $sql=$sql."WHERE userregistration.idUserRegistration=userlogin.idUserRegistration ";
         $sql=$sql."AND (userregistration.emailID='".$login."' OR userlogin.username='".$login."') ";
-        $sql=$sql."AND userlogin.password='".$pwd."'";
-        
+        $sql=$sql."AND userlogin.password='".md5($pwd)."'";
+             
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
-        $dejson=json_decode($json);
+    
+        echo $sql;
         
+        $res="Failed";
+        
+        if(empty($json)>0)
+        {
+           
         $_SESSION[constant("SESSION_USER_REGID")]=$dejson[0]->{'idUserRegistration'};
         $_SESSION[constant("SESSION_USER_LOGID")]=$dejson[0]->{'idUserLogin'};
         $_SESSION[constant("SESSION_USER_USERNAME")]=$dejson[0]->{'username'};
@@ -102,6 +108,11 @@ class UserAccounts
         $_SESSION[constant("SESSION_USER_EMAIL")]=$dejson[0]->{'emailID'};
         $_SESSION[constant("SESSION_USER_DESIGNATION")]=$dejson[0]->{'designation'};
         $_SESSION[constant("SESSION_USER_ACTIVE")]=$dejson[0]->{'active'}; 
+        
+        
+            $res="Success"; 
+        }
+        return $res;  
     }
             /* Update Forgot Password using username */
             function updatePassword($login, $newpwd)
@@ -124,9 +135,9 @@ class UserAccounts
 
 
 
-$acc=new UserAccounts();
+//$acc=new UserAccounts();
 
 /* Get Registration */
 // $acc->getRegister("Test", "password", "firstName", "lastName", "1234", "mobile", "abcd", "designation");
 
-$acc->getloginSession("Test", "password");
+//$acc->getloginSession("Test", "password");

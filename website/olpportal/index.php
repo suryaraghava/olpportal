@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,37 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        function login()
+        {
+            var user=$('#login-user');
+            var pwd=$('#login-pwd');
+            
+            //user validation
+            //pwd validation
+            
+            //php-controller
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/controller.php',
+                                    data: { 
+                                        login_user :user.val(),
+                                        login_pwd : pwd.val(),
+                                        action : 'loginUser'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   
+                                   console.log("resilt :"+result);
+                                   
+                    alert(result);
+        }
+    </script>
   </head>
 <body>
 
@@ -64,24 +96,25 @@
 <div class="courses-btn"><a href="courses.html">COURSES</a></div>
 <div class="login-form col-xs-6">
 <form class="form-horizontal">
+    
 <fieldset>
 <legend class="login-txt">LOGIN</legend>
   <div class="row">
     <div class="col-sm-10">
       <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" class="form-control" placeholder="USERNAME">
+                    <input type="text" id="login-user" class="form-control" placeholder="USERNAME">
                 </div>
     </div>
     <div class="col-sm-10">
       <div class="input-group space">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" class="form-control" placeholder="PASSWORD">
+                    <input type="password" id="login-pwd" class="form-control" placeholder="PASSWORD">
                 </div>
     </div>
     <div class="col-sm-10">
       <div class="input-group space login-btn">
-                    <button type="button" class="btn btn-default loginbtn">Login</button>
+                    <button type="button" class="btn btn-default loginbtn" onclick="javascript:login()">Login</button>
                 </div>
     </div>
     <div class="col-sm-5">
