@@ -35,7 +35,7 @@
                                     }
                                    });
                                    
-                               //    console.log("result :"+result);
+                                   //console.log("result :"+result);
                                    var res=JSON.parse(result);
                              var content='';
                              for(var index=0;index<res.length;index++)
@@ -49,21 +49,36 @@
                                  content+=' </div>';
                                  content+='<div class="course-menu">';
                                  content+='<ul>';
-                                 content+='<li><a href="pre-test.php">Take a Pretest</a></li>';
+                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\')">';
+                                 content+='Take a Pretest</span></li>';
                                  content+='<li><a href="details.php">Details</a></li>';
                                  content+='<li><a href="#">Go to Module</a></li>';
                                  content+='<li><a href="assessment.php">Go for Assessment</a></li>';
                                  content+='</ul>';
                                  content+='</div>';
                                  content+='</div>';
+                                 // pre-test.php
                              }
                              
            document.getElementById("view-courses-list").innerHTML=content;
           
         }
+        function preTestforCourse(courseName)
+        {
+           window.location.href='pre-test.php?courseName='+courseName; // Page Redirect    
+        }
         
+        function checkpreTestCompletedOrNot()
+        {
+            
+            
+        }
     </script>
     <style>
+        .course-subTag
+        {
+            cursor:pointer;
+        }
          #course-content
          {
              margin-bottom:1%;
