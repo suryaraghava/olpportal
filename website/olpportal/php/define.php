@@ -6,10 +6,11 @@
  * and open the template in the editor.
  */
 /* DATABASE CREDIENTIALS */
-define("SERVER_NAME","localhost:3306", true);
+define("SERVER_NAME","localhost:3306", true);//define()is to declare constats .
 define("DB_NAME","olpportal", true);
 define("DB_USER","root", true);
-define("DB_PASSWORD","@anupanup123", true);
+define("DB_PASSWORD","root", true);
+ 
 
 /* SMS-LANE */
 define("SMSPHONE_USERNAME","anupchinney", true);

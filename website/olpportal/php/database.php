@@ -57,9 +57,9 @@ class InteractDatabase
          else 
 		 {
 			$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-			$json = json_encode($rows);	
+			$json = json_encode($rows);//This function returns the JSON representation of a value on success or FALSE on failure.	
          }
-		 mysqli_free_result($result); 
+		 mysqli_free_result($result); //The mysqli_free_result() function frees the memory associated with the result
         $conn->close();
         return $json;
     }

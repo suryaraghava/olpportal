@@ -50,6 +50,7 @@ class Courses
         $json=$dbObj->getJSONData($sql);
         
         echo $json;
+        return $json;
     }
 }
 
