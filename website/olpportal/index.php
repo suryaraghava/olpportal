@@ -122,7 +122,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
 <!--   ---------------------- Start Home Page Slider -----------------------    -->
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-<div class="courses-btn"><a href="courses.html">COURSES</a></div>
+<div class="courses-btn"><a href="courses.php">COURSES</a></div>
 <div class="login-form col-xs-6">
 <form class="form-horizontal">
 <fieldset>
@@ -287,13 +287,13 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
    <ul class="nav navbar-nav footer-menu">
       <li class="active"><a href="index.php">Home</a></li>
       <li>|</li>
-      <li class="active"><a href="courses.html">Courses</a></li>
+      <li class="active"><a href="courses.php">Courses</a></li>
       <li>|</li>
       <li class="active"><a href="index.php">Login</a></li>
       <li>|</li>
       <li class="active"><a href="#" data-target="#myModal" data-toggle="modal">Sign Up</a></li>
       <li>|</li>
-      <li class="active"><a href="contact.html">Contact Us</a></li>   
+      <li class="active"><a href="contact.php">Contact Us</a></li>   
    </ul>
    </div>
    <div class="col-xs-12 col-md-5">
