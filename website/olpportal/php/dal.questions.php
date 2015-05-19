@@ -8,11 +8,11 @@ require 'database.php';
 class Questions
 {
     /* TestDetails Table */
-    function addTestDetails()
+    function addTestDetails($testName, $testType, $testTime)
     {       
         $dbObj=new InteractDatabase();
-        $isql="INSERT INTO `testdetails`(`testName`, `testType`) VALUES ('".$testName."',".$testType.")";
-        $gsql="SELECT * FROM `testdetails` WHERE `testName`='".$courseName."' AND `testType`=".$courseNum.";";
+        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`) VALUES ('".$testName."',".$testType.", '".$testTime."')";
+        $gsql="SELECT * FROM `testdetails` WHERE `testName`='".$testName."' AND `testType`=".$testType.";";
         
         $dbObj->addupdateData($isql);
         $json=$dbObj->getJSONData($gsql);

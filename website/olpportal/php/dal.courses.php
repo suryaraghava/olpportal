@@ -9,11 +9,11 @@ require 'database.php';
 
 class Courses
 {
-    function addCourses($courseName, $courseNum)
+    function addCourses($courseName, $courseNum, $courseImg)
     /* Adding Courses and It returns Primary Key */
     {
         $dbObj=new InteractDatabase();
-        $isql="INSERT INTO `courses`(`courseName`, `courseNumber`) VALUES ('".$courseName."',".$courseNum.")";
+        $isql="INSERT INTO `courses`(`courseName`, `courseNumber`, `courseImage`) VALUES ('".$courseName."',".$courseNum.",'".$courseImg."')";
         $gsql="SELECT * FROM `courses` WHERE `courseName`='".$courseName."' AND `courseNumber`=".$courseNum.";";
         
         $dbObj->addupdateData($isql);
@@ -34,7 +34,7 @@ class Courses
         $dbObj->addupdateData($sql);
     }
     
-    function viewCourseDetails()
+    function viewCourseFullDetails()
     {
         $sql="SELECT * FROM `courses`,`courselinks` WHERE courses.idCourses=courselinks.courseID";
         $dbObj=new InteractDatabase();
@@ -43,7 +43,14 @@ class Courses
         echo $json;
     }
     
-    
+    function viewCourseDetailsOnly()
+    {
+        $sql="SELECT * FROM `courses`";
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        
+        echo $json;
+    }
 }
 
 

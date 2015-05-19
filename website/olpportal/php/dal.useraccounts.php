@@ -90,13 +90,15 @@ class UserAccounts
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
     
-        echo $sql;
+      //  echo $sql;
         
         $res="Failed";
-        
-        if(empty($json)>0)
+         $dejson=  json_decode($json);
+
+        if(!empty($dejson))
         {
-           
+         
+        //  echo $dejson;
         $_SESSION[constant("SESSION_USER_REGID")]=$dejson[0]->{'idUserRegistration'};
         $_SESSION[constant("SESSION_USER_LOGID")]=$dejson[0]->{'idUserLogin'};
         $_SESSION[constant("SESSION_USER_USERNAME")]=$dejson[0]->{'username'};

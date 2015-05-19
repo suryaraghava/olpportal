@@ -7,6 +7,7 @@
  */
 require 'dal.useraccounts.php';
 
+
 $action=$_GET["action"];
 if($action=='loginUser')
 {
@@ -21,9 +22,6 @@ if($action=='loginUser')
     }
     else
     {
-        
-    }
-   
-    
-    
+        echo "NoUser";
+    }   
 }
