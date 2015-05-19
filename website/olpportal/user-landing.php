@@ -49,10 +49,10 @@
                                  content+=' </div>';
                                  content+='<div class="course-menu">';
                                  content+='<ul>';
-                                 content+='<li><a href="pre-test.html">Take a Pretest</a></li>';
-                                 content+='<li><a href="details.html">Details</a></li>';
+                                 content+='<li><a href="pre-test.php">Take a Pretest</a></li>';
+                                 content+='<li><a href="details.php">Details</a></li>';
                                  content+='<li><a href="#">Go to Module</a></li>';
-                                 content+='<li><a href="assessment.html">Go for Assessment</a></li>';
+                                 content+='<li><a href="assessment.php">Go for Assessment</a></li>';
                                  content+='</ul>';
                                  content+='</div>';
                                  content+='</div>';
@@ -95,8 +95,8 @@
   <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
             <li class="active"><a href="user-landing.php">Home</a></li>
-            <li><a href="previous-test-results.html">Previous Test Results</a></li>
-            <li><a href="visited-courses.html">Visited Courses</a></li>
+            <li><a href="previous-test-results.php">Previous Test Results</a></li>
+            <li><a href="visited-courses.php">Visited Courses</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
              <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
@@ -136,10 +136,10 @@
     <div class="course-footer"><a href="#">Natural resources management<img src="images/course-arrow.png" class="pull-right" /></a></div>
     <div class="course-menu">
     <ul>
-    <li><a href="pre-test.html">Take a Pretest</a></li>
-    <li><a href="details.html">Details</a></li>
+    <li><a href="pre-test.php">Take a Pretest</a></li>
+    <li><a href="details.php">Details</a></li>
     <li><a href="#">Go to Module</a></li>
-    <li><a href="assessment.html">Go for Assessment</a></li>
+    <li><a href="assessment.php">Go for Assessment</a></li>
     </ul>
     </div>
     </div>   
@@ -153,10 +153,10 @@
     <div class="course-footer"><a href="#">Community/Individual assets<img src="images/course-arrow.png" class="pull-right" /></a></div>
     <div class="course-menu">
     <ul>
-    <li><a href="pre-test.html">Take a Pretest</a></li>
-    <li><a href="details.html">Details</a></li>
+    <li><a href="pre-test.php">Take a Pretest</a></li>
+    <li><a href="details.php">Details</a></li>
     <li><a href="#">Go to Module</a></li>
-    <li><a href="assessment.html">Go for Assessment</a></li>
+    <li><a href="assessment.php">Go for Assessment</a></li>
     </ul>
     </div>
     </div>   
@@ -170,10 +170,10 @@
     <div class="course-footer"><a href="#">Common infrastructure<img src="images/course-arrow.png" class="pull-right" /></a></div>
     <div class="course-menu">
     <ul>
-    <li><a href="pre-test.html">Take a Pretest</a></li>
-    <li><a href="details.html">Details</a></li>
+    <li><a href="pre-test.php">Take a Pretest</a></li>
+    <li><a href="details.php">Details</a></li>
     <li><a href="#">Go to Module</a></li>
-    <li><a href="assessment.html">Go for Assessment</a></li>
+    <li><a href="assessment.php">Go for Assessment</a></li>
     </ul>
     </div>
     </div>   
@@ -187,10 +187,10 @@
     <div class="course-footer"><a href="#">Rural infrastructure<img src="images/course-arrow.png" class="pull-right" /></a></div>
     <div class="course-menu">
     <ul>
-    <li><a href="pre-test.html">Take a Pretest</a></li>
-    <li><a href="details.html">Details</a></li>
+    <li><a href="pre-test.php">Take a Pretest</a></li>
+    <li><a href="details.php">Details</a></li>
     <li><a href="#">Go to Module</a></li>
-    <li><a href="assessment.html">Go for Assessment</a></li>
+    <li><a href="assessment.php">Go for Assessment</a></li>
     </ul>
     </div>
     </div>   
@@ -220,7 +220,7 @@
           <li>|</li>
           <li class="active"><a href="#">Sign Up</a></li>
           <li>|</li>
-          <li class="active"><a href="contact.html">Contact Us</a></li>   
+          <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
        <div class="col-xs-12 col-md-5">

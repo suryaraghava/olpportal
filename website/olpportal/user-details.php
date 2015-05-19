@@ -41,9 +41,9 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li><a href="admin.html">Home</a></li>
-            <li class="active"><a href="user-details.html">User Detailss</a></li>
-            <li><a href="user-history.html">User History</a></li>
+            <li><a href="admin.php">Home</a></li>
+            <li class="active"><a href="user-details.php">User Detailss</a></li>
+            <li><a href="user-history.php">User History</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
          <li class="user-info">Welcome  <span class="user-name">Admin</span></li>
@@ -128,15 +128,15 @@
        <hr class="featurette-divider footerdivider">
        <div class="col-xs-12 col-md-7">
        <ul class="nav navbar-nav footer-menu">
-          <li class="active"><a href="index.html">Home</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
           <li>|</li>
-          <li class="active"><a href="courses.html">Courses</a></li>
+          <li class="active"><a href="courses.php">Courses</a></li>
           <li>|</li>
-          <li class="active"><a href="index.html">Login</a></li>
+          <li class="active"><a href="index.php">Login</a></li>
           <li>|</li>
           <li class="active"><a href="#">Sign Up</a></li>
           <li>|</li>
-          <li class="active"><a href="contact.html">Contact Us</a></li>   
+          <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
        <div class="col-xs-12 col-md-5">

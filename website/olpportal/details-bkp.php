@@ -91,7 +91,7 @@
       <li>|</li>
       <li class="active"><a href="#">Sign Up</a></li>
       <li>|</li>
-      <li class="active"><a href="contact.html">Contact Us</a></li>   
+      <li class="active"><a href="contact.php">Contact Us</a></li>   
    </ul>
    </div>
    <div class="col-xs-12 col-md-5">

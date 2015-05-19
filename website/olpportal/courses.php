@@ -84,7 +84,7 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li ><a style="color:#FFF" href="index.html">Home</a></li>
+            <li ><a style="color:#FFF" href="index.php">Home</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
             <li class="active"><a href="#"><span class="icon-login"></span>Login</a></li>
@@ -127,13 +127,13 @@
        <hr class="featurette-divider footerdivider">
        <div class="col-xs-12 col-md-7">
        <ul class="nav navbar-nav footer-menu">
-          <li class="active"><a href="index.html">Home</a></li>
+          <li class="active"><a href="index.php">Home</a></li>
           <li>|</li>
-          <li class="active"><a href="index.html">Login</a></li>
+          <li class="active"><a href="index.php">Login</a></li>
           <li>|</li>
           <li class="active"><a href="#">Sign Up</a></li>
           <li>|</li>
-          <li class="active"><a href="contact.html">Contact Us</a></li>   
+          <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
        <div class="col-xs-12 col-md-5">

@@ -41,8 +41,8 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li ><a style="color:#FFF" href="user-landing.html">Home</a></li>
-            <li class="active"><a href="user-landing.html">Courses</a></li>
+            <li ><a style="color:#FFF" href="user-landing.php">Home</a></li>
+            <li class="active"><a href="user-landing.php">Courses</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
@@ -291,7 +291,7 @@
           <li>|</li>
           <li class="active"><a href="#">Sign Up</a></li>
           <li>|</li>
-          <li class="active"><a href="contact.html">Contact Us</a></li>   
+          <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
        <div class="col-xs-12 col-md-5">
