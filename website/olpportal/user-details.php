@@ -1,3 +1,7 @@
+
+<?php session_start();
+ require 'php/define.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,18 +43,18 @@
             <span class="icon-bar"></span>
          </button>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
+  <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li><a href="admin.php">Home</a></li>
-            <li class="active"><a href="user-details.php">User Detailss</a></li>
-            <li><a href="user-history.php">User History</a></li>
+            <li ><a href="user-landing.php">Home</a></li>
+            <li><a href="previous-test-results.php">Previous Test Results</a></li>
+            <li ><a href="visited-courses.php">Visited Courses</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
-         <li class="user-info">Welcome  <span class="user-name">Admin</span></li>
-         <li><a href="#">Logout</a></li>
+             <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
+         <li><a href="php/logout.php">Logout</a></li>
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-               <li><a href="#">Profile</a></li>
+               <li><a href="user-details.php">Profile</a></li>
             </ul>
             </li>
          </ul>
