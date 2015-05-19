@@ -2,8 +2,8 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: May 16, 2015 at 06:55 PM
+-- Host: 127.0.0.1
+-- Generation Time: May 19, 2015 at 04:33 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -44,8 +44,20 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `idCourses` int(11) NOT NULL AUTO_INCREMENT,
   `courseName` varchar(45) DEFAULT NULL,
   `courseNumber` int(11) DEFAULT NULL,
+  `courseImage` varchar(200) NOT NULL,
   PRIMARY KEY (`idCourses`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`idCourses`, `courseName`, `courseNumber`, `courseImage`) VALUES
+(1, 'Natural Resources Management', 714, 'images/courses/course-1.jpg'),
+(2, 'Community/Individual Assets', 897, 'images/courses/course-2.jpg'),
+(3, 'Common Infrastructure', 847, 'images/courses/course-3.jpg'),
+(4, 'Rural Infrastructure', 499, 'images/courses/course-4.jpg'),
+(5, 'Ttest', 345, 'images/courses/course-2.jpg');
 
 -- --------------------------------------------------------
 
@@ -72,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `testdetails` (
   `idTestDetails` int(11) NOT NULL AUTO_INCREMENT,
   `testName` varchar(45) DEFAULT NULL,
   `testType` varchar(45) DEFAULT NULL,
+  `testTime` time NOT NULL,
   PRIMARY KEY (`idTestDetails`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -159,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
 --
 
 INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`) VALUES
-(1, 'Test', 'password', b'0', 1, '', 0);
+(1, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '', 0);
 
 -- --------------------------------------------------------
 
