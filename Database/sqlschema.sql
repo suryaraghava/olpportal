@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2015 at 04:33 PM
+-- Generation Time: May 20, 2015 at 05:29 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `courseNumber` int(11) DEFAULT NULL,
   `courseImage` varchar(200) NOT NULL,
   PRIMARY KEY (`idCourses`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `courses`
@@ -84,9 +84,22 @@ CREATE TABLE IF NOT EXISTS `testdetails` (
   `idTestDetails` int(11) NOT NULL AUTO_INCREMENT,
   `testName` varchar(45) DEFAULT NULL,
   `testType` varchar(45) DEFAULT NULL,
-  `testTime` time NOT NULL,
+  `testTime` varchar(10) NOT NULL,
+  `totalquestions` int(11) NOT NULL,
+  `totalmarks` int(11) NOT NULL,
   PRIMARY KEY (`idTestDetails`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `testdetails`
+--
+
+INSERT INTO `testdetails` (`idTestDetails`, `testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`) VALUES
+(1, 'Natural Resources Management', 'Pre Test', '00:10:00', 5, 20),
+(2, 'Community/Individual Assets', 'Pre Test', '00:10:00', 5, 20),
+(3, 'Common Infrastructure', 'Pre Test', '00:10:00', 5, 20),
+(4, 'Rural Infrastructure', 'Pre Test', '00:10:00', 5, 20),
+(5, 'Ttest', 'Pre Test', '00:10:00', 5, 20);
 
 -- --------------------------------------------------------
 
@@ -105,7 +118,15 @@ CREATE TABLE IF NOT EXISTS `testquestions` (
   `answer` varchar(45) DEFAULT NULL,
   `active` bit(1) DEFAULT NULL,
   PRIMARY KEY (`idTestQuestions`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `testquestions`
+--
+
+INSERT INTO `testquestions` (`idTestQuestions`, `idTestDetails`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `active`) VALUES
+(1, 1, 'Which is the Smallest Mammal in the World?', 'Fish', 'Elephant', 'Ant', 'Spider', 'Fish', b'1'),
+(2, 1, 'Which is known as Black Continent?', 'Asia', 'Africa', 'Europe', 'Australia', 'Africa', b'1');
 
 -- --------------------------------------------------------
 
@@ -199,6 +220,32 @@ CREATE TABLE IF NOT EXISTS `userregistration` (
 
 INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `staffID`, `mobile`, `emailID`, `designation`) VALUES
 (1, 'firstName', 'lastName', '1234', 'mobile', 'abcd', 'designation');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uservisitedcourse`
+--
+
+CREATE TABLE IF NOT EXISTS `uservisitedcourse` (
+  `viewId` int(11) NOT NULL AUTO_INCREMENT,
+  `course` varchar(45) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  `startTime` varchar(10) NOT NULL,
+  `endTime` varchar(10) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `IPAddress` varchar(16) NOT NULL,
+  PRIMARY KEY (`viewId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `uservisitedcourse`
+--
+
+INSERT INTO `uservisitedcourse` (`viewId`, `course`, `date`, `startTime`, `endTime`, `userId`, `IPAddress`) VALUES
+(1, 'Ttest', '20/05/2015', '12:35:06pm', '', 1, '192.168.1.1'),
+(5, 'Natural Resources Management', '20/05/2015', '12:59:19pm', '', 1, '192.168.1.1'),
+(6, 'Common Infrastructure', '20/05/2015', '12:59:26pm', '', 1, '192.168.1.1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

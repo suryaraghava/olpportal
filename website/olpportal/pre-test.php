@@ -19,6 +19,7 @@ require 'php/define.php';
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="js/jquery.countdownTimer.js"></script>
     <script type="text/javascript">
         var q_json;
         var q_cindex;  // currentIndex
@@ -108,7 +109,13 @@ require 'php/define.php';
                               //   console.log("-"+t[i]);
                   }
                   
-                  document.getElementById("preTest-Time").innerHTML=res[0].testTime;
+                  $("#future_date").countdowntimer({
+                hours : 3‚
+		minutes : 10‚
+                size : "lg"
+	});
+                  
+                  document.getElementById("future_date").innerHTML=res[0].testTime;
                   
                   var qres="";
                   $.ajax({type: "GET", 
@@ -186,7 +193,8 @@ require 'php/define.php';
     <?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?> 
         (PRE TEST)
     </span>
-    <div class="time-left pull-right">Time Left: <span id="preTest-Time" class="text-muted">00:00 Hrs</span></div></h3>
+   
+    <div id="countdowntimer" class="time-left pull-right">Time Left: <span id="future_date" class="text-muted">00:00 Hrs</span></div></h3>
       <hr class="featurette-divider">
 </div>
 </div>
