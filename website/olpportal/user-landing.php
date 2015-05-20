@@ -65,7 +65,21 @@
         }
         function preTestforCourse(courseName)
         {
-           window.location.href='pre-test.php?courseName='+courseName; // Page Redirect    
+            
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/sessions.php',
+                                    data: { 
+                                        action : 'SetCourseSession',
+                                        courseName : courseName
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+           window.location.href='pre-test.php'; // Page Redirect    
         }
         
         function checkpreTestCompletedOrNot()

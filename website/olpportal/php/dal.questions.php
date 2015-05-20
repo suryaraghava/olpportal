@@ -8,13 +8,13 @@ require 'database.php';
 class Questions
 {
     /* TestDetails Table */
-    function addTestDetails($testName, $testType, $testTime, $courseq)
+    function addTestDetails($testName, $testType, $testTime, $courseq, $totalMarks)
     {       
         $dbObj=new InteractDatabase();
-        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`, `totalquestions`) ";
-        $isql.="VALUES ('".$testName."',".$testType.", '".$testTime."',".$courseq.")";
-        $gsql="SELECT * FROM `testdetails` WHERE `testName`='".$testName."' AND `testType`=".$testType.";";
-        
+        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`) ";
+        $isql.="VALUES ('".$testName."','".$testType."', '".$testTime."',".$courseq.", ".$totalMarks.")";
+        $gsql="SELECT * FROM `testdetails` WHERE `testName`='".$testName."' AND `testType`='".$testType."';";
+        echo $isql;
         $dbObj->addupdateData($isql);
         $json=$dbObj->getJSONData($gsql);
         $dejson=json_decode($json);
@@ -31,4 +31,4 @@ class Questions
 }
 
 $que=new Questions();
-$que->addTestDetails('Natural Resources Management', 'Pre Test', '10:00', '5');
+echo $que->addTestDetails('Natural Resources Management', 'Pre Test', '00:10', '5', '20');

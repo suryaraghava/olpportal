@@ -16,3 +16,10 @@ if($action=='courseListOnly')
     $json=$course->viewCourseDetailsOnly();
     echo $json;
 }
+else if($action=='courseVisited')
+{
+    $userId=$_GET["userId"];
+    $course=new Courses();
+    $json=$course->getCourseLogs($userId);
+    echo $json; 
+}

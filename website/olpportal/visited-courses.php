@@ -20,8 +20,74 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+       function coursesVisited()
+       {
+           var userId='<?php if(isset($_SESSION[constant("SESSION_USER_LOGID")])) { echo $_SESSION[constant("SESSION_USER_LOGID")]; } ?>';
+           console.log("userId : "+userId);
+           var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'courseVisited',
+                                        userId :userId
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   
+            console.log("result : "+result);
+            
+            var res=JSON.parse(result);
+            
+            var content='<table class="table table-responsiv table-bordered">';
+             content+='<thead>';
+             content+='<tr>';
+             content+='<th>Course Page</th>';
+             content+='<th>Date</th>';
+             content+='<th>Start Time</th>';
+             content+='<th>End Time</th>';
+             content+='<th>IP</th>';
+             content+='</tr>';
+             content+='</thead>';
+             content+='<tbody>';
+
+
+            for(var index=0;index<res.length;index++)
+            {
+                console.log("course : "+res[index].course);
+                console.log("date : "+res[index].date);
+                console.log("startTime : "+res[index].startTime);
+                console.log("endTime : "+res[index].endTime);
+                console.log("IPAddress : "+res[index].IPAddress);
+                
+                if(index%2==0)
+                {
+                content+='<tr>';
+               }
+               else
+               {
+                content+='<tr class="info">';
+            } 
+                content+='<td>'+res[index].course+'</td>';
+                content+='<td>'+res[index].date+'</td>';
+                content+='<td>'+res[index].startTime+'</td>';
+                content+='<td>'+res[index].endTime+'</td>';
+                content+='<td>'+res[index].IPAddress+'</td>';
+                content+='</tr>';
+
+            }
+             content+='</tbody>';
+             content+='</table>';
+            document.getElementById("visitedList").innerHTML=content;
+           
+       }
+    </script>
   </head>
-<body>
+  <body onload="coursesVisited()">
 
 
 <!--   ----------------------  Start  Header Content -----------------------    -->
@@ -75,8 +141,8 @@
 </div>
 <div class="container">
 <div class="col-xs-12">
-<div class="panel panel-default">
-<table class="table table-responsiv table-bordered">
+<div id="visitedList" class="panel panel-default">
+<!--table class="table table-responsiv table-bordered">
 <thead>
 <tr>
 <th>Course Page</th>
@@ -109,7 +175,7 @@
 <td>10.10.9.4</td>
 </tr>
 </tbody>
-</table>
+</table-->
 </div>
 <p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
 <br/>
