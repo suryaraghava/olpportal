@@ -23,12 +23,35 @@ class Questions
         return $courseId;
     }
     
-    function addQuestions()
+    
+    function getTestDetails($testName)
     {
-        
+       $dbObj=new InteractDatabase();
+       $sql="SELECT * FROM testdetails WHERE testName='".$testName."'";
+       $json=$dbObj->getJSONData($sql);
+       return $json;
     }
     
+    
+    function addQuestions($testDetailsId, $question, $option1, $option2, $option3, $option4, $answer, $active)
+    {
+        $sql="INSERT INTO `testquestions`( `idTestDetails`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `active`) ";
+        $sql.=" VALUES ('".$testDetailsId."','".$question."','".$option1."','".$option2."','".$option3."','".$option4."','".$answer."',".$active.")";
+       
+         $dbObj=new InteractDatabase();
+         $dbObj->addupdateData($sql);
+    }
+    
+    
+    function getQuestions($testDetailsId, $active, $qtotal)
+    {
+        $sql="SELECT * FROM `testquestions` WHERE idTestDetails=".$testDetailsId." AND active=".$active." ORDER BY RAND() LIMIT ".$qtotal;
+         $dbObj=new InteractDatabase();
+         $json=$dbObj->getJSONData($sql);
+         return $json;
+    }
 }
-
-$que=new Questions();
-echo $que->addTestDetails('Natural Resources Management', 'Pre Test', '00:10', '5', '20');
+// SELECT * FROM `testdetails` ORDER BY RAND() LIMIT 10
+// $que=new Questions();
+// $que->addQuestions('2', 'Which is known as Black Continent?', 'Asia', 'Africa', 'Europe', 'Australia', 'Africa', '1');
+// echo $que->addTestDetails('Natural Resources Management', 'Pre Test', '00:10', '5', '20');

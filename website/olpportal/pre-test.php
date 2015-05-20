@@ -1,3 +1,6 @@
+<?php session_start();
+require 'php/define.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +19,118 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        var q_json;
+        var q_cindex;  // currentIndex
+        var q_lindex;  // lastIndex
+        
+        function pageOnload()
+        {
+            q_cindex=0;
+            testReady();
+            currentQuestionView();
+        }
+        function previousQuestionView()
+        {
+            q_cindex=q_cindex-1;
+            console.log("current q : "+q_cindex);
+            currentQuestionView();
+        }
+        function nextQuestionView()
+        {
+            console.log("Total : "+q_lindex);
+           
+            q_cindex++;
+            currentQuestionView();
+            
+        }
+        function currentQuestionView()
+        {
+            var qNumber=q_cindex+1;
+            document.getElementById("qNum").innerHTML='Q'+qNumber+':';
+            document.getElementById("qtest-question").innerHTML=q_json[q_cindex].question;
+            
+            var options='';
+                options+='<div class="radio">';
+                options+='<label><input type="radio" name="quiz" id="1" value="'+q_json[q_cindex].option1+'">'+q_json[q_cindex].option1+'</label>';
+                options+='</div>';
+                options+='<div class="radio">';
+                options+='<label><input type="radio" name="quiz" id="2" value="'+q_json[q_cindex].option2+'">'+q_json[q_cindex].option2+'</label>';
+                options+='</div>';
+                options+='<div class="radio">';
+                options+='<label><input type="radio" name="quiz" id="3" value="'+q_json[q_cindex].option3+'">'+q_json[q_cindex].option3+'</label>';
+                options+='</div>';
+                options+='<div class="radio">';
+                options+='<label><input type="radio" name="quiz" id="3" value="'+q_json[q_cindex].option4+'">'+q_json[q_cindex].option4+'</label>';
+                options+='</div>';
+                
+            document.getElementById("qtest-option").innerHTML=options;
+            console.log("question : "+q_json[q_cindex].question);
+            console.log("option1 : "+q_json[q_cindex].option1);
+            console.log("option2 : "+q_json[q_cindex].option2);
+            console.log("option3 : "+q_json[q_cindex].option3);
+            console.log("option4 : "+q_json[q_cindex].option4);
+        
+                    
+            
+            
+           // qNum
+           // qtest-question
+        }
+        function testReady()
+        {
+           var courseName='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>'; 
+           
+            var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'TestDetails',
+                                        courseName : courseName
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                  console.log("result : "+result); 
+                  var res=JSON.parse(result);
+                  
+                  var tqnum=res[0].totalquestions;
+                  var tdId=res[0].idTestDetails;
+                  var time=res[0].testTime;
+                  
+                  var t=time.split(":");
+                //  console.log(t.length);
+                  for(var i=0;i<t.length;i++)
+                  {
+                              //   console.log("-"+t[i]);
+                  }
+                  
+                  document.getElementById("preTest-Time").innerHTML=res[0].testTime;
+                  
+                  var qres="";
+                  $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'GetQuestions',
+                                        TestDetailsID : tdId,
+                                        qtotal :tqnum
+                                    },
+                                    success: function(resp)
+                                    {
+                                          qres=resp;
+                                    }
+                                   });
+                  console.log("result : "+qres); 
+                  q_json=JSON.parse(qres);
+                  q_lindex=q_json.length;
+        }
+    </script>
   </head>
-<body>
+<body onload="pageOnload()">
 
 
 <!--   ----------------------  Start  Header Content -----------------------    -->
@@ -45,7 +158,11 @@
             <li class="active"><a href="user-landing.php">Courses</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
-         <li class="user-info">Welcome  <span class="user-name">B. Vinod</span></li>
+                     <li class="user-info">Welcome  
+                         <span class="user-name">
+                              <?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?>
+                         </span>
+                     </li>
          <li><a href="#">Logout</a></li>
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -64,7 +181,12 @@
 <br/>
 <div class="container">
 <div class="col-xs-12">
-<h3 class="featurette-heading">COURSE-1:<span class="text-muted"> PRE TEST</span><div class="time-left pull-right">Time Left: <spna class="text-muted">00:00 Hrs</span></div></h3>
+<h3 class="featurette-heading">COURSE-1:
+    <span class="text-muted">
+    <?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?> 
+        (PRE TEST)
+    </span>
+    <div class="time-left pull-right">Time Left: <span id="preTest-Time" class="text-muted">00:00 Hrs</span></div></h3>
       <hr class="featurette-divider">
 </div>
 </div>
@@ -72,24 +194,20 @@
 <div class="col-xs-12">
    <div class="row featurette">
       <div class="col-md-8">
-    <div class="questions-count"><span class="text-muted">Q1:</span></div><div class="questions-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s?</div>
-    <form role="form" name="quizform" action="quiztest.asp?qtest=HTML" method="post">
-    <div class="multiple-choice">
-	<div class="radio">
-       <label><input type="radio" name="quiz" id="1" value="1">Simply dummy text</label>
-    </div>
-    <div class="radio">
-       <label><input type="radio" name="quiz" id="2" value="2">Simply dummy text</label>
-    </div>
-    <div class="radio">
-       <label><input type="radio" name="quiz" id="3" value="3">Simply dummy text</label>
-    </div>
-    </div>
+          
+            <span id="qNum" class="text-muted"></span>
+            
+            <div id="qtest-question" class="questions-text"></div>
+            
+            <!--form role="form" name="quizform" action="quiztest.asp?qtest=HTML" method="post"-->
+                <div id="qtest-option" class="multiple-choice">
+                   
+                </div>
 	<br>
-    <input type="submit" class="btn btn-default" value=" Previous ">
-	<input type="submit" class="btn btn-default" value=" Next ">
+    <input type="submit"   id="prevButton" class="btn btn-default" value=" Previous " onclick="previousQuestionView()">
+	<input type="button"  id="NextButton" class="btn btn-default" value=" Next " onclick="nextQuestionView()">
     <input type="submit" class="btn btn-default" value=" Submit ">	
-	</form>
+	<!--/form-->
     <br/>
       </div>
       <div class="col-md-4"><img class="featurette-image img-responsive center-block" src="images/post-test-img.jpg" alt="Post Test Image"></div>
