@@ -48,8 +48,6 @@ class Courses
         $sql="SELECT * FROM `courses`";
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
-        
-        echo $json;
         return $json;
     }
 }

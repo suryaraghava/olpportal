@@ -8,10 +8,11 @@ require 'database.php';
 class Questions
 {
     /* TestDetails Table */
-    function addTestDetails($testName, $testType, $testTime)
+    function addTestDetails($testName, $testType, $testTime, $courseq)
     {       
         $dbObj=new InteractDatabase();
-        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`) VALUES ('".$testName."',".$testType.", '".$testTime."')";
+        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`, `totalquestions`) ";
+        $isql.="VALUES ('".$testName."',".$testType.", '".$testTime."',".$courseq.")";
         $gsql="SELECT * FROM `testdetails` WHERE `testName`='".$testName."' AND `testType`=".$testType.";";
         
         $dbObj->addupdateData($isql);
@@ -28,3 +29,6 @@ class Questions
     }
     
 }
+
+$que=new Questions();
+$que->addTestDetails('Natural Resources Management', 'Pre Test', '10:00', '5');
