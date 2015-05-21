@@ -16,6 +16,10 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>
+        #OTP-NotValid
+        {
+            display:none;
+        }
        #login-ErrorMsg
        {
            display:none;
@@ -145,21 +149,36 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                         signup_phone : phone,
                                         action : 'SetRegStep1'
                                     },
-                                    success: function(resp)
-                                    {
-                                          result=resp;
-                                    }
+                                  
                                    });
-                                   
-                                   console.log("result :"+result);
-                          //   window.location.href='#step2';
+                        
+                        var session_state='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_STATE")])) { echo $_SESSION[constant("SESSION_SIGNUP_STATE")]; }?>';
+                        var session_phone='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")])) { echo $_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")]; }?>';          
+                      
+                      console.log("session_state : "+session_state);
+                      console.log("session_phone : "+session_phone);
+     
+                       //   window.location.href='#step2';
                           $('#boot-tab-1').removeClass('active');
                           $('#boot-tab-2').addClass('active');
                           $('#boot-tab-3').removeClass('active');
                           
                        viewSignupStep2();
                     
-                        
+                     $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        signup_state :state,
+                                        sendPhone : phone,
+                                        action : 'SendMessage'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                        console.log("Query : "+result);
                 }
                 else
                 {
@@ -169,6 +188,64 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                
                // msg.innerHTML="<strong>You cannot register into OLP unless you are registered in MGNREGA staff database</strong>";
             }
+        }
+        
+        function RegStep2()
+        {
+            var otpNumber=document.getElementById("otp-Number").value;
+            var regId='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_REGID")])) { echo $_SESSION[constant("SESSION_SIGNUP_REGID")]; }?>';
+            var otpview=document.getElementById("OTP-NotValid");
+            
+            if(otpNumber.length>0)
+            {
+                var result="";
+                // Check for OTPCode in Backend
+                $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        otpNumber :otpNumber,
+                                        regId : regId,
+                                        action : 'validateOTP'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                        console.log("Res : "+result);
+                  if(result==='Exist')
+                  {
+                      $('#boot-tab-1').removeClass('active');
+                      $('#boot-tab-2').removeClass('active');
+                      $('#boot-tab-3').addClass('active');
+                      
+                      viewSignupStep3();
+                  }
+                  else
+                  {
+                      otpview.style.display='block';
+                      otpview.innerHTML="<strong>The OTP you have entered doesn't match. Please enter valid OTP to enter into Signup process</strong>";
+                  }
+                      
+            }
+            else
+            {
+                otpview.style.display='block';
+                otpview.innerHTML='<strong>Please enter OTP to enter into Signup process</strong>';
+            }
+            console.log("otpNumber : "+otpNumber);
+            console.log("regId : "+regId);
+        }
+        
+        function resendOTP()
+        {
+            var phoneNum='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")])) { echo $_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")]; }?>';
+            RegStep1();
+            console.log("phoneNum : "+phoneNum);
+            var otpview=document.getElementById("OTP-NotValid");
+            otpview.style.display='block';
+            otpview.innerHTML='<strong>The OTP is re-sent to your Mobile '+phoneNum+'</strong>';
         }
     </script>
   </head>
@@ -538,14 +615,14 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                     <div class="form-group">
                     <br/>
     <label for="exampleInputFile">Enter NETSECURE<sup>TM</sup>(OTP) Code</label>
-    <input type="text" id="otp"><button type="submit" class="btn btn-default pull-right">Resend OTP</button></div>
+    <input type="text" id="otp-Number"><button type="submit" class="btn btn-default pull-right" onclick="resendOTP()">Resend OTP</button></div>
     <div class="form-group">
-    <div class="alert alert-danger bs-alert-old-docs">
+    <div id="OTP-NotValid" class="alert alert-danger bs-alert-old-docs">
       <strong>"The OTP</strong> is <strong>not valid, please reenter the OTP"</strong></a>
     </div>
   </div>					
 						<div class="form-group">
-							<button type="submit" class="btn btn-default pull-right">Submit</button>
+							<button type="submit" class="btn btn-default pull-right" onclick="RegStep2()">Submit</button>
 						</div>
                         </div>
 					<!--/form-->

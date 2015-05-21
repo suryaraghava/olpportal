@@ -9,6 +9,95 @@ class UserAccounts
 {
     /* USER REGISTRATION FORM */
     /* Account creation : Insertion */
+    function checkPhoneExist($mobile)
+    {
+         $result="NotExist";
+         $sql="SELECT * FROM `userregistration` WHERE `mobile`='".$mobile."'";
+         $dbObj=new InteractDatabase();
+                 $res = $dbObj->getData($sql);
+
+                if ($res->num_rows > 0) {
+                    $result="Exist";
+                }
+               return $result;
+    }
+    
+    function checkRegIDExist($reg)
+    {
+         $result="NotExist";
+         $sql="SELECT * FROM `userlogin` WHERE `idUserRegistration`=".$reg.";";
+         $dbObj=new InteractDatabase();
+                 $res = $dbObj->getData($sql);
+
+                if ($res->num_rows > 0) {
+                    $result="Exist";
+                }
+               return $result;
+    }
+    
+    function registerByStateAndPhone($mobile, $state)
+    /* It returns Primary Key */
+    {
+        $regId=0;
+        $dbObj=new InteractDatabase();
+        $acc=new UserAccounts();
+        
+        // Check Already PhoneNumber exist or not
+       $result=$acc->checkPhoneExist($mobile);
+       if($result=='NotExist')
+        {
+            $isql="INSERT INTO `userregistration`(`mobile`, `state`) VALUES ('".$mobile."','".$state."')";
+            $dbObj->addupdateData($isql);    
+        }
+        $ssql="SELECT idUserRegistration FROM `userregistration` WHERE mobile='".$mobile."';";
+        $json=$dbObj->getJSONData($ssql); 
+        $dejson=json_decode($json);
+        if(!empty($dejson))
+        { $regId=$dejson[0]->{'idUserRegistration'};}
+        return $regId;
+    }
+    
+    function addOTPatRegister($otpNum, $regId, $otpCount)
+    {
+        $dbObj=new InteractDatabase();
+        $acc=new UserAccounts();
+        
+        // Check Already Registration Number exist or not
+       $result=$acc->checkRegIDExist($regId);
+       if($result=='NotExist' && $regId!=0)
+        {
+           $sql="INSERT INTO `userlogin`(`idUserRegistration`, `OTPCode`, `OTPCount`) VALUES (".$regId.",'".$otpNum."','".$otpCount."')";
+           $dbObj->addupdateData($sql);
+        }
+        else
+        {
+           // Get OTPCount
+            $gsql="SELECT OTPCount FROM `userlogin` WHERE `idUserRegistration`=".$regId; 
+            $json=$dbObj->getJSONData($gsql); 
+            $dejson=json_decode($json);
+            $otpcount=$dejson[0]->{'OTPCount'};
+            $otpcount++;
+            $usql="UPDATE `userlogin` SET `OTPCode`='".$otpcount."', `OTPCode`='".$otpNum."' WHERE `idUserRegistration`=".$regId;
+            $dbObj->addupdateData($usql);
+        }
+    }
+    
+    
+    function validateOTP($otpNum, $regId)
+    {
+          $result="NotExist";
+         $sql="SELECT * FROM `userlogin` WHERE `OTPCode`='".$otpNum."' AND `idUserRegistration`=".$regId;
+         $dbObj=new InteractDatabase();
+                 $res = $dbObj->getData($sql);
+
+                if ($res->num_rows > 0) {
+                    $result="Exist";
+                }
+               return $result;
+    }
+    
+    
+    
     function getRegister($username, $password, $firstName, $lastName, $staffID, $mobile, $emailID, $designation)
     {
          $register='None';

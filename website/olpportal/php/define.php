@@ -23,12 +23,14 @@ define("DB_PASSWORD","inglobal", true);
 define("SMSPHONE_USERNAME","anupchinney", true);
 define("SMSPHONE_PASSWORD","@anupanup123", true);
 define("SMSPHONE_REGNUMBER","919160869337", true);
-define("SMSPHONE_FL","0", true);
-     
+define("SMSPHONE_FL","0", true);    
+define("SMSPHONE_SENDURL","http://www.smslane.com//vendorsms/pushsms.aspx", true);
+
+
 /* SIGN-UP REGISTRATION */
 define("SESSION_SIGNUP_STATE","SESSION_SIGNUP_STATE", true);
 define("SESSION_SIGNUP_PHONENUMBER","SESSION_SIGNUP_PHONENUMBER", true);
-
+define("SESSION_SIGNUP_REGID","SESSION_SIGNUP_REGID", true);
 /* USER-SESSIONS */
 define("SESSION_USER_REGID","SESSION_USER_REGID", true);
 define("SESSION_USER_LOGID","SESSION_USER_LOGID", true);
