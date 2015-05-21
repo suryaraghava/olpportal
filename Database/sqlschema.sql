@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2015 at 05:29 PM
+-- Generation Time: May 21, 2015 at 09:32 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `olpportal`
 --
+CREATE DATABASE IF NOT EXISTS `olpportal` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `olpportal`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `courselinks`
 --
 
+DROP TABLE IF EXISTS `courselinks`;
 CREATE TABLE IF NOT EXISTS `courselinks` (
   `idCourseLinks` int(11) NOT NULL AUTO_INCREMENT,
   `courseID` int(11) DEFAULT NULL,
@@ -40,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `courselinks` (
 -- Table structure for table `courses`
 --
 
+DROP TABLE IF EXISTS `courses`;
 CREATE TABLE IF NOT EXISTS `courses` (
   `idCourses` int(11) NOT NULL AUTO_INCREMENT,
   `courseName` varchar(45) DEFAULT NULL,
@@ -65,6 +69,7 @@ INSERT INTO `courses` (`idCourses`, `courseName`, `courseNumber`, `courseImage`)
 -- Table structure for table `courseuserview`
 --
 
+DROP TABLE IF EXISTS `courseuserview`;
 CREATE TABLE IF NOT EXISTS `courseuserview` (
   `idCourseUserView` int(11) NOT NULL AUTO_INCREMENT,
   `courseLinksID` int(11) DEFAULT NULL,
@@ -80,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `courseuserview` (
 -- Table structure for table `testdetails`
 --
 
+DROP TABLE IF EXISTS `testdetails`;
 CREATE TABLE IF NOT EXISTS `testdetails` (
   `idTestDetails` int(11) NOT NULL AUTO_INCREMENT,
   `testName` varchar(45) DEFAULT NULL,
@@ -88,14 +94,14 @@ CREATE TABLE IF NOT EXISTS `testdetails` (
   `totalquestions` int(11) NOT NULL,
   `totalmarks` int(11) NOT NULL,
   PRIMARY KEY (`idTestDetails`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `testdetails`
 --
 
 INSERT INTO `testdetails` (`idTestDetails`, `testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`) VALUES
-(1, 'Natural Resources Management', 'Pre Test', '00:10:00', 5, 20),
+(1, 'Natural Resources Management', 'Pre Test', '00:10:59', 5, 20),
 (2, 'Community/Individual Assets', 'Pre Test', '00:10:00', 5, 20),
 (3, 'Common Infrastructure', 'Pre Test', '00:10:00', 5, 20),
 (4, 'Rural Infrastructure', 'Pre Test', '00:10:00', 5, 20),
@@ -107,6 +113,7 @@ INSERT INTO `testdetails` (`idTestDetails`, `testName`, `testType`, `testTime`, 
 -- Table structure for table `testquestions`
 --
 
+DROP TABLE IF EXISTS `testquestions`;
 CREATE TABLE IF NOT EXISTS `testquestions` (
   `idTestQuestions` int(11) NOT NULL AUTO_INCREMENT,
   `idTestDetails` int(11) NOT NULL,
@@ -134,6 +141,7 @@ INSERT INTO `testquestions` (`idTestQuestions`, `idTestDetails`, `question`, `op
 -- Table structure for table `testresults`
 --
 
+DROP TABLE IF EXISTS `testresults`;
 CREATE TABLE IF NOT EXISTS `testresults` (
   `idTestResults` int(11) NOT NULL AUTO_INCREMENT,
   `userCourseTestID` int(11) DEFAULT NULL,
@@ -148,6 +156,7 @@ CREATE TABLE IF NOT EXISTS `testresults` (
 -- Table structure for table `usercourses`
 --
 
+DROP TABLE IF EXISTS `usercourses`;
 CREATE TABLE IF NOT EXISTS `usercourses` (
   `idUserCourses` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) DEFAULT NULL,
@@ -162,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `usercourses` (
 -- Table structure for table `usercoursetest`
 --
 
+DROP TABLE IF EXISTS `usercoursetest`;
 CREATE TABLE IF NOT EXISTS `usercoursetest` (
   `idUserCourseTest` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) DEFAULT NULL,
@@ -177,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `usercoursetest` (
 -- Table structure for table `userlogin`
 --
 
+DROP TABLE IF EXISTS `userlogin`;
 CREATE TABLE IF NOT EXISTS `userlogin` (
   `idUserLogin` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
@@ -201,6 +212,7 @@ INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUse
 -- Table structure for table `userregistration`
 --
 
+DROP TABLE IF EXISTS `userregistration`;
 CREATE TABLE IF NOT EXISTS `userregistration` (
   `idUserRegistration` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(45) DEFAULT NULL,
@@ -227,6 +239,7 @@ INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `
 -- Table structure for table `uservisitedcourse`
 --
 
+DROP TABLE IF EXISTS `uservisitedcourse`;
 CREATE TABLE IF NOT EXISTS `uservisitedcourse` (
   `viewId` int(11) NOT NULL AUTO_INCREMENT,
   `course` varchar(45) NOT NULL,
