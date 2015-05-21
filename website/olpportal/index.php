@@ -74,7 +74,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                     window.location.href='user-landing.php';
                 }
                 
-                   // alert(result);
+                    alert(result);
         }
     </script>
   </head>

@@ -24,7 +24,7 @@ class InteractDatabase
                            constant("DB_PASSWORD"), 
                            constant("DB_NAME"));
         if ($conn->connect_error) {   die("Connection failed: " . $conn->connect_error); } 
-        
+       // else echo 'Success';
         return $conn;
     }
     
@@ -56,7 +56,10 @@ class InteractDatabase
          if (!$result) {   die("Invalid query: " . mysqli_error($conn));  }
          else 
 		 {
-			$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$rows= array();
+while($row = $result->fetch_assoc())
+    $rows[] = $row;
+	/*	$rows = mysqli_fetch_all($result, MYSQLI_ASSOC); */
 			$json = json_encode($rows);//This function returns the JSON representation of a value on success or FALSE on failure.	
          }
 		 mysqli_free_result($result); //The mysqli_free_result() function frees the memory associated with the result
@@ -86,3 +89,5 @@ class InteractDatabase
     
 }
  
+//$db=new InteractDatabase();
+//$db->dbinteraction();

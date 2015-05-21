@@ -1,5 +1,7 @@
 <?php session_start();
-require 'php/define.php';
+ require 'php/define.php';
+ if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
+ {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +21,7 @@ require 'php/define.php';
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/jquery.countdownTimer.js"></script>
+    
     <script type="text/javascript">
         var q_json;
         var q_cindex;  // currentIndex
@@ -103,17 +105,60 @@ require 'php/define.php';
                   var time=res[0].testTime;
                   
                   var t=time.split(":");
+                  var hour=t[0];
+                  var min=t[1];
+                  var sec=t[2];
+                   var viewtime=hour+":"+min+":"+sec;
+                  setInterval(function(){ 
+                      if(sec>0)
+                      {
+                          sec=sec-1;
+                          if(sec<=9)
+                          {
+                              viewtime=hour+":"+min+":"+'0'+sec; 
+                          } 
+                      }
+                     else if(sec==0)
+                      {
+                          sec=59;
+                          min=min-1;
+                         
+                      }
+                      else  if(min>0)
+                      { 
+                          if(min<=9)
+                          {
+                            viewtime=hour+":"+'0'+min+":"+sec; 
+                          }
+                      }
+                     else if(min==0)
+                     {
+                         min=59;
+                         hour=hour-1;
+                         if(hour<=9)
+                          {
+                              viewtime='0'+hour+":"+min+":"+sec; 
+                          }
+                          
+                     }
+                     else
+                     {
+                         viewtime=hour+":"+min+":"+sec; 
+                     }
+              document.getElementById("future_date").innerHTML=viewtime;
+                   //  console.log("Hour length : "+hour.length);
+                  //   console.log("Min length : "+min.length);
+                    
+                     
+                       
+                  }, 1000);
                 //  console.log(t.length);
-                  for(var i=0;i<t.length;i++)
-                  {
-                              //   console.log("-"+t[i]);
-                  }
                   
-                  $("#future_date").countdowntimer({
-                hours : 3‚
-		minutes : 10‚
-                size : "lg"
-	});
+                      //     console.log("hour : "+hour);
+                 // console.log("min : "+min);
+                //  console.log("sec : "+sec);
+                  
+               
                   
                   document.getElementById("future_date").innerHTML=res[0].testTime;
                   
@@ -261,3 +306,4 @@ require 'php/define.php';
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } else {     header("location:index.php"); } ?>
