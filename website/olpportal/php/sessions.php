@@ -13,3 +13,10 @@ if($action=='SetCourseSession')
     $var=$_GET["courseName"];
     $_SESSION[constant("SESSION_COURSENAME")]=$var;
 }
+else if($action=='SetRegStep1')
+{
+    $state=$_GET["signup_state"];
+    $phone=$_GET["signup_phone"];
+    $_SESSION[constant("SESSION_SIGNUP_STATE")]=$state;
+    $_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")]=$phone;
+}

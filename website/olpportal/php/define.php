@@ -6,17 +6,17 @@
  * and open the template in the editor.
  */
 /* DATABASE CREDIENTIALS */
-/*define("SERVER_NAME","localhost:3306", true);//define()is to declare constats .
+define("SERVER_NAME","localhost:3306", true);//define()is to declare constats .
 define("DB_NAME","olpportal", true);
 define("DB_USER","root", true);
 define("DB_PASSWORD","@anupanup123", true);
- */
-
+ 
+/*
 define("SERVER_NAME","inglobal.in", true);//define()is to declare constats .
 define("DB_NAME","inglobal_olpportal", true);
 define("DB_USER","inglobal_surya", true);
 define("DB_PASSWORD","inglobal", true);
-
+*/
 
 
 /* SMS-LANE */
@@ -24,7 +24,11 @@ define("SMSPHONE_USERNAME","anupchinney", true);
 define("SMSPHONE_PASSWORD","@anupanup123", true);
 define("SMSPHONE_REGNUMBER","919160869337", true);
 define("SMSPHONE_FL","0", true);
-        
+     
+/* SIGN-UP REGISTRATION */
+define("SESSION_SIGNUP_STATE","SESSION_SIGNUP_STATE", true);
+define("SESSION_SIGNUP_PHONENUMBER","SESSION_SIGNUP_PHONENUMBER", true);
+
 /* USER-SESSIONS */
 define("SESSION_USER_REGID","SESSION_USER_REGID", true);
 define("SESSION_USER_LOGID","SESSION_USER_LOGID", true);

@@ -21,6 +21,16 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
            display:none;
            width:100%;color:#ffff00;margin-right:1%; 
        }
+       #OLP-NotRegMsg
+       {
+           margin-top: 15%;
+           margin-bottom: -10%;
+           display:none;
+       }
+       #Signup-Message
+       {
+           margin-top: 13%;
+       }
      </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,6 +40,30 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
     <![endif]-->
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
+        function indexOnload()
+        {
+            $('#boot-tab-1').addClass('active');
+            viewSignupStep1();
+           
+        }
+        function viewSignupStep1()
+        {
+            document.getElementById("tab-step-1").style.display='block';
+            document.getElementById("tab-step-2").style.display='none';  
+            document.getElementById("tab-step-3").style.display='none'; 
+        }
+        function viewSignupStep2()
+        {
+            document.getElementById("tab-step-1").style.display='none';
+            document.getElementById("tab-step-2").style.display='block';  
+            document.getElementById("tab-step-3").style.display='none'; 
+        }
+        function viewSignupStep3()
+        {
+            document.getElementById("tab-step-1").style.display='none';
+            document.getElementById("tab-step-2").style.display='none';  
+            document.getElementById("tab-step-3").style.display='block'; 
+        }
         function login()
         {
             var user=$('#login-user');
@@ -54,7 +88,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                     }
                                    });
                                    
-                                   console.log("resilt :"+result);
+                                   console.log("result :"+result);
                 
                var msgElem=document.getElementById("login-ErrorMsg");
                
@@ -76,9 +110,69 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                 
                     alert(result);
         }
+        function RegStep1()
+        {
+            var state=document.getElementById("Reg-State").value;
+            var phone=document.getElementById("Reg-PhneNum").value;
+            var msg=document.getElementById("OLP-NotRegMsg");
+            console.log("state : "+state);
+            console.log("phone : "+phone);
+            
+            if(state.length===0 || phone.length===0)
+            {
+                if(state.length===0)
+                {
+                    msg.style.display='block';
+                    msg.innerHTML='Please Select a State';
+                }
+                else if(phone.length===0)
+                {
+                    msg.style.display='block';
+                    msg.innerHTML='Please Enter your phone Number';
+                }
+            }
+            else
+            {
+                if(phone.length===10)
+                {
+                    // Set Session 
+                    var result="";
+                     $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/sessions.php',
+                                    data: { 
+                                        signup_state :state,
+                                        signup_phone : phone,
+                                        action : 'SetRegStep1'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   
+                                   console.log("result :"+result);
+                          //   window.location.href='#step2';
+                          $('#boot-tab-1').removeClass('active');
+                          $('#boot-tab-2').addClass('active');
+                          $('#boot-tab-3').removeClass('active');
+                          
+                       viewSignupStep2();
+                    
+                        
+                }
+                else
+                {
+                     msg.style.display='block';
+                     msg.innerHTML='Please Enter a valid Phone Nnumber';
+                }
+               
+               // msg.innerHTML="<strong>You cannot register into OLP unless you are registered in MGNREGA staff database</strong>";
+            }
+        }
     </script>
   </head>
-<body>
+<body onload="indexOnload()">
 
 
 <!--   ----------------------  Start  Header Content -----------------------    -->
@@ -372,68 +466,75 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
       <div class="modal-body">
 		<div class="well">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#step1" data-toggle="tab">Step1</a></li>
-				<li><a href="#step2" data-toggle="tab">Step2</a></li>
-                <li><a href="#step3" data-toggle="tab">Step3</a></li>
+				<li id="boot-tab-1" ><a href="#step1" onclick="viewSignupStep1()" data-toggle="tab">Step1</a></li>
+				<li id="boot-tab-2" ><a href="#step2" onclick="viewSignupStep2()" data-toggle="tab">Step2</a></li>
+                                <li id="boot-tab-3" ><a href="#step3" onclick="viewSignupStep3()" data-toggle="tab">Step3</a></li>
 			</ul>
+                    
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane active in" id="step1">
-					<form class="form-horizontal" action='' method="POST">
-                    <div class="container-fluid">
-  <div class="form-group">
-  <br/>
-    <select class="form-control" value="">
-       <option>Select State</option>
-       <option>Andaman and Nicobar Islands</option>
-       <option>Andhra Pradesh</option>
-       <option>Arunachal Pradesh</option>
-       <option>Assam</option>
-       <option>Bihar</option>
-       <option>Chandigarh</option>
-       <option>Chhattisgarh</option>
-       <option>Dadra and Nagar Haveli</option>
-       <option>Daman and Diu</option>
-       <option>Delhi</option>
-       <option>Goa</option>
-       <option>Gujarat</option>
-       <option>Haryana</option>
-       <option>Himachal Pradesh</option>
-       <option>Jammu and Kashmir</option>
-       <option>Jharkhand</option>
-       <option>Karnataka</option>
-       <option>Kerala</option>
-       <option>Lakshadweep</option>
-       <option>Madhya Pradesh</option>
-       <option>Maharashtra</option>
-       <option>Manipur</option>
-       <option>Meghalaya</option>
-       <option>Mizoram</option>
-       <option>Nagaland</option>
-       <option>Odisha</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" id="mobileNumber" placeholder="Mobile Number">
-  </div>
-  <div class="form-group">
-  <button type="submit" class="btn btn-default pull-right">Submit</button>
-  </div>
-  <div class="form-group">
-  <div class="alert alert-danger bs-alert-old-docs">
-      <strong>"You cannot register into OLP unless you are registered in MGNREGA staff database"</strong>
-    </div>
-  </div>
-  <div class="form-group">
-  <div class="alert alert-danger bs-alert-old-docs">
-      <strong>"If you have not registered with the MGNREGA staff portal,</strong> <a href="http://getbootstrap.com/components/">click here"</a>
-    </div>
-  </div>
-  </div>
-					</form>                
+					<!--form class="form-horizontal" action='' method="POST"-->
+                                     <div id="tab-step-1" class="container-fluid">
+                                             <div class="form-group">
+                                    <br/>
+                                   <select id="Reg-State" class="form-control" value="">
+                                   <option value="">Select State</option>
+                                   <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                   <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                   <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                   <option value="Assam">Assam</option>
+                                   <option value="Bihar">Bihar</option>
+                                   <option value="Chandigarh">Chandigarh</option>
+                                   <option value="Chhattisgarh">Chhattisgarh</option>
+                                   <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                   <option value="Daman and Diu">Daman and Diu</option>
+                                   <option value="Delhi">Delhi</option>
+                                   <option value="Goa">Goa</option>
+                                   <option value="Gujarat">Gujarat</option>
+                                   <option value="Haryana">Haryana</option>
+                                   <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                   <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                   <option value="Jharkhand">Jharkhand</option>
+                                   <option value="Karnataka">Karnataka</option>
+                                   <option value="Kerala">Kerala</option>
+                                   <option value="Lakshadweep">Lakshadweep</option>
+                                   <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                   <option value="Maharashtra">Maharashtra</option>
+                                   <option value="Manipur">Manipur</option>
+                                   <option value="Meghalaya">Meghalaya</option>
+                                   <option value="Mizoram">Mizoram</option>
+                                   <option value="Nagaland">Nagaland</option>
+                                   <option value="Odisha">Odisha</option>
+                                   <option value="Telangana">Telangana</option>
+                                </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" id="Reg-PhneNum" class="form-control" id="mobileNumber" placeholder="Mobile Number">
+                                    </div>
+                                    <div class="form-group">
+                                    <button type="submit" class="btn btn-default pull-right" onclick="javascript:RegStep1()">Submit</button>
+
+                                    </div>
+                                    <div class="form-group">
+
+                                    <div id="OLP-NotRegMsg" class="alert alert-danger bs-alert-old-docs">
+
+                                      </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                    <div id="Signup-Message" class="alert alert-danger bs-alert-old-docs">
+                                        <strong>"If you have not registered with the MGNREGA staff portal,</strong> 
+                                        <a href="http://nrega.nic.in/netnrega/home.aspx">click here"</a>
+                                      </div>
+                                    </div>
+                                    </div>
+					<!--/form-->                
 				</div>
-				<div class="tab-pane fade" id="step2">
-					<form id="tab" class="form-horizontal">
-                    <div class="container-fluid">
+                            
+				<!--div class="tab-pane fade" id="step2"-->
+					<!--form id="tab" class="form-horizontal"-->
+                    <div id="tab-step-2" class="container-fluid">
                     <div class="form-group">
                     <br/>
     <label for="exampleInputFile">Enter NETSECURE<sup>TM</sup>(OTP) Code</label>
@@ -447,11 +548,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
 							<button type="submit" class="btn btn-default pull-right">Submit</button>
 						</div>
                         </div>
-					</form>
-				</div>
-                <div class="tab-pane fade" id="step3">
-					<form id="tab" class="form-horizontal">
-                    <div class="container-fluid">
+					<!--/form-->
+				<!--/div-->
+                <!--div class="tab-pane fade" id="step3"-->
+					<!--form id="tab" class="form-horizontal"-->
+                    <div id="tab-step-3" class="container-fluid">
                     <div class="form-group">
                     <br/>
                        <input class="form-control" type="text" placeholder="Name">
@@ -474,8 +575,8 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
                         </div>
                         </div>
-					</form>
-				</div>
+					<!--/form-->
+				<!--/div-->
 			</div>
 		</div>
 	</div>

@@ -56,9 +56,9 @@ class InteractDatabase
          if (!$result) {   die("Invalid query: " . mysqli_error($conn));  }
          else 
 		 {
-$rows= array();
-while($row = $result->fetch_assoc())
-    $rows[] = $row;
+        $rows= array();
+        while($row = $result->fetch_assoc())
+             $rows[] = $row;
 	/*	$rows = mysqli_fetch_all($result, MYSQLI_ASSOC); */
 			$json = json_encode($rows);//This function returns the JSON representation of a value on success or FALSE on failure.	
          }
