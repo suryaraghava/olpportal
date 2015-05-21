@@ -44,6 +44,8 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
     <![endif]-->
     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">
+        var g_state;
+        var g_phone;
         function indexOnload()
         {
             $('#boot-tab-1').addClass('active');
@@ -116,6 +118,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         }
         function RegStep1()
         {
+            g_phone='';
             var state=document.getElementById("Reg-State").value;
             var phone=document.getElementById("Reg-PhneNum").value;
             var msg=document.getElementById("OLP-NotRegMsg");
@@ -140,7 +143,9 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                 if(phone.length===10)
                 {
                     // Set Session 
-                    var result="";
+                    g_state=state;
+                     g_phone=phone;
+                    /*var result="";
                      $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/sessions.php',
@@ -152,12 +157,10 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                   
                                    });
                         
-                        var session_state='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_STATE")])) { echo $_SESSION[constant("SESSION_SIGNUP_STATE")]; }?>';
-                        var session_phone='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")])) { echo $_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")]; }?>';          
-                      
+                     
                       console.log("session_state : "+session_state);
                       console.log("session_phone : "+session_phone);
-     
+      */
                        //   window.location.href='#step2';
                           $('#boot-tab-1').removeClass('active');
                           $('#boot-tab-2').addClass('active');
@@ -178,7 +181,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                           result=resp;
                                     }
                                    });
-                        console.log("Query : "+result);
+                        console.log("Phone Message : "+result);
                 }
                 else
                 {
@@ -188,8 +191,14 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                
                // msg.innerHTML="<strong>You cannot register into OLP unless you are registered in MGNREGA staff database</strong>";
             }
+            
+            RegStep2ClearFields();
         }
-        
+        function RegStep2ClearFields()
+        {
+            document.getElementById("otp-Number").value='';
+            document.getElementById("OTP-NotValid").style.display='none';
+        }
         function RegStep2()
         {
             var otpNumber=document.getElementById("otp-Number").value;
@@ -240,7 +249,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         
         function resendOTP()
         {
-            var phoneNum='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")])) { echo $_SESSION[constant("SESSION_SIGNUP_PHONENUMBER")]; }?>';
+            var phoneNum=g_phone;
             RegStep1();
             console.log("phoneNum : "+phoneNum);
             var otpview=document.getElementById("OTP-NotValid");

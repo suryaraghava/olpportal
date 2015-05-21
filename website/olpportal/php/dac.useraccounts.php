@@ -37,7 +37,8 @@ else if($action=='SendMessage')
     $otpMsg=$msgObj->otpMessage($otpNum);
     
     // Send Message
-     $msgObj->sendPhoneMessage($sendPhone, $otpMsg);
+     $content=$msgObj->sendPhoneMessage($sendPhone, $otpMsg);
+     echo $content;
     // Insert into Database
     $acc=new UserAccounts();
     $reqId=$acc->registerByStateAndPhone($sendPhone, $state);

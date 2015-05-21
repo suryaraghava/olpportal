@@ -9,7 +9,7 @@ class MobileMsg
 {
     function otpMessage($otpNum)
     {
-        $otp="Welcome to Samarthya, \n Your OTP Code is ".$otpNum;
+        $otp="Welcome to Samarthya Online learning Portal, \n Your OTP Code is ".$otpNum;
         return $otp;
     }
 
@@ -26,6 +26,7 @@ class MobileMsg
         $data['fl']=constant("SMSPHONE_FL");
 
        list($header, $content) = $msgObj->PostRequest(constant("SMSPHONE_SENDURL"), "", $data); 
+       return $content;
     }
 
 
