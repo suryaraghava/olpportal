@@ -35,6 +35,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
        {
            margin-top: 13%;
        }
+       #signup-Greeting
+       {
+           display:none;
+           margin-top:14%;
+       }
      </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -194,11 +199,13 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             
             RegStep2ClearFields();
         }
+        
         function RegStep2ClearFields()
         {
             document.getElementById("otp-Number").value='';
             document.getElementById("OTP-NotValid").style.display='none';
         }
+        
         function RegStep2()
         {
             var otpNumber=document.getElementById("otp-Number").value;
@@ -256,6 +263,22 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             otpview.style.display='block';
             otpview.innerHTML='<strong>The OTP is re-sent to your Mobile '+phoneNum+'</strong>';
         }
+        
+        function RegStep3()
+        {
+            var uName=document.getElementById("signup_userName").value;
+            var fName=document.getElementById("signup_firstName").value;
+            var lName=document.getElementById("signup_lastName").value;
+            var staffId=document.getElementById("signup_staffId").value;
+            var designation=document.getElementById("signup_designation").value;
+            var email=document.getElementById("signup_email").value;
+            
+            
+            
+            
+            
+        }
+        
     </script>
   </head>
 <body onload="indexOnload()">
@@ -639,24 +662,32 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                 <!--div class="tab-pane fade" id="step3"-->
 					<!--form id="tab" class="form-horizontal"-->
                     <div id="tab-step-3" class="container-fluid">
+                        <div class="form-group">
+                          <br/>
+                          <input class="form-control" type="text" id="signup_userName" placeholder="User Name">
+                        </div>
+                         <div class="form-group">
+               
+                       <input class="form-control" type="text" id="signup_firstName" placeholder="First Name">
+                    </div>
                     <div class="form-group">
-                    <br/>
-                       <input class="form-control" type="text" placeholder="Name">
+               
+                       <input class="form-control" type="text" id="signup_lastName" placeholder="Last Name">
                     </div>	
                     <div class="form-group">
-                       <input class="form-control" type="text" placeholder="Staff ID">
+                       <input class="form-control" type="text" id="signup_staffId" placeholder="Staff ID">
                     </div>
                     <div class="form-group">
-                       <input class="form-control" type="text" placeholder="Designation">
+                       <input class="form-control" type="text" id="signup_designation" placeholder="Designation">
                     </div>
                     <div class="form-group">
-                       <input class="form-control" type="text" placeholder="Email ID">
+                       <input class="form-control" type="text" id="signup_email" placeholder="Email ID">
                     </div>				
 						<div class="form-group">
 							<button type="submit" class="btn btn-default pull-right">Confirm</button>
 						</div>
                         <div class="form-group">
-                        <div class="alert alert-success">
+                        <div id="signup-Greeting" class="alert alert-success">
               <strong>"Thanks for Signing Up.</strong> Please log in using the user id and password sent to your email id."
             </div>
                         </div>

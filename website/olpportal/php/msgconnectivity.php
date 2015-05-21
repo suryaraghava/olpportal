@@ -5,6 +5,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+class EmailMsg
+{
+    function signupGreeting($username, $password)
+    {
+        $msg="Hello ".$username.",\n";
+        $msg.="Thanks for signing up on Samarthya Online learning Portal.";
+        $msg.="The Following are the credentials for your login: \n";
+        $msg.="Username : ".$username."\n";
+        $msg.="Password : ".$password."\n";
+        $msg.="Thanks and Regards,\n";
+        $msg.="Samarthya Online learning Portal";
+        return $msg;
+    }
+    
+}
 class MobileMsg 
 {
     function otpMessage($otpNum)
