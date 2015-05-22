@@ -45,7 +45,7 @@ class Questions
     
     function getQuestions($testDetailsId, $active, $qtotal)
     {
-        $sql="SELECT question, option1, option2, option3, option4 FROM `testquestions` WHERE idTestDetails=".$testDetailsId." AND active=".$active." ORDER BY RAND() LIMIT ".$qtotal;
+        $sql="SELECT idTestQuestions, question, option1, option2, option3, option4 FROM `testquestions` WHERE idTestDetails=".$testDetailsId." AND active=".$active." ORDER BY RAND() LIMIT ".$qtotal;
          $dbObj=new InteractDatabase();
          $json=$dbObj->getJSONData($sql);
          return $json;

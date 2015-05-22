@@ -51,9 +51,9 @@
                                  content+=' </div>';
                                  content+='<div class="course-menu">';
                                  content+='<ul>';
-                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\')">';
+                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\' )">';
                                  content+='Take a Pretest</span></li>';
-                                 content+='<li><a href="details.php">Details</a></li>';
+                                 content+='<li><a href="details.php" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\' )">Details</a></li>';
                                  content+='<li><a href="#">Go to Module</a></li>';
                                  content+='<li><a href="assessment.php">Go for Assessment</a></li>';
                                  content+='</ul>';
@@ -65,7 +65,7 @@
            document.getElementById("view-courses-list").innerHTML=content;
           
         }
-        function preTestforCourse(courseName)
+        function preTestforCourse(courseName, courseId)
         {
             
              var result="";
@@ -74,7 +74,8 @@
                                     url: 'php/sessions.php',
                                     data: { 
                                         action : 'SetCourseSession',
-                                        courseName : courseName
+                                        courseName : courseName,
+                                        courseId : courseId
                                     },
                                     success: function(resp)
                                     {

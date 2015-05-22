@@ -10,9 +10,16 @@ require 'define.php';
 $action=$_GET["action"];
 if($action=='SetCourseSession')
 {
-    $var=$_GET["courseName"];
-    $_SESSION[constant("SESSION_COURSENAME")]=$var;
+    $courseName=$_GET["courseName"];
+    $courseId=$_GET["courseId"];
+    $_SESSION[constant("SESSION_COURSENAME")]=$courseName;
+    $_SESSION[constant("SESSION_COURSEID")]=$courseId;  
 }
+else if($action=='SetCourseId')
+{
+    
+}
+
 else if($action=='SetRegStep1')
 {
     $state=$_GET["signup_state"];

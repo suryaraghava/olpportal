@@ -21,17 +21,53 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+    <style>
+        #prevButton, #NextButton, #submitButton
+        {
+            display: none;margin-left:1%;
+            float:left;
+        }
+    </style>
     <script type="text/javascript">
         var q_json;
         var q_cindex;  // currentIndex
         var q_lindex;  // lastIndex
+        
+        var q_qId;
+        var q_answer;
+        
+        function answerpicker()
+        {
+            var q_ans='';
+            var q_ansId1=document.getElementById("q_answer1");
+            var q_ansId2=document.getElementById("q_answer2");
+            var q_ansId3=document.getElementById("q_answer3");
+            var q_ansId4=document.getElementById("q_answer4");
+          
+            if(q_ansId1.checked) {  q_ans=q_ansId1.value; }
+            if(q_ansId2.checked) {  q_ans=q_ansId2.value; }
+            if(q_ansId3.checked) {  q_ans=q_ansId3.value; }
+            if(q_ansId4.checked) {  q_ans=q_ansId4.value; }
+            
+            if(q_ans.length===0)
+            {
+               alert("Please Select any Answer"); 
+            }
+            else
+            {
+                nextQuestionView();
+            }
+            console.log("q_ans : "+q_ans);
+        }
+        
+        
         
         function pageOnload()
         {
             q_cindex=0;
             testReady();
             currentQuestionView();
+ 
         }
         function previousQuestionView()
         {
@@ -51,32 +87,56 @@
         {
             var qNumber=q_cindex+1;
             document.getElementById("qNum").innerHTML='Q'+qNumber+':';
-            document.getElementById("qtest-question").innerHTML=q_json[q_cindex].question;
+            if(q_cindex===0)
+                  {
+                      document.getElementById("prevButton").style.display='none';
+                      document.getElementById("NextButton").style.display='block';
+                      document.getElementById("submitButton").style.display='none';
+                  }
+            if((q_lindex-1)==q_cindex)
+                 {
+                      document.getElementById("prevButton").style.display='block';
+                      document.getElementById("NextButton").style.display='none';
+                      document.getElementById("submitButton").style.display='block';
+                  
+                 }
+             if(q_cindex>0 && q_cindex<(q_lindex-1))
+             {
+                      document.getElementById("prevButton").style.display='block';
+                      document.getElementById("NextButton").style.display='block';
+                      document.getElementById("submitButton").style.display='none';
+             }
+            if(q_cindex<q_lindex)
+            {
+                document.getElementById("qtest-question").innerHTML=q_json[q_cindex].question;
             
-            var options='';
-                options+='<div class="radio">';
-                options+='<label><input type="radio" name="quiz" id="1" value="'+q_json[q_cindex].option1+'">'+q_json[q_cindex].option1+'</label>';
-                options+='</div>';
-                options+='<div class="radio">';
-                options+='<label><input type="radio" name="quiz" id="2" value="'+q_json[q_cindex].option2+'">'+q_json[q_cindex].option2+'</label>';
-                options+='</div>';
-                options+='<div class="radio">';
-                options+='<label><input type="radio" name="quiz" id="3" value="'+q_json[q_cindex].option3+'">'+q_json[q_cindex].option3+'</label>';
-                options+='</div>';
-                options+='<div class="radio">';
-                options+='<label><input type="radio" name="quiz" id="3" value="'+q_json[q_cindex].option4+'">'+q_json[q_cindex].option4+'</label>';
-                options+='</div>';
+                q_qId=q_json[q_cindex].idTestQuestions;
+            
+                var options='';
+                    options+='<div class="radio">';
+                    options+='<label><input type="radio" name="quiz" id="q_answer1" value="'+q_json[q_cindex].option1+'">'+q_json[q_cindex].option1+'</label>';
+                    options+='</div>';
+                    options+='<div class="radio">';
+                    options+='<label><input type="radio" name="quiz" id="q_answer2" value="'+q_json[q_cindex].option2+'">'+q_json[q_cindex].option2+'</label>';
+                    options+='</div>';
+                    options+='<div class="radio">';
+                    options+='<label><input type="radio" name="quiz" id="q_answer3" value="'+q_json[q_cindex].option3+'">'+q_json[q_cindex].option3+'</label>';
+                    options+='</div>';
+                    options+='<div class="radio">';
+                    options+='<label><input type="radio" name="quiz" id="q_answer4" value="'+q_json[q_cindex].option4+'">'+q_json[q_cindex].option4+'</label>';
+                    options+='</div>';
                 
-            document.getElementById("qtest-option").innerHTML=options;
-            console.log("question : "+q_json[q_cindex].question);
-            console.log("option1 : "+q_json[q_cindex].option1);
-            console.log("option2 : "+q_json[q_cindex].option2);
-            console.log("option3 : "+q_json[q_cindex].option3);
-            console.log("option4 : "+q_json[q_cindex].option4);
+                    document.getElementById("qtest-option").innerHTML=options;
+                    console.log("question : "+q_json[q_cindex].question);
+                    console.log("option1 : "+q_json[q_cindex].option1);
+                    console.log("option2 : "+q_json[q_cindex].option2);
+                    console.log("option3 : "+q_json[q_cindex].option3);
+                    console.log("option4 : "+q_json[q_cindex].option4);
         
+                    }
                     
-            
-            
+                  
+                
            // qNum
            // qtest-question
         }
@@ -258,8 +318,8 @@
                 </div>
 	<br>
     <input type="submit"   id="prevButton" class="btn btn-default" value=" Previous " onclick="previousQuestionView()">
-	<input type="button"  id="NextButton" class="btn btn-default" value=" Next " onclick="nextQuestionView()">
-    <input type="submit" class="btn btn-default" value=" Submit ">	
+	<input type="button"  id="NextButton" class="btn btn-default" value=" Next " onclick="answerpicker();">
+    <input type="submit"  id="submitButton" class="btn btn-default" value=" Submit " >	
 	<!--/form-->
     <br/>
       </div>

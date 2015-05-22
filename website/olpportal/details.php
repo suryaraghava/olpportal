@@ -1,3 +1,7 @@
+<?php session_start();
+ require 'php/define.php'; 
+ if(isset($_SESSION[constant("SESSION_COURSEID")])) {
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,13 +23,15 @@
     <script type="text/javascript">
         function courseDetails()
         {
-            
+            var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) { echo $_SESSION[constant("SESSION_COURSEID")]; } ?>';
+            if(courseId.length>0)
+            {
              var result="";
                  $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.courses.php',
                                     data: { 
-                                        courseID :'1',
+                                        courseID :courseId,
                                         action : 'viewCourseDetails'
                                     },
                                     success: function(resp)
@@ -80,6 +86,7 @@
             }
             
             document.getElementById("courseslink-details").innerHTML=content;
+            }
         }
     </script>
   </head>
@@ -231,3 +238,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } else {     header("location:user-landing.php"); } ?>
