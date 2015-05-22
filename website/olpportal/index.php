@@ -51,6 +51,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
     <script type="text/javascript">
         var g_state;
         var g_phone;
+        var g_regId;
         function indexOnload()
         {
             $('#boot-tab-1').addClass('active');
@@ -173,6 +174,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                           
                        viewSignupStep2();
                     
+                    var regId;
                      $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.useraccounts.php',
@@ -183,10 +185,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                     },
                                   success: function(resp)
                                     {
-                                          result=resp;
+                                          regId=resp;
                                     }
                                    });
-                        console.log("Phone Message : "+result);
+                        console.log("Registration Id : "+regId);
+                        g_regId=regId;
                 }
                 else
                 {
@@ -209,7 +212,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         function RegStep2()
         {
             var otpNumber=document.getElementById("otp-Number").value;
-            var regId='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_REGID")])) { echo $_SESSION[constant("SESSION_SIGNUP_REGID")]; }?>';
+            var regId=g_regId;
             var otpview=document.getElementById("OTP-NotValid");
             
             if(otpNumber.length>0)
@@ -266,7 +269,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         
         function RegStep3()
         {
-            var regId='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_REGID")])) { echo $_SESSION[constant("SESSION_SIGNUP_REGID")]; }?>';
+            var regId=g_regId;
             var uName=document.getElementById("signup_userName").value;
             var fName=document.getElementById("signup_firstName").value;
             var lName=document.getElementById("signup_lastName").value;

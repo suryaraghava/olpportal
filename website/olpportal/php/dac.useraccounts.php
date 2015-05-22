@@ -29,6 +29,7 @@ else if($action=='SendMessage')
 {
     $state=$_GET["signup_state"];
     $sendPhone=$_GET["sendPhone"];
+    $staffID='0000';
     $otpCount='0';
     $util=new Utils();
     $msgObj=new MobileMsg();
@@ -38,15 +39,16 @@ else if($action=='SendMessage')
     
     // Send Message
      $content=$msgObj->sendPhoneMessage($sendPhone, $otpMsg);
-     echo $content;
+ //    echo $content;
     // Insert into Database
     $acc=new UserAccounts();
-    $reqId=$acc->registerByStateAndPhone($sendPhone, $state);
+    $reqId=$acc->registerByStateAndPhone($sendPhone, $state, $staffID);
 
-    $_SESSION[constant("SESSION_SIGNUP_REGID")]=$reqId;
+    
     
     $acc->addOTPatRegister($otpNum, $reqId, $otpCount);
     
+    echo $reqId;
 }
 else if($action=='validateOTP')
 {

@@ -35,10 +35,11 @@ class UserAccounts
                return $result;
     }
     
-    function registerByStateAndPhone($mobile, $state)
+    function registerByStateAndPhone($mobile, $state, $staffID)
     /* It returns Primary Key */
     {
-        $regId=0;
+       
+        
         $dbObj=new InteractDatabase();
         $acc=new UserAccounts();
         
@@ -46,14 +47,16 @@ class UserAccounts
        $result=$acc->checkPhoneExist($mobile);
        if($result=='NotExist')
         {
-            $isql="INSERT INTO `userregistration`(`mobile`, `state`) VALUES ('".$mobile."','".$state."')";
+           
+            $isql="INSERT INTO `userregistration`(`mobile`, `state`, `staffID`) VALUES ('".$mobile."','".$state."', '".$staffID."')";
             $dbObj->addupdateData($isql);    
         }
+        
         $ssql="SELECT idUserRegistration FROM `userregistration` WHERE mobile='".$mobile."';";
         $json=$dbObj->getJSONData($ssql); 
         $dejson=json_decode($json);
-        if(!empty($dejson))
-        { $regId=$dejson[0]->{'idUserRegistration'};}
+       
+         $regId=$dejson[0]->{'idUserRegistration'};
         return $regId;
     }
     
@@ -99,13 +102,15 @@ class UserAccounts
     function updateSignup($regId, $username, $password, $firstName, $lastName, $staffID,$emailID, $designation, $active)
     {
         $sql="UPDATE `userlogin`, `userregistration`   SET `userlogin`.`username`='".$username."'";
-        $sql.=",`userlogin`.`password`='".$password."',``userlogin`.active`=".$active.",`userlogin`.`idUserRegistration`=".$regId.", ";
+        $sql.=",`userlogin`.`password`='".$password."',`userlogin`.`active`=".$active.", ";
         $sql.="`userregistration`.`firstName`='".$firstName."', ";
         $sql.="`userregistration`.`lastName`='".$lastName."', ";
-        $sql.="`userregistration`.`staffID`='".$staffID.", ";
-        $sql.="`userregistration`.`emailID`='".$emailID.", ";
-        $sql.="`userregistration`.`designation`='".$designation." ";
-        $sql.="`userregistration`.`idUserRegistration`=`userlogin`.`idUserRegistration`";
+        $sql.="`userregistration`.`staffID`='".$staffID."', ";
+        $sql.="`userregistration`.`emailID`='".$emailID."', ";
+        $sql.="`userregistration`.`designation`='".$designation."' WHERE ";
+        $sql.="`userregistration`.`idUserRegistration`=`userlogin`.`idUserRegistration` AND ";
+        $sql.=" `userlogin`.`idUserRegistration`=".$regId." ";
+       // echo $sql;
         
        $dbObj=new InteractDatabase();  
        $dbObj->addupdateData($sql);
