@@ -34,16 +34,23 @@
         var q_lindex;  // lastIndex
         
         var q_qId;
-        var q_answer;
+        var q_answer={};
         
+        function submitAnswers()
+        {
+            console.log("q_answer : "+q_answer);
+        }
+         
+            
         function answerpicker()
         {
             var q_ans='';
+           
             var q_ansId1=document.getElementById("q_answer1");
             var q_ansId2=document.getElementById("q_answer2");
             var q_ansId3=document.getElementById("q_answer3");
             var q_ansId4=document.getElementById("q_answer4");
-          
+            
             if(q_ansId1.checked) {  q_ans=q_ansId1.value; }
             if(q_ansId2.checked) {  q_ans=q_ansId2.value; }
             if(q_ansId3.checked) {  q_ans=q_ansId3.value; }
@@ -55,15 +62,54 @@
             }
             else
             {
+                // Updating it into an JSON Array
+               // console.log("q_ans : "+q_ans);
+               // console.log("q_qId : "+q_qId);
+               // console.log("Answer Count : "+q_answer.exam.length);
+                
+                if(q_answer.exam.length>0)
+                {
+                    var flag=false;
+                    var ans_index;
+                    // Check for Already existing Question
+                    for(var loop=0;loop<q_answer.exam.length;loop++)
+                    {
+                        // Updating Answers to existing QuestionId's
+                        if(q_answer.exam[loop].QuestionId===q_qId)
+                        { 
+                           flag=true; 
+                           ans_index=loop;
+                        }
+                    }
+                   if(flag){
+                    q_answer.exam[ans_index].UserAnswer=q_ans;
+                }
+                else {
+                   // Adding Answers to QuestionId's
+                    var menuData={"QuestionId":q_qId, "UserAnswer":q_ans};
+                    q_answer.exam.push(menuData); 
+                }
+                }
+                else
+                {
+                    // Adding Answers to QuestionId's
+                    var menuData={"QuestionId":q_qId, "UserAnswer":q_ans};
+                    q_answer.exam.push(menuData); 
+                }
+                
+                 
+                 
+                 console.log("Answer Array : "+JSON.stringify(q_answer));
                 nextQuestionView();
             }
-            console.log("q_ans : "+q_ans);
+            
         }
         
         
         
         function pageOnload()
         {
+            q_answer.exam=[]; 
             q_cindex=0;
             testReady();
             currentQuestionView();
@@ -72,12 +118,12 @@
         function previousQuestionView()
         {
             q_cindex=q_cindex-1;
-            console.log("current q : "+q_cindex);
+          //  console.log("current q : "+q_cindex);
             currentQuestionView();
         }
         function nextQuestionView()
         {
-            console.log("Total : "+q_lindex);
+          //  console.log("Total : "+q_lindex);
            
             q_cindex++;
             currentQuestionView();
@@ -111,7 +157,7 @@
                 document.getElementById("qtest-question").innerHTML=q_json[q_cindex].question;
             
                 q_qId=q_json[q_cindex].idTestQuestions;
-            
+             //  console.log("QuestionId "+q_json[q_cindex].idTestQuestions);
                 var options='';
                     options+='<div class="radio">';
                     options+='<label><input type="radio" name="quiz" id="q_answer1" value="'+q_json[q_cindex].option1+'">'+q_json[q_cindex].option1+'</label>';
@@ -127,15 +173,42 @@
                     options+='</div>';
                 
                     document.getElementById("qtest-option").innerHTML=options;
-                    console.log("question : "+q_json[q_cindex].question);
-                    console.log("option1 : "+q_json[q_cindex].option1);
-                    console.log("option2 : "+q_json[q_cindex].option2);
-                    console.log("option3 : "+q_json[q_cindex].option3);
-                    console.log("option4 : "+q_json[q_cindex].option4);
+                   // console.log("question : "+q_json[q_cindex].question);
+                   // console.log("option1 : "+q_json[q_cindex].option1);
+                   // console.log("option2 : "+q_json[q_cindex].option2);
+                   // console.log("option3 : "+q_json[q_cindex].option3);
+                   // console.log("option4 : "+q_json[q_cindex].option4);
         
                     }
                     
-                  
+                    var q_ansId1=document.getElementById("q_answer1");
+                    var q_ansId2=document.getElementById("q_answer2");
+                    var q_ansId3=document.getElementById("q_answer3");
+                    var q_ansId4=document.getElementById("q_answer4");
+         
+                  // Check Already Selected 
+                  for(var viewIndex=0;viewIndex<q_answer.exam.length;viewIndex++)
+                  {
+                      if(q_answer.exam[viewIndex].QuestionId===q_qId)
+                      {
+                          if(q_ansId1.value==q_answer.exam[viewIndex].UserAnswer)
+                          {
+                              q_ansId1.checked=true;
+                          }
+                          if(q_ansId2.value==q_answer.exam[viewIndex].UserAnswer)
+                          {
+                              q_ansId2.checked=true;
+                          }
+                          if(q_ansId3.value==q_answer.exam[viewIndex].UserAnswer)
+                          {
+                              q_ansId3.checked=true;
+                          }
+                          if(q_ansId4.value==q_answer.exam[viewIndex].UserAnswer)
+                          {
+                              q_ansId4.checked=true;
+                          }
+                      }
+                  }
                 
            // qNum
            // qtest-question
@@ -157,7 +230,7 @@
                                           result=resp;
                                     }
                                    });
-                  console.log("result : "+result); 
+                 // console.log("result : "+result); 
                   var res=JSON.parse(result);
                   
                   var tqnum=res[0].totalquestions;
@@ -319,7 +392,7 @@
 	<br>
     <input type="submit"   id="prevButton" class="btn btn-default" value=" Previous " onclick="previousQuestionView()">
 	<input type="button"  id="NextButton" class="btn btn-default" value=" Next " onclick="answerpicker();">
-    <input type="submit"  id="submitButton" class="btn btn-default" value=" Submit " >	
+    <input type="submit"  id="submitButton" class="btn btn-default" value=" Submit " onclick="submitAnswers()" >	
 	<!--/form-->
     <br/>
       </div>

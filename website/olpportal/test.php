@@ -9,7 +9,42 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
         <script>
-            var g_hour;
+     
+            /* JSON Data */  
+                var jsonData={};                    
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+            
+            /* Adding DataMenu */   
+                jsonData.jsonMenu=[];       
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+            
+            /* Adding Data into 'jsonMenu' */
+                var menuData={"data1":"data1", "data2":"data2"};
+                jsonData.jsonMenu.push(menuData);                   
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+            
+            /* Adding Item of Data in 'jsonMenu' */
+                 jsonData.jsonMenu[0].data3="ASDF";
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+            
+            /* Editing Item of Data in 'jsonMenu' */
+                jsonData.jsonMenu[0].data1='QWERT';
+               document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+               
+            /* Deleting Item of Data in 'jsonMenu' */
+                delete jsonData.jsonMenu[0].data1;
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+                
+            /* Deleting Data in 'jsonMenu' */
+                jsonData.jsonMenu.splice(0,1);
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+                
+            /* Deleting 'jsonMenu' */
+                delete jsonData.jsonMenu;
+                document.write("JSON : "+JSON.stringify(jsonData)+"<br/>");
+        
+
+          /*  var g_hour;
             var g_min;
             var g_sec;
         function load()
@@ -40,7 +75,7 @@ and open the template in the editor.
           
           return viewTime;
         }
-        
+        */
         </script>
     </head>
     <body onload="load()">
