@@ -16,8 +16,74 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        function courseDetails()
+        {
+            
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        courseID :'1',
+                                        action : 'viewCourseDetails'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   
+                                   console.log("result :"+result);
+                var res=JSON.parse(result);
+                
+            var content='';
+            for(var index=0;index<res.length;index++)
+            {
+                console.log("Title : "+res[index].title);
+                console.log("courseEngVideoLink : "+res[index].courseEngVideoLink);
+                console.log("courseEngPDFLink : "+res[index].courseEngPDFLink);
+                console.log("courseHindiVideoLink : "+res[index].courseHindiVideoLink);
+                console.log("courseHindiPDFLink : "+res[index].courseHindiPDFLink);
+                console.log("courseTeluguVideoLink : "+res[index].courseTeluguVideoLink);
+                console.log("courseTeluguPDFLink : "+res[index].courseTeluguPDFLink);
+                
+              content+='<div class="col-xs-4">';
+              content+='<div class="course-video">';
+              content+='<h5 align="center" class="course-title">'+res[index].title+'</h5>';
+              content+='<div  align="center" class="video-frame">';
+              
+              content+='<iframe width="92%" height="200px"';
+              content+='src="'+res[index].courseEngVideoLink+'" ';
+              content+='frameborder="0" allowfullscreen></iframe>';
+              content+='</div>';
+              content+='<div id="course-links" align="center">';
+              content+='<div class="linkheader">You tube Video</div>';
+              content+='<a  href="'+res[index].courseEngVideoLink+'"  target="_blank"><div class="english">English</div></a>';
+              content+='<a  href="'+res[index].courseHindiVideoLink+'"  target="_blank"><div class="hindi">Hindi</div></a>';
+              content+='<a  href="'+res[index].courseTeluguVideoLink+'"  target="_blank"><div class="telugu">Telugu</div></a>';
+              content+='<a href="#" target="new">';
+              content+='<div class="pdf-download"></div>';
+              content+='</a>';
+              content+='</div>';
+              content+='<div id="course-links" align="center">';
+              content+='<div class="linkheader">PDF Links</div>';
+              content+='<a  href="'+res[index].courseEngPDFLink+'"  target="_blank"><div class="english">English</div></a>';
+              content+='<a  href="'+res[index].courseHindiPDFLink+'"  target="_blank"><div class="hindi">Hindi</div></a>';
+              content+='<a  href="'+res[index].courseTeluguPDFLink+'"  target="_blank"><div class="telugu">Telugu</div></a>';
+              content+='<a href="#" target="new">';
+              content+='<div class="pdf-download"></div>';
+              content+='</a>';
+              content+='</div>';
+              content+='</div>';
+              content+='</div>';
+            }
+            
+            document.getElementById("courseslink-details").innerHTML=content;
+        }
+    </script>
   </head>
-<body>
+<body onload="courseDetails()">
 
    <div class="container page-wrapper">
 
@@ -73,205 +139,52 @@
 <!--   ---------------------- Start Details Page video Content -----------------------    -->
 
 <div class="container">
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Water Shed</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%" src="https://www.youtube.com/embed/QOrVotzBNto?rel=0" frameborder="0" allowfullscreen></iframe>
+    <div id="courseslink-details" class="col-xs-12">
+        <!--div class="col-xs-4">
+           
+            <div class="course-video">
+                    <h5 align="center" class="course-title">Water Shed</h5>
+                    <div  align="center" class="video-frame">
+                      <iframe width="92%" height="200px" 
+                              src="https://www.youtube.com/embed/QOrVotzBNto?rel=0" 
+                              frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <div id="course-links" align="center">
+                        <div class="linkheader">You tube Video</div>
+                        <div class="english">English</div>
+                        <div class="hindi">Hindi</div>
+                        <div class="telugu">Telugu</div>
+                        <a href="#" target="new">
+                            <div class="pdf-download"></div>
+                        </a>
+                    </div>
+
+                    <div id="course-links" align="center">
+                         <div class="linkheader">PDF Links</div>
+                        <div class="english">English</div>
+                        <div class="hindi">Hindi</div>
+                        <div class="telugu">Telugu</div>
+                        <a href="#" target="new">
+                            <div class="pdf-download"></div>
+                        </a>
+                    </div>
+            </div>  
+         </div-->
+        
+        
+        
+        
+        
+        
     </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="#" target="new">
-            <div class="pdf-download"></div>
+    
+    
+    <div class="col-xs-12">
+        <a href="assessment.php">
+        <button class="btn btn-default pull-right">Go for Assesment</button>
         </a>
     </div>
-    </div>   
-    </div>
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Continuous Contour Trench</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%" src="https://www.youtube.com/embed/2QUurcuSvHM?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Continuous_Contour_Trench.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Staggered Contour Trench</h5>
-    <div align="center" class="video-frame">
-   
-     <iframe width="92%" height="80%" src="https://www.youtube.com/embed/-REeHT-Wawo?rel=0 frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Staggered_Contour_Trench.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    
-     <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Diversion Drain</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%"src="https://www.youtube.com/embed/-k8sruQPFkA?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="#" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>   
-    </div>
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Loose Boulder Check Dam</h5>
-    <div align="center" class="video-frame">
-       <iframe width="92%" height="80%" src="https://www.youtube.com/embed/EBCZZia8GYg?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Loose_Boulder_Check_Dam.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Gabion Structures</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%"src="https://www.youtube.com/embed/0f1wj5XGsjE?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Gabion_Structures.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    
-    
-     <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Check Dam / Drop spillway</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%"src="https://www.youtube.com/embed/e9xw73pqC_E?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Drop_Spillway.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>   
-    </div>
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Earthen Dam</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%"src="https://www.youtube.com/embed/fqceTkveWTo?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Earthen_Dam.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Stone Bund</h5>
-    <div align="center" class="video-frame">
-     <iframe width="92%" height="80%"src="https://www.youtube.com/embed/cXH35eS_JH4?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Stone_Bund.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    
-       <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Contour Bund</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%"src="https://www.youtube.com/embed/1LfjKZHwxFk?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Contour_Bunding.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>   
-    </div>
-    
-    
-    <div class="col-xs-12 col-xs-6 col-md-4">
-    <div class="course-video">
-    <h5 class="course-title">Land Leveling</h5>
-    <div align="center" class="video-frame">
-      <iframe width="92%" height="80%"src="https://www.youtube.com/embed/pAhdHUFu2QE?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div>
-        <div class="english"></div>
-        <div class="hindi"></div>
-        <div class="telugu"></div>
-        <a href="PDF-Text/Course-1/Land_Leveling.pdf" target="new">
-            <div class="pdf-download"></div>
-        </a>
-    </div>
-    </div>
-    </div>
-    <div class="col-xs-12"><button class="btn btn-default pull-right">Go for Assesment</button></div>
       
     
     </div>

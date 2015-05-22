@@ -23,3 +23,10 @@ else if($action=='courseVisited')
     $json=$course->getCourseLogs($userId);
     echo $json; 
 }
+else if($action=='viewCourseDetails')
+{
+    $courseID=$_GET["courseID"];
+    $course=new Courses();
+    $json=$course->viewCourseFullDetails($courseID);
+    echo $json;
+}

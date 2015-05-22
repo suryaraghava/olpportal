@@ -24,24 +24,28 @@ class Courses
         return $courseId;
     }
     
-    function addCourseLink($courseId, $courseVideo, $coursePDF)
+    function addCourseLink($courseId, $title, $courseEngVideo, $courseEngPDF,
+            $courseHinVideo, $courseHinPDF, $courseTelVideo, $courseTelPDF)
     /* Adding CourseLinks */
     {
         $dbObj=new InteractDatabase();
         
-        $sql="INSERT INTO `courselinks`(`courseID`, `courseVideoLink`, `coursePDFLink`) ";
-        $sql.="VALUES (".$courseId.",'".$courseVideo."','".$coursePDF."')";
+        $sql="INSERT INTO `courselinks`(`courseID`, `title`, `courseEngVideoLink`, `coursePDFLink`,";
+        $sql.="`courseHindiVideoLink`, `courseHindiPDFLink`, `courseTeluguVideoLink`, `courseTeluguPDFLink`) ";
+        $sql.="VALUES (".$courseId.",'".$title."','".$courseEngVideo."','".$courseEngPDF."',";
+        $sql.="'".$courseHinVideo."', '".$courseHinPDF."', '".$courseTelVideo."', '".$courseTelPDF."'";
+        $sql.=")";
         
         $dbObj->addupdateData($sql);
     }
     
-    function viewCourseFullDetails()
+    function viewCourseFullDetails($courseID)
     /* Getting  Course Full Details */
     {
-        $sql="SELECT * FROM `courses`,`courselinks` WHERE courses.idCourses=courselinks.courseID";
+        $sql="SELECT * FROM `courselinks` WHERE courselinks.courseID=".$courseID;
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
-        
+     
         return $json;
     }
     

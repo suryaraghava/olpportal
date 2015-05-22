@@ -135,17 +135,32 @@ box-shadow: 10px 10px 10px #888888;
 
 
 }
+.linkheader
+{
+    color:#fff; font-weight:bold;
+}
+ .english, .hindi, .telugu
+ {
+     color:#ffff00; font-weight:bold;
+ }
+.linkheader{
+	background-image: url(../images/video-icons.png);
+	background-position: 0 0;
+	//height: 32px;
+	width: 100px;
+	display: inline-block;
+}
 .english{
 	background-image: url(../images/video-icons.png);
 	background-position: 0 0;
-	height: 32px;
+	//height: 32px;
 	width: 80px;
 	display: inline-block;
 }
 .hindi{
 	background-image: url(../images/video-icons.png);
 	background-position:-72px 58px;
-		height: 32px;
+	//	height: 32px;
 	width: 58px;
 	display: inline-block;
 
@@ -153,11 +168,16 @@ box-shadow: 10px 10px 10px #888888;
 .telugu{
 	background-image: url(../images/video-icons.png);
 	background-position: -135px 86px;
-		height: 32px;
+	//	height: 32px;
 	width: 65px;
 	display: inline-block;
 
 }
+#course-links
+{
+    height:30px;
+}
+
 .pdf-download{
 	background-image: url(../images/video-icons.png);
 	background-position:-200px 604px;

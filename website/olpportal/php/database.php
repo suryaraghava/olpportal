@@ -24,7 +24,6 @@ class InteractDatabase
                            constant("DB_PASSWORD"), 
                            constant("DB_NAME"));
         if ($conn->connect_error) {   die("Connection failed: " . $conn->connect_error); } 
-       // else echo 'Success';
         return $conn;
     }
     
@@ -89,5 +88,5 @@ class InteractDatabase
     
 }
  
-//$db=new InteractDatabase();
-//$db->dbinteraction();
+$db=new InteractDatabase();
+$db->dbinteraction();

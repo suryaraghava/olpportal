@@ -11,14 +11,19 @@ define("SERVER_NAME","localhost:3306", true);//define()is to declare constats .
 define("DB_NAME","olpportal", true);
 define("DB_USER","root", true);
 define("DB_PASSWORD","@anupanup123", true);
- 
+
 /*
 define("SERVER_NAME","inglobal.in", true);//define()is to declare constats .
 define("DB_NAME","inglobal_olpportal", true);
 define("DB_USER","inglobal_surya", true);
 define("DB_PASSWORD","inglobal", true);
-*/
 
+
+define("SERVER_NAME","202.150.213.34", true);//define()is to declare constats .
+define("DB_NAME","u371059435_olp", true);
+define("DB_USER","u371059435_olp", true);
+define("DB_PASSWORD","@anupanup123", true);
+*/
 
 /* SMS-LANE */
 define("SMSPHONE_USERNAME","anupchinney", true);
