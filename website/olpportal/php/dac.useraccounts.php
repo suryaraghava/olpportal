@@ -64,8 +64,9 @@ else if($action=='updateRegistration')
 {
     $util=new Utils();
      $regId=$_GET["regId"]; 
-     $username=$_GET["uName"]; 
-     $password=md5($util->randomNumber(10)); 
+     $username=$_GET["uName"];
+     $d_pwd=$util->randomNumber(10);
+     $password=md5($d_pwd); 
      $firstName=$_GET["fName"]; 
      $lastName=$_GET["lName"]; 
      $staffID=$_GET["staffId"]; 
@@ -77,6 +78,6 @@ else if($action=='updateRegistration')
      $acc->updateSignup($regId, $username, $password, $firstName, $lastName, $staffID,$emailID, $designation, $active);  
      
      $emsg=new EmailMsg();
-     $emailMsg=$emsg->signupGreeting($username, $password);
+     $emailMsg=$emsg->signupGreeting($username, $d_pwd);
      mail($emailID,"Signup Process",$emailMsg);
 }
