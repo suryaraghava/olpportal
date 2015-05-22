@@ -18,7 +18,7 @@
     <![endif]-->
   </head>
 <body>
-
+<div class="container page-wrapper">
 
 <!--   ----------------------  Start  Header Content -----------------------    -->
 <div class="container">
@@ -150,6 +150,10 @@
    </div>
 </div>
 <footer><div class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
+
+</div>
+
+
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

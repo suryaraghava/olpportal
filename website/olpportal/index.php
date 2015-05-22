@@ -119,7 +119,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                     window.location.href='user-landing.php';
                 }
                 
-                    alert(result);
+                    
         }
         function RegStep1()
         {
@@ -311,7 +311,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
   </head>
 <body onload="indexOnload()">
 
-
+<div class="container page-wrapper">
 <!--   ----------------------  Start  Header Content -----------------------    -->
 <div class="container">
    <div class="col-xs-12 col-xs-6 col-md-8"><a href="#"><img class="img-responsive" src="images/samarthya-logo.jpg" alt="samarthya" /></a></div>
@@ -728,11 +728,12 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
     </div>
   </div>
 </div>
-
+</div>
 <!--     Sign Up Form     -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    
 </body>
 </html>
 <?php } else {     header("location:user-landing.php"); }?>
