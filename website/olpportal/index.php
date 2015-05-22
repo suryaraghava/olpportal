@@ -266,6 +266,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         
         function RegStep3()
         {
+            var regId='<?php if(isset($_SESSION[constant("SESSION_SIGNUP_REGID")])) { echo $_SESSION[constant("SESSION_SIGNUP_REGID")]; }?>';
             var uName=document.getElementById("signup_userName").value;
             var fName=document.getElementById("signup_firstName").value;
             var lName=document.getElementById("signup_lastName").value;
@@ -274,8 +275,35 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             var email=document.getElementById("signup_email").value;
             
             
+            console.log("RegId : "+regId);
+            console.log("uName : "+uName);
+            console.log("fName : "+fName);
+            console.log("lName : "+lName);
+            console.log("staffId : "+staffId);
+            console.log("designation : "+designation);
+            console.log("email : "+email);
             
-            
+            var result="";
+                // Check for OTPCode in Backend
+                $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        regId : regId,
+                                        uName :uName,
+                                        fName :fName,
+                                        lName :lName,
+                                        staffId :staffId,
+                                        designation : designation,
+                                        email :email,
+                                        action : 'updateRegistration'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                        console.log("Res : "+result);
             
         }
         
@@ -684,7 +712,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                        <input class="form-control" type="text" id="signup_email" placeholder="Email ID">
                     </div>				
 						<div class="form-group">
-							<button type="submit" class="btn btn-default pull-right">Confirm</button>
+							<button type="submit" class="btn btn-default pull-right" onclick="RegStep3()">Confirm</button>
 						</div>
                         <div class="form-group">
                         <div id="signup-Greeting" class="alert alert-success">

@@ -58,3 +58,23 @@ else if($action=='validateOTP')
     
     echo $result;
 }
+else if($action=='updateRegistration')
+{
+    $util=new Utils();
+     $regId=$_GET["regId"]; 
+     $username=$_GET["uName"]; 
+     $password=md5($util->randomNumber(10)); 
+     $firstName=$_GET["fName"]; 
+     $lastName=$_GET["lName"]; 
+     $staffID=$_GET["staffId"]; 
+     $emailID=$_GET["email"];  
+     $designation=$_GET["designation"];
+     $active='0'; 
+     
+     $acc=new UserAccounts();
+     $acc->updateSignup($regId, $username, $password, $firstName, $lastName, $staffID,$emailID, $designation, $active);  
+     
+     $emsg=new EmailMsg();
+     $emailMsg=$emsg->signupGreeting($username, $password);
+     mail($emailID,"Signup Process",$emailMsg);
+}

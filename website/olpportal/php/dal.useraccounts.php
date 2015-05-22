@@ -96,7 +96,20 @@ class UserAccounts
                return $result;
     }
     
-    
+    function updateSignup($regId, $username, $password, $firstName, $lastName, $staffID,$emailID, $designation, $active)
+    {
+        $sql="UPDATE `userlogin`, `userregistration`   SET `userlogin`.`username`='".$username."'";
+        $sql.=",`userlogin`.`password`='".$password."',``userlogin`.active`=".$active.",`userlogin`.`idUserRegistration`=".$regId.", ";
+        $sql.="`userregistration`.`firstName`='".$firstName."', ";
+        $sql.="`userregistration`.`lastName`='".$lastName."', ";
+        $sql.="`userregistration`.`staffID`='".$staffID.", ";
+        $sql.="`userregistration`.`emailID`='".$emailID.", ";
+        $sql.="`userregistration`.`designation`='".$designation." ";
+        $sql.="`userregistration`.`idUserRegistration`=`userlogin`.`idUserRegistration`";
+        
+       $dbObj=new InteractDatabase();  
+       $dbObj->addupdateData($sql);
+    }
     
     function getRegister($username, $password, $firstName, $lastName, $staffID, $mobile, $emailID, $designation)
     {
