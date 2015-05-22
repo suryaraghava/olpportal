@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2015 at 09:32 AM
+-- Generation Time: May 22, 2015 at 11:26 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
 --
 
 INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`) VALUES
-(1, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '', 0);
+(1, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '562187', 0);
 
 -- --------------------------------------------------------
 
@@ -217,21 +217,20 @@ CREATE TABLE IF NOT EXISTS `userregistration` (
   `idUserRegistration` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(45) DEFAULT NULL,
   `lastName` varchar(45) DEFAULT NULL,
-  `staffID` varchar(45) DEFAULT NULL,
   `mobile` varchar(45) DEFAULT NULL,
+  `staffID` varchar(45) NOT NULL,
   `emailID` varchar(45) DEFAULT NULL,
+  `state` varchar(55) NOT NULL,
   `designation` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idUserRegistration`),
-  UNIQUE KEY `staffID` (`staffID`),
-  UNIQUE KEY `staffID_2` (`staffID`)
+  PRIMARY KEY (`idUserRegistration`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `userregistration`
 --
 
-INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `staffID`, `mobile`, `emailID`, `designation`) VALUES
-(1, 'firstName', 'lastName', '1234', 'mobile', 'abcd', 'designation');
+INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `mobile`, `staffID`, `emailID`, `state`, `designation`) VALUES
+(1, 'QWERT', 'QWERT', '9160869337', '1234', 'qwert@qwert.com', 'Andhra Pradesh', 'QWERT');
 
 -- --------------------------------------------------------
 
