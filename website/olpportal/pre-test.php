@@ -21,6 +21,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/timer.js"></script>
     <style>
         #prevButton, #NextButton, #submitButton
         {
@@ -34,11 +35,28 @@
         var q_lindex;  // lastIndex
         
         var q_qId;
-        var q_answer={};
-        
+        var q_answer=[];
+        var q_quesId=[];
         function submitAnswers()
         {
-            console.log("q_answer : "+q_answer);
+            answerpicker();
+            console.log("q_quesId : "+q_quesId);
+            console.log("q_answer : "+JSON.stringify(q_answer));
+            var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'SendAnswers',
+                                        questions : q_quesId,
+                                        answers : JSON.stringify(q_answer)
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("answers : "+result);
         }
          
             
@@ -67,34 +85,34 @@
                // console.log("q_qId : "+q_qId);
                // console.log("Answer Count : "+q_answer.exam.length);
                 
-                if(q_answer.exam.length>0)
+                if(q_answer.length>0)
                 {
                     var flag=false;
                     var ans_index;
                     // Check for Already existing Question
-                    for(var loop=0;loop<q_answer.exam.length;loop++)
+                    for(var loop=0;loop<q_answer.length;loop++)
                     {
                         // Updating Answers to existing QuestionId's
-                        if(q_answer.exam[loop].QuestionId===q_qId)
+                        if(q_answer[loop].QuestionId===q_qId)
                         { 
                            flag=true; 
                            ans_index=loop;
                         }
                     }
                    if(flag){
-                    q_answer.exam[ans_index].UserAnswer=q_ans;
+                    q_answer[ans_index].UserAnswer=q_ans;
                 }
                 else {
                    // Adding Answers to QuestionId's
                     var menuData={"QuestionId":q_qId, "UserAnswer":q_ans};
-                    q_answer.exam.push(menuData); 
+                    q_answer.push(menuData); 
                 }
                 }
                 else
                 {
                     // Adding Answers to QuestionId's
                     var menuData={"QuestionId":q_qId, "UserAnswer":q_ans};
-                    q_answer.exam.push(menuData); 
+                    q_answer.push(menuData); 
                 }
                 
                  
@@ -109,11 +127,12 @@
         
         function pageOnload()
         {
-            q_answer.exam=[]; 
             q_cindex=0;
             testReady();
             currentQuestionView();
- 
+          
+             
+            
         }
         function previousQuestionView()
         {
@@ -157,6 +176,7 @@
                 document.getElementById("qtest-question").innerHTML=q_json[q_cindex].question;
             
                 q_qId=q_json[q_cindex].idTestQuestions;
+                q_quesId.push(q_qId);
              //  console.log("QuestionId "+q_json[q_cindex].idTestQuestions);
                 var options='';
                     options+='<div class="radio">';
@@ -187,23 +207,23 @@
                     var q_ansId4=document.getElementById("q_answer4");
          
                   // Check Already Selected 
-                  for(var viewIndex=0;viewIndex<q_answer.exam.length;viewIndex++)
+                  for(var viewIndex=0;viewIndex<q_answer.length;viewIndex++)
                   {
-                      if(q_answer.exam[viewIndex].QuestionId===q_qId)
+                      if(q_answer[viewIndex].QuestionId===q_qId)
                       {
-                          if(q_ansId1.value==q_answer.exam[viewIndex].UserAnswer)
+                          if(q_ansId1.value==q_answer[viewIndex].UserAnswer)
                           {
                               q_ansId1.checked=true;
                           }
-                          if(q_ansId2.value==q_answer.exam[viewIndex].UserAnswer)
+                          if(q_ansId2.value==q_answer[viewIndex].UserAnswer)
                           {
                               q_ansId2.checked=true;
                           }
-                          if(q_ansId3.value==q_answer.exam[viewIndex].UserAnswer)
+                          if(q_ansId3.value==q_answer[viewIndex].UserAnswer)
                           {
                               q_ansId3.checked=true;
                           }
-                          if(q_ansId4.value==q_answer.exam[viewIndex].UserAnswer)
+                          if(q_ansId4.value==q_answer[viewIndex].UserAnswer)
                           {
                               q_ansId4.checked=true;
                           }
@@ -241,59 +261,11 @@
                   var hour=t[0];
                   var min=t[1];
                   var sec=t[2];
-                   var viewtime=hour+":"+min+":"+sec;
-                  setInterval(function(){ 
-                      if(sec>0)
-                      {
-                          sec=sec-1;
-                          if(sec<=9)
-                          {
-                              viewtime=hour+":"+min+":"+'0'+sec; 
-                          } 
-                      }
-                     else if(sec==0)
-                      {
-                          sec=59;
-                          min=min-1;
-                         
-                      }
-                      else  if(min>0)
-                      { 
-                          if(min<=9)
-                          {
-                            viewtime=hour+":"+'0'+min+":"+sec; 
-                          }
-                      }
-                     else if(min==0)
-                     {
-                         min=59;
-                         hour=hour-1;
-                         if(hour<=9)
-                          {
-                              viewtime='0'+hour+":"+min+":"+sec; 
-                          }
-                          
-                     }
-                     else
-                     {
-                         viewtime=hour+":"+min+":"+sec; 
-                     }
-              document.getElementById("future_date").innerHTML=viewtime;
-                   //  console.log("Hour length : "+hour.length);
-                  //   console.log("Min length : "+min.length);
-                    
-                     
-                       
-                  }, 1000);
-                //  console.log(t.length);
                   
-                      //     console.log("hour : "+hour);
-                 // console.log("min : "+min);
-                //  console.log("sec : "+sec);
                   
-               
+                  timeloader(hour,min, sec);
                   
-                  document.getElementById("future_date").innerHTML=res[0].testTime;
+              
                   
                   var qres="";
                   $.ajax({type: "GET", 
@@ -437,7 +409,7 @@
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

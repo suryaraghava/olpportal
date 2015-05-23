@@ -30,6 +30,43 @@ if($action=='GetQuestions')
     echo $json;
 }
 
+if($action=='SendAnswers')
+{
+    $answers=$_GET["answers"];
+    $questions=$_GET["questions"];
+    
+    // Get Answers for Questions;
+    $q=new Questions();
+    $ans_json=$q->getAnswersList($questions);
 
+    echo $ans_json;
+     echo $answers;
+     
+     $json=json_decode($answers);
+     
+    //$json=json_decode($answers);
+    /*
+    $jsonIterator = new RecursiveIteratorIterator(
+    new RecursiveArrayIterator(json_decode($answers, TRUE)),
+    RecursiveIteratorIterator::SELF_FIRST);
+
+    foreach ($jsonIterator as $key => $val) {
+        
+    if(is_array($val)) {
+        
+        echo "$key:\n";
+    } else {
+        echo "$key => $val\n";
+    }
+    */
+   /* if(!is_array($val))
+    {
+        
+    }
+        
+        
+}*/
+    
+}
 
 

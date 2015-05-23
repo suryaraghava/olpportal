@@ -45,12 +45,36 @@ class Questions
     
     function getQuestions($testDetailsId, $active, $qtotal)
     {
+        
         $sql="SELECT idTestQuestions, question, option1, option2, option3, option4 FROM `testquestions` WHERE idTestDetails=".$testDetailsId." AND active=".$active." ORDER BY RAND() LIMIT ".$qtotal;
          $dbObj=new InteractDatabase();
          $json=$dbObj->getJSONData($sql);
          return $json;
     }
+    
+    
+    function getAnswersList($ansArray)
+    {
+        $sql="SELECT idTestQuestions, answer FROM `testquestions` WHERE ";
+       
+        for($index=0;$index<count($ansArray);$index++)
+        {
+           $sql.=" idTestQuestions=".$ansArray[$index]." OR";
+        }
+        
+       $sql=chop($sql,"OR");
+       
+       
+         $dbObj=new InteractDatabase();
+         $json=$dbObj->getJSONData($sql);
+         return $json;
+    }
+    
+    
+    
 }
+
+
 // SELECT * FROM `testdetails` ORDER BY RAND() LIMIT 10
 // $que=new Questions();
 // $que->addQuestions('2', 'Which is known as Black Continent?', 'Asia', 'Africa', 'Europe', 'Australia', 'Africa', '1');
