@@ -52,7 +52,7 @@ class Courses
     function viewCourseDetailsOnly()
     /* Getting CourseName */
     {
-        $sql="SELECT * FROM `courses`";
+        $sql="SELECT DISTINCT * FROM `courses`";
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
         return $json;
@@ -75,6 +75,18 @@ class Courses
         $json=$dbObj->getJSONData($sql);
         return $json;
     }
+    
+    
+    function checkforTestDone($userId, $courseId)
+    {
+        $sql="SELECT `testTaken` FROM `usercoursetest` WHERE `userID`=".$userId." AND `courseID`=".$courseId;
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        return $json;
+    }
+    
+    
+    
 }
 
  //$c=new Courses();

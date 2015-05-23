@@ -8,11 +8,11 @@ require 'database.php';
 class Questions
 {
     /* TestDetails Table */
-    function addTestDetails($testName, $testType, $testTime, $courseq, $totalMarks)
+    function addTestDetails($testName, $testType, $testTime, $courseq, $totalMarks, $passMarks)
     {       
         $dbObj=new InteractDatabase();
-        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`) ";
-        $isql.="VALUES ('".$testName."','".$testType."', '".$testTime."',".$courseq.", ".$totalMarks.")";
+        $isql="INSERT INTO `testdetails`(`testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`, `passMarks`) ";
+        $isql.="VALUES ('".$testName."','".$testType."', '".$testTime."',".$courseq.", ".$totalMarks.",".$passMarks.")";
         $gsql="SELECT * FROM `testdetails` WHERE `testName`='".$testName."' AND `testType`='".$testType."';";
         echo $isql;
         $dbObj->addupdateData($isql);
@@ -81,6 +81,31 @@ class Questions
         $dbObj->addupdateData($sql);
     }
    
+    
+    
+    function courseUserTest($userID, $courseID, $testType, $testTaken, $questionResults, $marksResults, $examStatus)
+    {
+        $sql="INSERT INTO `usercoursetest`(`userID`, `courseID`, `testType`, `testTaken`,`ExamDate`, `questionResults`, `marksResults`, `ExamStatus`) ";
+        $sql.="VALUES (".$userID.",".$courseID.",'".$testType."',".$testTaken.",'".date('Y-m-d')."','".$questionResults."','".$marksResults."','".$examStatus."')";
+        
+        echo $sql;
+        
+        $dbObj=new InteractDatabase();
+        $dbObj->addupdateData($sql);
+    }
+    
+    
+    
+    function getTestResults($userID)
+    {
+        $sql="SELECT courseName, testType,questionResults, marksResults, ExamDate, ExamStatus FROM `usercoursetest`, `courses` ";
+        $sql.="WHERE `courses`.idCourses= `usercoursetest`.courseID AND `usercoursetest`.userID=".$userID;
+          
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        
+        echo $json;
+    }
     
     
     

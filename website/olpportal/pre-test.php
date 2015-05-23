@@ -48,6 +48,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'SendAnswers',
+                                        testType :'Pre Test',
                                         questions : q_quesId,
                                         answers : JSON.stringify(q_answer)
                                     },
@@ -58,7 +59,7 @@
                                    });
                console.log("answers : "+result);
                
-               window.location.href='previous-test-results.php';
+            window.location.href='previous-test-results.php';
         }
          
             

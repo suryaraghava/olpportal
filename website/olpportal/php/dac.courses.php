@@ -30,3 +30,12 @@ else if($action=='viewCourseDetails')
     $json=$course->viewCourseFullDetails($courseID);
     echo $json;
 }
+
+else if($action=='CheckForTest')
+{
+  $userId=$_SESSION[constant("SESSION_USER_REGID")];
+  $courseId=$_GET["courseId"];
+  $course=new Courses();
+   $json=$course->checkforTestDone($userId, $courseId);
+    echo $json;    
+}

@@ -51,11 +51,11 @@
                                  content+=' </div>';
                                  content+='<div class="course-menu">';
                                  content+='<ul>';
-                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\' )">';
+                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'preTest\' )">';
                                  content+='Take a Pretest</span></li>';
-                                 content+='<li><a href="details.php" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\' )">Details</a></li>';
-                                 content+='<li><a href="#">Go to Module</a></li>';
-                                 content+='<li><a href="assessment.php">Go for Assessment</a></li>';
+                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Details\' )">Details</a></li>';
+                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Module\' )">Go to Module</a></li>';
+                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Assessment\' )">Go for Assessment</a></li>';
                                  content+='</ul>';
                                  content+='</div>';
                                  content+='</div>';
@@ -65,9 +65,53 @@
            document.getElementById("view-courses-list").innerHTML=content;
           
         }
-        function preTestforCourse(courseName, courseId)
+        function preTestforCourse(courseName, courseId, link)
         {
+            // Check for Tesr Taken Or Not 
+           // link='preTest';
+            var response;
+             $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'CheckForTest',
+                                        courseId:courseId
+                                    },
+                                    success: function(resp)
+                                    {
+                                          response=resp;
+                                    }
+                                   });
+            var res=JSON.parse(response);
+            var flag=false;
+            for(var ind=0;ind<res.length;ind++)
+            {
+                console.log(res[ind].testTaken);
+                if(res[ind].testTaken==='1')
+                {
+                    flag=true;
+                    
+                }
+            }
             
+            if(flag)
+            {
+                if(link==='preTest') {
+                  alert("Already your Pre-Test is Completed..!!!");
+                }
+                else if(link==='Details')
+                {
+                    window.location.href='details.php';
+                }
+                else if(link==='Module')
+                {
+                     window.location.href='#';
+                }
+                 else if(link==='Assessment')
+                {
+                     window.location.href='assessment.php';
+                }
+    } else {
              var result="";
                  $.ajax({type: "GET", 
                                     async: false,
@@ -82,7 +126,8 @@
                                           result=resp;
                                     }
                                    });
-           window.location.href='pre-test.php'; // Page Redirect    
+           window.location.href='pre-test.php'; // Page Redirect  
+            }
         }
         
         function checkpreTestCompletedOrNot()
