@@ -72,6 +72,18 @@ class Questions
     
     
     
+    function addTestResults($userId, $testId, $questionId, $result, $status)
+    {
+        $sql="INSERT INTO `testresults`( `userCourseTestID`, `questionID`, `result`, `userId`, `status`) ";
+        $sql.=" VALUES (".$testId.",".$questionId.",'".$result."',".$userId.",'".$status."')";
+        
+        $dbObj=new InteractDatabase();
+        $dbObj->addupdateData($sql);
+    }
+   
+    
+    
+    
 }
 
 
