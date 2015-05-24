@@ -211,7 +211,7 @@
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
                 <li><a href="manage-courses.php">Manage Courses</a></li>
-                <li><a href="visited-courses.php">Manage Online Tests</a></li>
+                <li><a href="manage-onlinetest.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
