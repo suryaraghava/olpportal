@@ -28,6 +28,47 @@
         }
     </style>
     <script type="text/javascript">
+        function adminGetCourseList()
+        {
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'courseListOnly',
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("courses : "+result);
+               var res=JSON.parse(result);
+               var content='<table class="table table-responsiv table-bordered">';
+                   content+='<thead>';
+                   content+='<tr>';
+                   content+='<th>S. No.</th>';
+                   content+='<th>Course Name</th>';
+                   content+='</tr>';
+                   content+='</thead>';
+                   content+='<tbody>';
+                  
+                  for(var index=0;index<res.length;index++)
+                  {
+                      content+='<tr>'
+                      content+='<td>'+(index+1)+'</td>';
+                      content+='<td>'+res[index].courseName+'</td>';
+                      content+='</tr>'
+                  }
+                  
+                   content+='</tbody>';
+                   content+='</table>';
+                   
+                   
+                   document.getElementById("leftMenuContainer1").innerHTML=content;
+        }
+        
+        
       function managecoursesload()
       {
           viewLeftMenu1();
@@ -37,6 +78,10 @@
       function viewLeftMenu1()
       {
           document.getElementById("leftMenuContainer1").style.display='block';
+          document.getElementById("leftMenuContainer2").style.display='none';
+          document.getElementById("leftMenuContainer3").style.display='none';
+          document.getElementById("leftMenuContainer4").style.display='none';
+          adminGetCourseList();
           $("#leftMenu-1").addClass("active");
           $("#leftMenu-2").removeClass("active");
           $("#leftMenu-3").removeClass("active");
@@ -44,7 +89,11 @@
       }
       function viewLeftMenu2()
       {
+          document.getElementById("leftMenuContainer1").style.display='none';
           document.getElementById("leftMenuContainer2").style.display='block';
+          document.getElementById("leftMenuContainer3").style.display='none';
+          document.getElementById("leftMenuContainer4").style.display='none';
+          
           $("#leftMenu-1").removeClass("active");
           $("#leftMenu-2").addClass("active");
           $("#leftMenu-3").removeClass("active");
@@ -52,7 +101,10 @@
       }
       function viewLeftMenu3()
       {
+          document.getElementById("leftMenuContainer1").style.display='none';
+          document.getElementById("leftMenuContainer2").style.display='none';
           document.getElementById("leftMenuContainer3").style.display='block';
+          document.getElementById("leftMenuContainer4").style.display='none';
           $("#leftMenu-1").removeClass("active");
           $("#leftMenu-2").removeClass("active");
           $("#leftMenu-3").addClass("active");
@@ -60,6 +112,9 @@
       }
       function viewLeftMenu4()
       {
+          document.getElementById("leftMenuContainer1").style.display='none';
+          document.getElementById("leftMenuContainer2").style.display='none';
+          document.getElementById("leftMenuContainer3").style.display='none';
           document.getElementById("leftMenuContainer4").style.display='block';
           $("#leftMenu-1").removeClass("active");
           $("#leftMenu-2").removeClass("active");
@@ -162,8 +217,8 @@
         
             
             <!-- viewLeftMenu1 : View Courses-->
-            <div id="leftMenuContainer1">
-                
+            <div id="leftMenuContainer1"  class="panel panel-default">
+               
             </div>
             
             <!-- viewLeftMenu2 : Add a Courses-->
@@ -215,7 +270,7 @@
       </ul>
    </div>
 </div>
-<footer><div class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
+<footer><div align="center" class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
 
 </div>
       
