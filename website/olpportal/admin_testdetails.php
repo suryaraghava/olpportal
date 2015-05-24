@@ -315,7 +315,7 @@
                    </div>
                
            </div>
-     <input type="submit"  id="submitButton" class="btn btn-default" value=" Submit " onclick="AddQuestionOnSubmit()" >	
+     <input type="submit"  id="submitButton" class="btn btn-default pull-right" value=" Submit " onclick="AddQuestionOnSubmit()" >	
 	<!--/form-->
     <br/>
       </div>

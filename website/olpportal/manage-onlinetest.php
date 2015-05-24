@@ -21,23 +21,13 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
-        #leftMenuContainer1, #leftMenuContainer2, 
-        #leftMenuContainer3, #leftMenuContainer4
+        #leftMenuContainer1, #leftMenuContainer2
         {
             display:none;
         }
-         #form-Div
-            {
-            margin-bottom: 3%;
-            }
-        #view-courseDetails
+        .questions-text, .text-muted
         {
-            display:none;
-        }
-        #course-container
-        {
-            width:100%;
-            height:800px;
+           margin-bottom:2%; 
         }
     </style>
     <script type="text/javascript">
@@ -67,13 +57,10 @@
       {
           document.getElementById("leftMenuContainer1").style.display='block';
           document.getElementById("leftMenuContainer2").style.display='none';
-          document.getElementById("leftMenuContainer3").style.display='none';
-          document.getElementById("leftMenuContainer4").style.display='none';
+          
           adminGetCourseList();
           $("#leftMenu-1").addClass("active");
           $("#leftMenu-2").removeClass("active");
-          $("#leftMenu-3").removeClass("active");
-          $("#leftMenu-4").removeClass("active");
       }
       
       function adminGetCourseList()
@@ -113,78 +100,29 @@
       {
           document.getElementById("leftMenuContainer1").style.display='none';
           document.getElementById("leftMenuContainer2").style.display='block';
-          document.getElementById("leftMenuContainer3").style.display='none';
-          document.getElementById("leftMenuContainer4").style.display='none';
+          
+          // Dynamic Mmenu
+          
+          var courseListing=document.getElementById("courseList");
+          var p_option = document.createElement("option");
+			 p_option.id = "";
+			p_option.text = "Select a Course";
+			p_option.value = "";
+			courseListing.add(p_option);
+            var res=coursesList;
+            for(var ind=0;ind<res.length;ind++)
+           {
+                var option = document.createElement("option");
+			option.id = res[ind].courseName;
+			option.text = res[ind].courseName;
+			option.value = res[ind].idCourses;
+			courseListing.add(option);
+               console.log("courseName : "+res[ind].courseName);
+           }
+            
           
           $("#leftMenu-1").removeClass("active");
           $("#leftMenu-2").addClass("active");
-          $("#leftMenu-3").removeClass("active");
-          $("#leftMenu-4").removeClass("active");
-      }
-      function viewLeftMenu3()
-      {
-          document.getElementById("leftMenuContainer1").style.display='none';
-          document.getElementById("leftMenuContainer2").style.display='none';
-          document.getElementById("leftMenuContainer3").style.display='block';
-          document.getElementById("leftMenuContainer4").style.display='none';
-          
-          // Dynamic Menu
-          
-          var courseListing=document.getElementById("view-courseName1");
-          var p_option = document.createElement("option");
-			 p_option.id = "";
-			p_option.text = "Select a Course";
-			p_option.value = "";
-			courseListing.add(p_option);
-            var res=coursesList;
-            for(var ind=0;ind<res.length;ind++)
-           {
-                var option = document.createElement("option");
-			option.id = res[ind].courseName;
-			option.text = res[ind].courseName;
-			option.value = res[ind].idCourses;
-			courseListing.add(option);
-               console.log("courseName : "+res[ind].courseName);
-           }
-            
-            
-          $("#leftMenu-1").removeClass("active");
-          $("#leftMenu-2").removeClass("active");
-          $("#leftMenu-3").addClass("active");
-          $("#leftMenu-4").removeClass("active");
-      }
-      function viewLeftMenu4()
-      {
-          document.getElementById("leftMenuContainer1").style.display='none';
-          document.getElementById("leftMenuContainer2").style.display='none';
-          document.getElementById("leftMenuContainer3").style.display='none';
-          document.getElementById("leftMenuContainer4").style.display='block';
-          
-           // Dynamic Menu
-          
-          var courseListing=document.getElementById("view-courseName2");
-          var p_option = document.createElement("option");
-			 p_option.id = "";
-			p_option.text = "Select a Course";
-			p_option.value = "";
-			courseListing.add(p_option);
-            var res=coursesList;
-            for(var ind=0;ind<res.length;ind++)
-           {
-                var option = document.createElement("option");
-			option.id = res[ind].courseName;
-			option.text = res[ind].courseName;
-			option.value = res[ind].idCourses;
-			courseListing.add(option);
-               console.log("courseName : "+res[ind].courseName);
-           }
-            
-          
-          
-          $("#leftMenu-1").removeClass("active");
-          $("#leftMenu-2").removeClass("active");
-          $("#leftMenu-3").removeClass("active");
-          $("#leftMenu-4").addClass("active");
       }
       
       
@@ -294,7 +232,7 @@
 <br/>
 <div class="container">
 <div class="col-xs-12">
-<h3 class="featurette-heading">MANAGE COURSES</h3>
+<h3 class="featurette-heading">MANAGE ONLINE TEST</h3>
       <hr class="featurette-divider">
 </div>
 </div>
@@ -316,10 +254,8 @@
     <div id="course-container" class="col-xs-12">
         <div class="col-xs-3">
         <ul class="nav nav-pills nav-stacked">
-        <li id="leftMenu-1"><a href="#" onclick="viewLeftMenu1()">View Courses</a></li>
-        <li id="leftMenu-2"><a href="#" onclick="viewLeftMenu2()">Add a Course</a></li>
-        <li id="leftMenu-3"><a href="#" onclick="viewLeftMenu3()">View Course Details</a></li>
-        <li id="leftMenu-4"><a href="#" onclick="viewLeftMenu4()">Add Course Details</a></li>
+        <li id="leftMenu-1"><a href="#" onclick="viewLeftMenu1()">View Exam Questions</a></li>
+        <li id="leftMenu-2"><a href="#" onclick="viewLeftMenu2()">Add Exam Questions</a></li>
        </ul>
         </div>
         
@@ -335,139 +271,87 @@
             <div class="col-xs-12" id="leftMenuContainer2">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h4><B>Add a Course</B></h4><hr/>
+                        <h4><B>Add Examination Questions</B></h4><hr/>
                     </div>
                 </div>
                 <div id="form-Div" class="row" style="">
-                    <div class="col-xs-12">
-                       CourseName:
+                   <div class="col-xs-12">
+ 
+          <div class="questions-text">
+              <span class="text-muted">Course:</span>
+              <select id="courseList" class="form-control"></select>
+          </div>
+          <div class="questions-text">
+              <span class="text-muted">Test Type:</span>
+                   <div class="checkbox">
+                         <label>
+                             <input type="checkbox" name="quiz" id="C_PreTest" value="Pre Test">
+                             Pre-Test
+                         </label>
+                   </div>
+                   <div class="checkbox">
+                         <label>
+                             <input type="checkbox" name="quiz" id="C_PostTest" value="Post Test">
+                             Post-Test
+                         </label>
+                   </div>
+           </div>
+            <div class="questions-count">
+                <span class="text-muted">Question:</span>
+            </div>
+            <div class="questions-text">
+                <input type="text" class="form-control" id="AddQuestion" placeholder="Add a Question"/>
+            </div>
+   
+            
+            <!--form role="form" name="quizform" action="quiztest.asp?qtest=HTML" method="post"-->
+                <div id="qtest-option" class="multiple-choice">
+                   <div class="radio">
+                         <label>
+                             <input type="radio" id="C_Option1" name="quiz"  value="1">
+                             <input type="text" id="T_Option1" class="form-control" placeholder="Option-1"/>
+                         </label>
+                   </div>
+                   <div class="radio">
+                        <label>
+                            <input type="radio" id="C_Option2"  name="quiz"  value="1">
+                            <input type="text" id="T_Option2" class="form-control" placeholder="Option-2"/>
+                        </label>
+                    </div> 
+                    <div class="radio">
+                         <label>
+                             <input type="radio" id="C_Option3" name="quiz"  value="1">
+                             <input type="text" id="T_Option3" class="form-control" placeholder="Option-3"/>
+                         </label>
                     </div>
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" placeholder="Example: Natural Resources Management"/>
-                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="C_Option4" name="quiz"  value="1">
+                            <input type="text" id="T_Option4" class="form-control" placeholder="Option-4"/>
+                        </label>
+                    </div> 
                 </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                       Course Number:
-                    </div>
-                    <div class="col-xs-12">
-                        <input type="text" class="form-control" placeholder="Example: 0514"/>
-                    </div>
+	<br>
+        <div class="questions-text">
+              
+                   <div class="checkbox">
+                         <label>
+                             <input type="checkbox" name="quiz" id="activeQuestion" value="1">
+                             <span class="text-muted">Active Question</span>
+                         </label>
+                   </div>
+               
+           </div>
+     <button class="btn btn-default pull-right" onclick="AddQuestionOnSubmit()"> Submit  </button>	
+	<!--/form-->
+    <br/>
+     
+   </div>
                 </div>
-                
-                <div id="form-Div" class="row">
-                    
-                    <div class="col-xs-12">
-                        <button class="btn btn-default pull-right">Add Course</button>
-                    </div>
-                </div>
+               
             </div>
            
             
-            <!-- viewLeftMenu3 : View Course Details-->
-            <div class="col-xs-12"  id="leftMenuContainer3">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h4><B>View Course Details</B></h4><hr/>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                       Course Name:
-                    </div>
-                    <div class="col-xs-12">
-                        <select id="view-courseName1" class="form-control" onchange="javascript:viewCourseDetails()"></select>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div id="view-courseDetails" class="panel panel-default">
-                        
-                    </div>
-                </div>
-            </div>
-            
-            <!-- viewLeftMenu4 : Add Course Details-->
-            <div id="leftMenuContainer4" class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h4><B>Add Course Details</B></h4><hr/>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                       Course Name:
-                    </div>
-                    <div class="col-xs-12">
-                        <select id="view-courseName2" class="form-control"></select>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                       Title Name:
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control" placeholder="Example : WaterShed"/>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Videolink (English Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Videolink (Hindi Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
-                    </div>
-                </div>
-                <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Videolink (Telugu Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
-                    </div>
-                </div>
-                 <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Booklink (English Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
-                    </div>
-                </div>
-                
-                 <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Booklink (Hindi Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
-                    </div>
-                </div>
-                
-                 <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Booklink (Telugu Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
-                    </div>
-                </div>
-                
-                 <div id="form-Div" class="row">
-                    
-                    <div class="col-xs-12">
-                        <button class="btn btn-default pull-right">Add Course Details</button>
-                    </div>
-                </div>
-                
-            </div>
             
         </div>
     </div>
