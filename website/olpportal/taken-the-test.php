@@ -41,9 +41,17 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li><a href="admin.php">Home</a></li>
-            <li><a href="user-details.php">User Detailss</a></li>
-            <li><a href="user-history.php">User History</a></li>
+                <li class="active"><a href="user-landing.php">Home</a></li>
+                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <?php } ?>
+                <li><a href="previous-test-results.php">Previous Test Results</a></li>
+                <li><a href="visited-courses.php">Visit Courses</a></li>
+
+                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
+                <li><a href="visited-courses.php">Manage Courses</a></li>
+                <li><a href="visited-courses.php">Manage Online Tests</a></li>
+                <?php } ?>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
          <li class="user-info">Welcome  <span class="user-name">Admin</span></li>
