@@ -202,8 +202,15 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li ><a style="color:#FFF" href="user-landing.php">Home</a></li>
-            <li class="active"><a href="user-landing.php">Courses</a></li>
+             <li class="active"><a href="user-landing.php">Home</a></li>
+            <li><a href="previous-test-results.php">Previous Test Results</a></li>
+            <li><a href="visited-courses.php">Visit Courses</a></li>
+            
+            <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
+            <li><a href="visited-courses.php">Manage Courses</a></li>
+            <li><a href="visited-courses.php">Manage Online Tests</a></li>
+            <?php } ?>
+            
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
                      <li class="user-info">Welcome  

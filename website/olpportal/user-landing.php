@@ -173,7 +173,12 @@
          <ul class="nav navbar-nav">
             <li class="active"><a href="user-landing.php">Home</a></li>
             <li><a href="previous-test-results.php">Previous Test Results</a></li>
-            <li><a href="visited-courses.php">Visited Courses</a></li>
+            <li><a href="visited-courses.php">Visit Courses</a></li>
+            
+          <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
+            <li><a href="visited-courses.php">Manage Courses</a></li>
+            <li><a href="visited-courses.php">Manage Online Tests</a></li>
+          <?php } ?>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
              <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
