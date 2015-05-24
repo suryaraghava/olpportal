@@ -81,3 +81,27 @@ else if($action=='updateRegistration')
      $emailMsg=$emsg->signupGreeting($username, $d_pwd);
      mail($emailID,"Signup Process",$emailMsg);
 }
+else if($action=='getUserDetails')
+{
+  $data="{\"data\": [";
+  
+    $acc=new UserAccounts();
+    $json=$acc->adminGetUserDetails();
+  
+    //echo $json;
+    $dejson=json_decode($json);
+   
+    for($ind=0;$ind<count($dejson);$ind++)
+    {
+        $data.="[";       
+        $data.="\"".$dejson[$ind]->{'firstName'}." ".$dejson[$ind]->{'lastName'}."\",";
+        $data.="\"".$dejson[$ind]->{'designation'}."\",";
+        $data.="\"".$dejson[$ind]->{'staffID'}."\",";
+        $data.="\"".$dejson[$ind]->{'mobile'}."\",";
+        $data.="\"".$dejson[$ind]->{'state'}."\"";
+        $data.="],";
+    }
+    $data=chop($data, ",");
+    $data.="]}";
+    echo $data;
+}

@@ -1,7 +1,6 @@
+
 <?php session_start();
  require 'php/define.php';
- if(isset($_SESSION[constant("SESSION_USER_USERNAME")]) && $_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator')
- {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +20,55 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        #leftMenuContainer1, #leftMenuContainer2, 
+        #leftMenuContainer3, #leftMenuContainer4
+        {
+            display:none;
+        }
+    </style>
+    <script type="text/javascript">
+      function managecoursesload()
+      {
+          viewLeftMenu1();
+          
+      }
+      
+      function viewLeftMenu1()
+      {
+          document.getElementById("leftMenuContainer1").style.display='block';
+          $("#leftMenu-1").addClass("active");
+          $("#leftMenu-2").removeClass("active");
+          $("#leftMenu-3").removeClass("active");
+          $("#leftMenu-4").removeClass("active");
+      }
+      function viewLeftMenu2()
+      {
+          document.getElementById("leftMenuContainer2").style.display='block';
+          $("#leftMenu-1").removeClass("active");
+          $("#leftMenu-2").addClass("active");
+          $("#leftMenu-3").removeClass("active");
+          $("#leftMenu-4").removeClass("active");
+      }
+      function viewLeftMenu3()
+      {
+          document.getElementById("leftMenuContainer3").style.display='block';
+          $("#leftMenu-1").removeClass("active");
+          $("#leftMenu-2").removeClass("active");
+          $("#leftMenu-3").addClass("active");
+          $("#leftMenu-4").removeClass("active");
+      }
+      function viewLeftMenu4()
+      {
+          document.getElementById("leftMenuContainer4").style.display='block';
+          $("#leftMenu-1").removeClass("active");
+          $("#leftMenu-2").removeClass("active");
+          $("#leftMenu-3").removeClass("active");
+          $("#leftMenu-4").addClass("active");
+      }
+    </script>
   </head>
-<body>
+  <body onload="managecoursesload()">
 <div class="container page-wrapper">
 
 <!--   ----------------------  Start  Header Content -----------------------    -->
@@ -44,7 +90,7 @@
             <span class="icon-bar"></span>
          </button>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
+  <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
                 <li class="active"><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
@@ -54,16 +100,21 @@
                 <li><a href="visited-courses.php">Visit Courses</a></li>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="visited-courses.php">Manage Courses</a></li>
+                <li><a href="manage-courses.php">Manage Courses</a></li>
                 <li><a href="visited-courses.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
-         <li class="user-info">Welcome  <span class="user-name">Admin</span></li>
-         <li><a href="#">Logout</a></li>
+             <li class="user-info">Welcome  
+                 <span class="user-name">
+                     <?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) 
+                         echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?>
+                 </span>
+             </li>
+         <li><a href="php/logout.php">Logout</a></li>
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-               <li><a href="#">Profile</a></li>
+               <li><a href="user-details.php">Profile</a></li>
             </ul>
             </li>
          </ul>
@@ -78,23 +129,62 @@
 <br/>
 <div class="container">
 <div class="col-xs-12">
-<h3 class="featurette-heading">COURSES</h3>
+<h3 class="featurette-heading">MANAGE COURSES</h3>
       <hr class="featurette-divider">
 </div>
 </div>
 <div class="container">
 <div class="col-xs-12">
-<p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
-<br/>
+
 <p>
-     "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"
+    "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood 
+    security of people in rural areas by guaranteeing hundred days of wage employment in a financial
+    year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc.
+    All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing
+    the livelihood security of people in rural areas by guaranteeing hundred days of wage employment
+    in a financial year to a rural household whose adult members volunteer to do unskilled manual 
+    work"
 </p>
 <br/>
-<br/>
-<br/>
-<br/>
 </div>
+   
+    <div class="col-xs-12">
+        <div class="col-xs-3">
+        <ul class="nav nav-pills nav-stacked">
+        <li id="leftMenu-1"><a href="#" onclick="viewLeftMenu1()">View Courses</a></li>
+        <li id="leftMenu-2"><a href="#" onclick="viewLeftMenu2()">Add a Course</a></li>
+        <li id="leftMenu-3"><a href="#" onclick="viewLeftMenu3()">View Course Details</a></li>
+        <li id="leftMenu-4"><a href="#" onclick="viewLeftMenu4()">Add Course Details</a></li>
+       </ul>
+        </div>
+        
+        <div class="col-xs-8">
+        
+            
+            <!-- viewLeftMenu1 : View Courses-->
+            <div id="leftMenuContainer1">
+                
+            </div>
+            
+            <!-- viewLeftMenu2 : Add a Courses-->
+            <div id="leftMenuContainer2">
+                
+            </div>
+            
+            <!-- viewLeftMenu3 : View Course Details-->
+            <div id="leftMenuContainer3">
+                
+            </div>
+            
+            <!-- viewLeftMenu4 : Add Course Details-->
+            <div id="leftMenuContainer4">
+                
+            </div>
+            
+        </div>
+    </div>
 </div>
+
 <!--   ---------------------- Start Details Page video Content -----------------------    -->
 
 
@@ -107,11 +197,11 @@
        <hr class="featurette-divider footerdivider">
        <div class="col-xs-12 col-md-7">
        <ul class="nav navbar-nav footer-menu">
-          <li class="active"><a href="index.php">Home</a></li>
+          <li class="active"><a href="user-landing.php">Home</a></li>
           <li>|</li>
-          <li class="active"><a href="index.php">Login</a></li>
+          <li class="active"><a href="user-landing.php">Courses</a></li>
           <li>|</li>
-          <li class="active"><a href="#">Sign Up</a></li>
+          <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
        <div class="col-xs-12 col-md-5">
@@ -125,10 +215,11 @@
       </ul>
    </div>
 </div>
-
-<footer><div align="center" class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
+<footer><div class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
 
 </div>
+      
+      
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -137,4 +228,3 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
-<?php } else {     header("location:index.php"); } ?>

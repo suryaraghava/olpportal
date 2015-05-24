@@ -13,16 +13,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <link rel="icon" href="">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <link href="css/jquery.dataTables.css"/>
+   
+    <script src="js/jquery.dataTables.min.js"></script>
+    
     <title>::Samarthya::Online Learning Portal for Technical Staff under MGNREGA</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        thead{
+            background-color: #0075b0;
+            color:#fff;
+        }
+    </style>
+    <script>
+        //function getuserDetailsByAdmin()
+      //  {
+      $(document).ready(function () {
+          
+        $('input[type="search"]').addClass('form-control');
+          
+          
+          
+          
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        action : 'getUserDetails'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("answers : "+result);
+               
+               var  table=$('#adminviewuserdetails').dataTable( {
+			 "ajax":'php/dac.useraccounts.php?action=getUserDetails',
+			 "scrollY": "400px",
+			 "columns": [{ "title": "FULL NAME" , "class": "center"},
+				     { "title": "DESIGNATION" , "class": "center"},
+			             { "title": "STAFF-ID", "type" : "string", "class": "center" },
+				     { "title": "MOBILE NUMBER", "type" : "string", "class": "center" },
+                                     { "title": "STATE", "type" : "string", "class": "center" }]
+				 } );
+         
+        });
+    </script>
   </head>
 <body>
 
@@ -48,20 +96,22 @@
       </div>
   <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-                <li class="active"><a href="user-landing.php">Home</a></li>
+                <li><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="dashboard.php">Dashboard</a></li>
+                <li class="active"><a href="dashboard.php">Dashboard</a></li>
                 <?php } ?>
                 <li><a href="previous-test-results.php">Previous Test Results</a></li>
                 <li><a href="visited-courses.php">Visit Courses</a></li>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="visited-courses.php">Manage Courses</a></li>
+                <li><a href="manage-courses.php">Manage Courses</a></li>
                 <li><a href="visited-courses.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
-             <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
+             <li class="user-info">Welcome  <span class="user-name">
+                 <?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?>
+                 </span></li>
          <li><a href="php/logout.php">Logout</a></li>
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -78,6 +128,12 @@
 
 <!--   ---------------------- Start Home Page About Content -----------------------    -->
 <br/>
+<div class="col-xs-12">
+    <a href="dashboard.php"> 
+        <button class="btn btn-default pull-right">Back to Dashboard</button>
+    </a>
+</div>
+<br/>
 <div class="container">
 <div class="col-xs-12">
 <h3 class="featurette-heading">USER DETAILS</h3>
@@ -86,9 +142,9 @@
 </div>
 <div class="container">
 <div class="col-xs-12">
-<div class="panel panel-default">
-<table class="table table-responsiv table-bordered">
-<thead>
+<!--div  class="panel panel-default"-->
+<table id="adminviewuserdetails" class="table table-responsiv table-bordered">
+<!--thead>
 <tr>
 <th>Full Name</th>
 <th>Education Qualification</th>
@@ -117,10 +173,10 @@
 <td>OC</td>
 <td>Male</td>
 <td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td></tr>
-</tbody>
+</tbody-->
 </table>
-</div>
-<button class="btn btn-default pull-right">Download Data</button>
+<!--/div-->
+<!--button class="btn btn-default pull-right">Download Data</button-->
 <br/>
 <br/>
 <br/>
@@ -172,7 +228,7 @@
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

@@ -48,15 +48,15 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-                <li class="active"><a href="user-landing.php">Home</a></li>
+                <li><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="dashboard.php">Dashboard</a></li>
+                <li  class="active"><a href="dashboard.php">Dashboard</a></li>
                 <?php } ?>
                 <li><a href="previous-test-results.php">Previous Test Results</a></li>
                 <li><a href="visited-courses.php">Visit Courses</a></li>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="visited-courses.php">Manage Courses</a></li>
+                <li><a href="manage-courses.php">Manage Courses</a></li>
                 <li><a href="visited-courses.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>
@@ -77,6 +77,12 @@
 
 
 <!--   ---------------------- Start Home Page About Content -----------------------    -->
+<br/>
+<div class="col-xs-12">
+    <a href="dashboard.php"> 
+        <button class="btn btn-default pull-right">Back to Dashboard</button>
+    </a>
+</div>
 <br/>
 <div class="container">
 <div class="col-xs-12">

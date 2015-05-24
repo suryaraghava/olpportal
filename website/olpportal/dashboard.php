@@ -1,3 +1,8 @@
+<?php session_start();
+ require 'php/define.php';
+ if(isset($_SESSION[constant("SESSION_USER_USERNAME")]) && $_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator')
+ {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +21,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+       #user-panel
+       {
+           cursor: pointer;
+       }
+    </style>
   </head>
 <body>
 <div class="container page-wrapper">
@@ -41,9 +52,9 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-                <li class="active"><a href="user-landing.php">Home</a></li>
+                <li ><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="dashboard.php">Dashboard</a></li>
+                <li class="active"><a href="dashboard.php">Dashboard</a></li>
                 <?php } ?>
                 <li><a href="previous-test-results.php">Previous Test Results</a></li>
                 <li><a href="visited-courses.php">Visit Courses</a></li>
@@ -54,7 +65,11 @@
                 <?php } ?>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
-         <li class="user-info">Welcome  <span class="user-name">Admin</span></li>
+         <li class="user-info">Welcome  
+             <span class="user-name">
+                 <?php echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?>
+             </span>
+         </li>
          <li><a href="#">Logout</a></li>
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -73,54 +88,40 @@
 <br/>
 <div class="container">
 <div class="col-xs-12">
-<h3 class="featurette-heading">VALIDATE CERTIFICATES</h3>
+<h3 class="featurette-heading">ADMIN DASHBOARD</h3>
       <hr class="featurette-divider">
 </div>
 </div>
 <div class="container">
 <div class="col-xs-12">
-<div class="panel panel-default">
-<table class="table table-responsiv table-bordered">
-<thead>
-<tr>
-<th>User ID</th>
-<th>Course Name</th>
-<th>Course</th>
-<th>Type of Test</th>
-<th>Marks</th>
-<th>Validate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>002</td>
-<td>Farm Pond</td>
-<td>Farm Pond</td>
-<td>Post Test</td>
-<td>60</td>
-<td>Yes</td>
-</tr>
-<tr class="info">
-<td>001</td>
-<td>Deep Ploughing</td>
-<td>Deep Ploughing</td>
-<td>Post Test</td>
-<td>70</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>003</td>
-<td>Deep Ploughing</td>
-<td>Deep Ploughing</td>
-<td>Pre Test</td>
-<td>65</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-</div>
 <p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
 <br/>
+<p>
+     "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"
+</p>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div id="user-panel" align="center" class="col-xs-12 col-xs-6 col-md-3" onclick="javascript:window.location.href='user-details.php'"> 
+      <div class="course-box">   
+        <div class="course-header"><h5 class="course-title">User Details</h5></div>
+        <div align="center" class="course-img"><img src="images/courses/course-1.jpg" />
+        </div>
+        <div class="course-footer"><a href="#"><img src="images/course-arrow.png" class="pull-right" /></a></div>
+    </div>
+ </div>
+
+<div id="user-panel" align="center" class="col-xs-12 col-xs-6 col-md-3" onclick="javascript:window.location.href='user-history.php'"> 
+    <div class="course-box">   
+        <div class="course-header"><h5 class="course-title">User History</h5></div>
+        <div align="center" class="course-img"><img src="images/courses/course-1.jpg" />
+        </div>
+        <div class="course-footer"><a href="#"><img src="images/course-arrow.png" class="pull-right" /></a></div>
+    </div>
+    
+ </div>
 </div>
 </div>
 <!--   ---------------------- Start Details Page video Content -----------------------    -->
@@ -137,13 +138,9 @@
        <ul class="nav navbar-nav footer-menu">
           <li class="active"><a href="index.php">Home</a></li>
           <li>|</li>
-          <li class="active"><a href="courses.php">Courses</a></li>
-          <li>|</li>
           <li class="active"><a href="index.php">Login</a></li>
           <li>|</li>
           <li class="active"><a href="#">Sign Up</a></li>
-          <li>|</li>
-          <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
        <div class="col-xs-12 col-md-5">
@@ -157,10 +154,10 @@
       </ul>
    </div>
 </div>
-<footer><div class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
+
+<footer><div align="center" class="container">&copy; 2015 Copyright | ONLINE COURSES.</div></footer>
 
 </div>
-
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -169,3 +166,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } else {     header("location:index.php"); } ?>
