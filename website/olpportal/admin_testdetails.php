@@ -64,9 +64,9 @@
            for(var ind=0;ind<res.length;ind++)
            {
                 var option = document.createElement("option");
-			option.id = res[ind].idCourses;
+			option.id = res[ind].courseName;
 			option.text = res[ind].courseName;
-			option.value = res[ind].idCourses;
+			option.value = res[ind].courseName;
 			courseList.add(option);
                console.log("courseName : "+res[ind].courseName);
            }
@@ -81,52 +81,100 @@
             var c_preTest=document.getElementById("C_PreTest");
             var c_postTest=document.getElementById("C_PostTest");
             
-            var addQuestion=document.getElementById("AddQuestion").value;
-            var t_option1=document.getElementById("T_Option1").value;
-            var t_option2=document.getElementById("T_Option2").value;
-            var t_option3=document.getElementById("T_Option3").value;
-            var t_option4=document.getElementById("T_Option4").value;
+            var addQuestion=document.getElementById("AddQuestion");
+            var t_option1=document.getElementById("T_Option1");
+            var t_option2=document.getElementById("T_Option2");
+            var t_option3=document.getElementById("T_Option3");
+            var t_option4=document.getElementById("T_Option4");
             
             var c_option1=document.getElementById("C_Option1");
             var c_option2=document.getElementById("C_Option2");
             var c_option3=document.getElementById("C_Option3");
             var c_option4=document.getElementById("C_Option4");
             
+            var act=document.getElementById("activeQuestion");
+            var active='0';
+            
+            if(act.checked)
+            {
+                active='1';
+            }
             
             if(c_preTest.checked)
             {
-               test.push(c_preTest); 
+               test.push(c_preTest.value); 
             }
             if(c_postTest.checked)
             {
-               test.push(c_postTest); 
+               test.push(c_postTest.value); 
             }
             
             if(c_option1.checked)
             {
-               answer=t_option1;
+               answer=t_option1.value;
             }
             if(c_option2.checked)
             {
-               answer=t_option2;
+               answer=t_option2.value;
             }
              if(c_option3.checked)
             {
-               answer=t_option3;
+               answer=t_option3.value;
             }
              if(c_option4.checked)
             {
-               answer=t_option4;
+               answer=t_option4.value;
             }
             
             console.log("courseList : "+courseList);
             console.log("test : "+test);
-            console.log("addQuestion : "+addQuestion); 
-            console.log("t_option1 : "+t_option1);
-            console.log("t_option2 : "+t_option2);
-            console.log("t_option3 : "+t_option3);
-            console.log("t_option4 : "+t_option4);
+            console.log("addQuestion : "+addQuestion.value); 
+            console.log("t_option1 : "+t_option1.value);
+            console.log("t_option2 : "+t_option2.value);
+            console.log("t_option3 : "+t_option3.value);
+            console.log("t_option4 : "+t_option4.value);
             console.log("answer : "+answer);
+            
+            // AdminAddQuestions
+            
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'AdminAddQuestions',
+                                        courseList : courseList,
+                                        testList:test,
+                                        addQuestion : addQuestion.value,
+                                        t_option1:t_option1.value,
+                                        t_option2 : t_option2.value,
+                                        t_option3 : t_option3.value,
+                                        t_option4 : t_option4.value,
+                                        answer : answer,
+                                        active : active
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("Data : "+result);
+            
+            // Clear Fields
+             c_preTest.checked=false;
+             c_postTest.checked=false;
+            
+             addQuestion.value='';
+             t_option1.value='';
+             t_option2.value='';
+             t_option3.value='';
+             t_option4.value='';
+            
+             c_option1.checked=false;
+             c_option2.checked=false;
+             c_option3.checked=false;
+             c_option4.checked=false;
+            
         }
     </script>
   </head>
@@ -248,6 +296,16 @@
                     </div> 
                 </div>
 	<br>
+        <div class="questions-text">
+              
+                   <div class="checkbox">
+                         <label>
+                             <input type="checkbox" name="quiz" id="activeQuestion" value="1">
+                             <span class="text-muted">Active Question</span>
+                         </label>
+                   </div>
+               
+           </div>
      <input type="submit"  id="submitButton" class="btn btn-default" value=" Submit " onclick="AddQuestionOnSubmit()" >	
 	<!--/form-->
     <br/>

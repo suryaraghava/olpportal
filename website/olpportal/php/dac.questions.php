@@ -112,3 +112,46 @@ if($action=='viewTestResults')
     $json=$q->getTestResults($userId);
     echo $json;
 }
+
+if($action=='AdminAddQuestions')
+{
+   $courseList=$_GET["courseList"];
+   $testList=$_GET["testList"];
+   $addQuestion=$_GET["addQuestion"];
+   $t_option1=$_GET["t_option1"];
+   $t_option2=$_GET["t_option2"]; 
+   $t_option3=$_GET["t_option3"];
+   $t_option4=$_GET["t_option4"];
+   $answer=$_GET["answer"];
+   $active=$_GET["active"];
+   
+   for($ind=0;$ind<count($testList);$ind++)
+   {
+       $id;
+        $test=$testList[$ind];
+       // Get TestID from TestDetails Table
+        $q=new Questions();
+       $json=$q->getIdTestDetails($courseList, $test);
+       
+         $jsonIterator = new RecursiveIteratorIterator(
+            new RecursiveArrayIterator(json_decode($json, TRUE)),
+            RecursiveIteratorIterator::SELF_FIRST);
+
+            foreach ($jsonIterator as $key => $val) {
+            if(!is_array($val)) {
+                if($key=='idTestDetails')
+                {
+                    $id=$val;
+                }
+ 
+            }
+        }
+       
+       
+       // Add Question in testquestion Table
+       $q->addQuestions($id, $addQuestion, $t_option1, $t_option2, $t_option3, $t_option4, $answer, $active);
+   }
+   
+   
+}    
+    

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2015 at 11:26 AM
+-- Generation Time: May 24, 2015 at 08:27 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `olpportal`
 --
-CREATE DATABASE IF NOT EXISTS `olpportal` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `olpportal`;
 
 -- --------------------------------------------------------
 
@@ -28,14 +26,26 @@ USE `olpportal`;
 -- Table structure for table `courselinks`
 --
 
-DROP TABLE IF EXISTS `courselinks`;
 CREATE TABLE IF NOT EXISTS `courselinks` (
   `idCourseLinks` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) NOT NULL,
   `courseID` int(11) DEFAULT NULL,
-  `courseVideoLink` varchar(45) DEFAULT NULL,
-  `coursePDFLink` varchar(45) DEFAULT NULL,
+  `courseEngVideoLink` varchar(250) DEFAULT NULL,
+  `courseEngPDFLink` varchar(250) DEFAULT NULL,
+  `courseHindiVideoLink` varchar(250) NOT NULL,
+  `courseHindiPDFLink` varchar(250) NOT NULL,
+  `courseTeluguVideoLink` varchar(250) NOT NULL,
+  `courseTeluguPDFLink` varchar(250) NOT NULL,
   PRIMARY KEY (`idCourseLinks`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `courselinks`
+--
+
+INSERT INTO `courselinks` (`idCourseLinks`, `title`, `courseID`, `courseEngVideoLink`, `courseEngPDFLink`, `courseHindiVideoLink`, `courseHindiPDFLink`, `courseTeluguVideoLink`, `courseTeluguPDFLink`) VALUES
+(1, 'Water Shed', 1, 'https://youtu.be/QOrVotzBNto', 'https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058', 'https://youtu.be/QOrVotzBNto', 'https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058', 'https://youtu.be/QOrVotzBNto', 'https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058'),
+(2, 'Water Irrigation', 1, 'https://youtu.be/QOrVotzBNto', 'https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058', 'https://youtu.be/QOrVotzBNto', 'https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058', 'https://youtu.be/QOrVotzBNto', 'https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058');
 
 -- --------------------------------------------------------
 
@@ -43,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `courselinks` (
 -- Table structure for table `courses`
 --
 
-DROP TABLE IF EXISTS `courses`;
 CREATE TABLE IF NOT EXISTS `courses` (
   `idCourses` int(11) NOT NULL AUTO_INCREMENT,
   `courseName` varchar(45) DEFAULT NULL,
@@ -69,7 +78,6 @@ INSERT INTO `courses` (`idCourses`, `courseName`, `courseNumber`, `courseImage`)
 -- Table structure for table `courseuserview`
 --
 
-DROP TABLE IF EXISTS `courseuserview`;
 CREATE TABLE IF NOT EXISTS `courseuserview` (
   `idCourseUserView` int(11) NOT NULL AUTO_INCREMENT,
   `courseLinksID` int(11) DEFAULT NULL,
@@ -85,7 +93,6 @@ CREATE TABLE IF NOT EXISTS `courseuserview` (
 -- Table structure for table `testdetails`
 --
 
-DROP TABLE IF EXISTS `testdetails`;
 CREATE TABLE IF NOT EXISTS `testdetails` (
   `idTestDetails` int(11) NOT NULL AUTO_INCREMENT,
   `testName` varchar(45) DEFAULT NULL,
@@ -93,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `testdetails` (
   `testTime` varchar(10) NOT NULL,
   `totalquestions` int(11) NOT NULL,
   `totalmarks` int(11) NOT NULL,
+  `passMarks` int(11) NOT NULL,
   PRIMARY KEY (`idTestDetails`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
@@ -100,12 +108,12 @@ CREATE TABLE IF NOT EXISTS `testdetails` (
 -- Dumping data for table `testdetails`
 --
 
-INSERT INTO `testdetails` (`idTestDetails`, `testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`) VALUES
-(1, 'Natural Resources Management', 'Pre Test', '00:10:59', 5, 20),
-(2, 'Community/Individual Assets', 'Pre Test', '00:10:00', 5, 20),
-(3, 'Common Infrastructure', 'Pre Test', '00:10:00', 5, 20),
-(4, 'Rural Infrastructure', 'Pre Test', '00:10:00', 5, 20),
-(5, 'Ttest', 'Pre Test', '00:10:00', 5, 20);
+INSERT INTO `testdetails` (`idTestDetails`, `testName`, `testType`, `testTime`, `totalquestions`, `totalmarks`, `passMarks`) VALUES
+(1, 'Natural Resources Management', 'Pre Test', '00:10:59', 5, 20, 10),
+(2, 'Community/Individual Assets', 'Pre Test', '00:10:00', 5, 20, 0),
+(3, 'Common Infrastructure', 'Pre Test', '00:10:00', 5, 20, 0),
+(4, 'Rural Infrastructure', 'Pre Test', '00:10:00', 5, 20, 0),
+(5, 'Ttest', 'Pre Test', '00:10:00', 5, 20, 0);
 
 -- --------------------------------------------------------
 
@@ -113,7 +121,6 @@ INSERT INTO `testdetails` (`idTestDetails`, `testName`, `testType`, `testTime`, 
 -- Table structure for table `testquestions`
 --
 
-DROP TABLE IF EXISTS `testquestions`;
 CREATE TABLE IF NOT EXISTS `testquestions` (
   `idTestQuestions` int(11) NOT NULL AUTO_INCREMENT,
   `idTestDetails` int(11) NOT NULL,
@@ -125,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `testquestions` (
   `answer` varchar(45) DEFAULT NULL,
   `active` bit(1) DEFAULT NULL,
   PRIMARY KEY (`idTestQuestions`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `testquestions`
@@ -133,7 +140,8 @@ CREATE TABLE IF NOT EXISTS `testquestions` (
 
 INSERT INTO `testquestions` (`idTestQuestions`, `idTestDetails`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `active`) VALUES
 (1, 1, 'Which is the Smallest Mammal in the World?', 'Fish', 'Elephant', 'Ant', 'Spider', 'Fish', b'1'),
-(2, 1, 'Which is known as Black Continent?', 'Asia', 'Africa', 'Europe', 'Australia', 'Africa', b'1');
+(2, 1, 'Which is known as Black Continent?', 'Asia', 'Africa', 'Europe', 'Australia', 'Africa', b'1'),
+(3, 1, 'Which is know as "Cradle of Civilization"?', 'India', 'Pakistan', 'Italy', 'Japan', 'India', b'1');
 
 -- --------------------------------------------------------
 
@@ -141,14 +149,57 @@ INSERT INTO `testquestions` (`idTestQuestions`, `idTestDetails`, `question`, `op
 -- Table structure for table `testresults`
 --
 
-DROP TABLE IF EXISTS `testresults`;
 CREATE TABLE IF NOT EXISTS `testresults` (
   `idTestResults` int(11) NOT NULL AUTO_INCREMENT,
   `userCourseTestID` int(11) DEFAULT NULL,
   `questionID` int(11) DEFAULT NULL,
   `result` varchar(45) DEFAULT NULL,
+  `userId` int(11) NOT NULL,
+  `status` varchar(5) NOT NULL,
   PRIMARY KEY (`idTestResults`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+
+--
+-- Dumping data for table `testresults`
+--
+
+INSERT INTO `testresults` (`idTestResults`, `userCourseTestID`, `questionID`, `result`, `userId`, `status`) VALUES
+(4, 1, 3, 'India', 1, 'P'),
+(5, 1, 1, 'Ant', 1, 'F'),
+(6, 1, 2, 'Asia', 1, 'F'),
+(7, 1, 2, 'Asia', 1, 'F'),
+(8, 1, 3, 'Pakistan', 1, 'F'),
+(9, 1, 1, 'Fish', 1, 'P'),
+(10, 1, 3, 'India', 1, 'P'),
+(11, 1, 2, 'Europe', 1, 'F'),
+(12, 1, 1, 'Fish', 1, 'P'),
+(13, 1, 2, 'Africa', 1, 'P'),
+(14, 1, 3, 'Pakistan', 1, 'F'),
+(15, 1, 1, 'Elephant', 1, 'F'),
+(16, 1, 2, 'Africa', 1, 'P'),
+(17, 1, 1, 'Fish', 1, 'P'),
+(18, 1, 3, 'India', 1, 'P'),
+(19, 1, 2, 'Asia', 1, 'F'),
+(20, 1, 3, 'India', 1, 'P'),
+(21, 1, 1, 'Fish', 1, 'P'),
+(22, 1, 1, 'Fish', 1, 'P'),
+(23, 1, 2, 'Africa', 1, 'P'),
+(24, 1, 3, 'India', 1, 'P'),
+(25, 1, 1, 'Fish', 1, 'P'),
+(26, 1, 3, 'India', 1, 'P'),
+(27, 1, 2, 'Africa', 1, 'P'),
+(28, 1, 1, 'Fish', 1, 'P'),
+(29, 1, 3, 'Pakistan', 1, 'F'),
+(30, 1, 2, 'Asia', 1, 'F'),
+(31, 1, 3, 'India', 1, 'P'),
+(32, 1, 1, 'Fish', 1, 'P'),
+(33, 1, 2, 'Africa', 1, 'P'),
+(34, 1, 3, 'India', 1, 'P'),
+(35, 1, 1, 'Fish', 1, 'P'),
+(36, 1, 2, 'Africa', 1, 'P'),
+(37, 1, 1, 'Fish', 1, 'P'),
+(38, 1, 2, 'Africa', 1, 'P'),
+(39, 1, 3, 'India', 1, 'P');
 
 -- --------------------------------------------------------
 
@@ -156,7 +207,6 @@ CREATE TABLE IF NOT EXISTS `testresults` (
 -- Table structure for table `usercourses`
 --
 
-DROP TABLE IF EXISTS `usercourses`;
 CREATE TABLE IF NOT EXISTS `usercourses` (
   `idUserCourses` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) DEFAULT NULL,
@@ -171,15 +221,25 @@ CREATE TABLE IF NOT EXISTS `usercourses` (
 -- Table structure for table `usercoursetest`
 --
 
-DROP TABLE IF EXISTS `usercoursetest`;
 CREATE TABLE IF NOT EXISTS `usercoursetest` (
   `idUserCourseTest` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) DEFAULT NULL,
   `courseID` int(11) DEFAULT NULL,
-  `testID` int(11) DEFAULT NULL,
+  `testType` varchar(11) DEFAULT NULL,
   `testTaken` bit(1) DEFAULT NULL,
+  `ExamDate` date NOT NULL,
+  `questionResults` varchar(45) NOT NULL,
+  `marksResults` varchar(11) NOT NULL,
+  `ExamStatus` varchar(10) NOT NULL,
   PRIMARY KEY (`idUserCourseTest`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `usercoursetest`
+--
+
+INSERT INTO `usercoursetest` (`idUserCourseTest`, `userID`, `courseID`, `testType`, `testTaken`, `ExamDate`, `questionResults`, `marksResults`, `ExamStatus`) VALUES
+(9, 1, 1, 'Pre Test', b'1', '2015-05-23', '3/3', '12/20', 'PASSED');
 
 -- --------------------------------------------------------
 
@@ -187,7 +247,6 @@ CREATE TABLE IF NOT EXISTS `usercoursetest` (
 -- Table structure for table `userlogin`
 --
 
-DROP TABLE IF EXISTS `userlogin`;
 CREATE TABLE IF NOT EXISTS `userlogin` (
   `idUserLogin` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
@@ -197,14 +256,15 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
   `OTPCode` varchar(45) NOT NULL,
   `OTPCount` int(11) NOT NULL,
   PRIMARY KEY (`idUserLogin`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `userlogin`
 --
 
 INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`) VALUES
-(1, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '562187', 0);
+(1, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '562187', 0),
+(2, 'ASDF', 'd5d8c2faf43a64a1562a7b38c5dbe8d8', b'0', 2, '973859', 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +272,6 @@ INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUse
 -- Table structure for table `userregistration`
 --
 
-DROP TABLE IF EXISTS `userregistration`;
 CREATE TABLE IF NOT EXISTS `userregistration` (
   `idUserRegistration` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(45) DEFAULT NULL,
@@ -223,14 +282,15 @@ CREATE TABLE IF NOT EXISTS `userregistration` (
   `state` varchar(55) NOT NULL,
   `designation` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idUserRegistration`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `userregistration`
 --
 
 INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `mobile`, `staffID`, `emailID`, `state`, `designation`) VALUES
-(1, 'QWERT', 'QWERT', '9160869337', '1234', 'qwert@qwert.com', 'Andhra Pradesh', 'QWERT');
+(1, 'QWERT', 'QWERT', '9160869337', '1234', 'qwert@qwert.com', 'Andhra Pradesh', 'QWERT'),
+(2, 'SEC', 'RVF', '9959747954', '12345', 'xd@asd.com', 'Andhra Pradesh', 'CERVT');
 
 -- --------------------------------------------------------
 
@@ -238,7 +298,6 @@ INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `
 -- Table structure for table `uservisitedcourse`
 --
 
-DROP TABLE IF EXISTS `uservisitedcourse`;
 CREATE TABLE IF NOT EXISTS `uservisitedcourse` (
   `viewId` int(11) NOT NULL AUTO_INCREMENT,
   `course` varchar(45) NOT NULL,

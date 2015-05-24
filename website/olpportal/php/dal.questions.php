@@ -33,6 +33,18 @@ class Questions
     }
     
     
+    function getIdTestDetails($testName, $testType)
+    {
+        $dbObj=new InteractDatabase();
+        $sql="SELECT idTestDetails FROM `testdetails` WHERE testName='".$testName."' and testType='".$testType."';";
+        $json=$dbObj->getJSONData($sql);
+        
+       return $json;
+    }
+    
+    
+    
+    
     function addQuestions($testDetailsId, $question, $option1, $option2, $option3, $option4, $answer, $active)
     {
         $sql="INSERT INTO `testquestions`( `idTestDetails`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `active`) ";
