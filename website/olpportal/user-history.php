@@ -50,7 +50,16 @@
          <ul class="nav navbar-nav">
                 <li><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li  class="active"><a href="dashboard.php">Dashboard</a></li>
+                <li class="active">
+                    <a href="#"  data-toggle="dropdown" role="button" aria-expanded="false">
+                        Dashboard<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="active"><a href="user-details.php">View User Details</a></li>
+                        <li><a href="user-history.php">View User History</a></li>
+                    </ul>
+                
+                </li>
                 <?php } ?>
                 <li><a href="previous-test-results.php">Previous Test Results</a></li>
                 <li><a href="visited-courses.php">Visit Courses</a></li>
@@ -60,6 +69,7 @@
                 <li><a href="visited-courses.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>
+          
          <ul class="nav navbar-nav navbar-right right-margin">
          <li class="user-info">Welcome  <span class="user-name">Admin</span></li>
          <li><a href="#">Logout</a></li>
@@ -70,6 +80,7 @@
             </li>
          </ul>
       </div>
+       
    </div>
 </nav>
 
@@ -80,7 +91,7 @@
 <br/>
 <div class="col-xs-12">
     <a href="dashboard.php"> 
-        <button class="btn btn-default pull-right">Back to Dashboard</button>
+        <button class="btn btn-default pull-right">View Dashboard</button>
     </a>
 </div>
 <br/>

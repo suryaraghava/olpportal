@@ -98,7 +98,16 @@
          <ul class="nav navbar-nav">
                 <li><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li class="active"><a href="dashboard.php">Dashboard</a></li>
+                <li class="active">
+                    <a href="#"  data-toggle="dropdown" role="button" aria-expanded="false">
+                        Dashboard<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="active"><a href="user-details.php">View User Details</a></li>
+                        <li><a href="user-history.php">View User History</a></li>
+                    </ul>
+                
+                </li>
                 <?php } ?>
                 <li><a href="previous-test-results.php">Previous Test Results</a></li>
                 <li><a href="visited-courses.php">Visit Courses</a></li>
@@ -113,13 +122,18 @@
                  <?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?>
                  </span></li>
          <li><a href="php/logout.php">Logout</a></li>
-            <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
+            <li class="active dropdown">
+                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="icon-cog"></span>Settings<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                <li><a href="user-details.php">Profile</a></li>
             </ul>
             </li>
          </ul>
       </div>
+       
+          
+   
    </div>
 </nav>
 
@@ -130,7 +144,7 @@
 <br/>
 <div class="col-xs-12">
     <a href="dashboard.php"> 
-        <button class="btn btn-default pull-right">Back to Dashboard</button>
+        <button class="btn btn-default pull-right">View Dashboard</button>
     </a>
 </div>
 <br/>
