@@ -190,7 +190,7 @@
       
       function viewCourseDetails()
       {
-          var courseName=document.getElementById("view-courseName").value;
+          var courseName=document.getElementById("view-courseName1").value;
            var result="";
                  $.ajax({type: "GET", 
                                     async: false,

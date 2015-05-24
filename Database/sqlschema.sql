@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2015 at 08:27 AM
+-- Generation Time: May 24, 2015 at 07:14 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `testquestions` (
   `answer` varchar(45) DEFAULT NULL,
   `active` bit(1) DEFAULT NULL,
   PRIMARY KEY (`idTestQuestions`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `testquestions`
@@ -141,7 +141,8 @@ CREATE TABLE IF NOT EXISTS `testquestions` (
 INSERT INTO `testquestions` (`idTestQuestions`, `idTestDetails`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `active`) VALUES
 (1, 1, 'Which is the Smallest Mammal in the World?', 'Fish', 'Elephant', 'Ant', 'Spider', 'Fish', b'1'),
 (2, 1, 'Which is known as Black Continent?', 'Asia', 'Africa', 'Europe', 'Australia', 'Africa', b'1'),
-(3, 1, 'Which is know as "Cradle of Civilization"?', 'India', 'Pakistan', 'Italy', 'Japan', 'India', b'1');
+(12, 1, 'Which is known as  Pink  City?', 'Jaipur', 'Lucknow', 'Kolkatta', 'Bangalore', 'Jaipur', b'1'),
+(15, 1, 'Which is known as  Pink  City?', 'Jaipur', 'Lucknow', 'Kolkatta', 'Bangalore', 'Jaipur', b'1');
 
 -- --------------------------------------------------------
 
@@ -263,8 +264,8 @@ CREATE TABLE IF NOT EXISTS `userlogin` (
 --
 
 INSERT INTO `userlogin` (`idUserLogin`, `username`, `password`, `active`, `idUserRegistration`, `OTPCode`, `OTPCount`) VALUES
-(1, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '562187', 0),
-(2, 'ASDF', 'd5d8c2faf43a64a1562a7b38c5dbe8d8', b'0', 2, '973859', 0);
+(1, 'Administrator', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 1, '562187', 0),
+(2, 'Test', '5f4dcc3b5aa765d61d8327deb882cf99', b'0', 2, '973859', 0);
 
 -- --------------------------------------------------------
 
@@ -289,8 +290,8 @@ CREATE TABLE IF NOT EXISTS `userregistration` (
 --
 
 INSERT INTO `userregistration` (`idUserRegistration`, `firstName`, `lastName`, `mobile`, `staffID`, `emailID`, `state`, `designation`) VALUES
-(1, 'QWERT', 'QWERT', '9160869337', '1234', 'qwert@qwert.com', 'Andhra Pradesh', 'QWERT'),
-(2, 'SEC', 'RVF', '9959747954', '12345', 'xd@asd.com', 'Andhra Pradesh', 'CERVT');
+(1, 'Super', 'Administrator', '9160869337', '1234', 'qwert@qwert.com', 'Andhra Pradesh', 'Web Manager'),
+(2, 'Super', 'Tester', '9959747954', '12345', 'xd@asd.com', 'Andhra Pradesh', 'Quality Manager');
 
 -- --------------------------------------------------------
 
