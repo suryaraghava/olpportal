@@ -15,6 +15,8 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/popup.js"></script>
+    <link href="css/popup.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -97,7 +99,8 @@
             if(flag)
             {
                 if(link==='preTest') {
-                  alert("Already your Pre-Test is Completed..!!!");
+                  popupOpen();
+                  document.getElementById("popcontent").innerHTML='<h3>You have already completed the Pre-Test</h3>';
                 }
                 else if(link==='Details')
                 {
@@ -135,20 +138,26 @@
             
             
         }
+       
     </script>
     <style>
-        .course-subTag
-        {
-            cursor:pointer;
-        }
-         #course-content
-         {
-             margin-bottom:1%;
-         }
+        .course-subTag { cursor:pointer; }
+        #course-content { margin-bottom:1%; }
+        
     </style>
   </head>
 <body onload="getCoursesListAfterLogin()">
-
+    
+    
+  <div id="PopupAudioBackground"></div> 
+        <div id="PopupAudioFrontEnd">
+            <a href="#" onclick="javascript:popupClose();">
+                         <img id="PopupAudioCloseButton" src="images/stuff/button.jpg"/> 
+             </a>
+            <div id="popcontent" align="center" class="col-xs-12"></div>
+        </div>
+  
+  
 <div class="container page-wrapper">
 <!--   ----------------------  Start  Header Content -----------------------    -->
 <div class="container">

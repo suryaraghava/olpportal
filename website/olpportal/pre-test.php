@@ -14,6 +14,8 @@
     <title>::Samarthya::Online Learning Portal for Technical Staff under MGNREGA</title>
 
     <!-- Bootstrap -->
+    <script src="js/popup.js"></script>
+    <link href="css/popup.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,7 +81,8 @@
             
             if(q_ans.length===0)
             {
-               alert("Please Select any Answer"); 
+                popupOpen();
+                document.getElementById("popcontent").innerHTML='<h3>Please Select any Answer</h3>'
             }
             else
             {
@@ -292,6 +295,16 @@
   </head>
 <body onload="pageOnload()">
 
+     <div id="PopupAudioBackground"></div> 
+        <div id="PopupAudioFrontEnd">
+            <a href="#" onclick="javascript:popupClose();">
+                         <img id="PopupAudioCloseButton" src="images/stuff/button.jpg"/> 
+             </a>
+            <div id="popcontent" align="center" class="col-xs-12"></div>
+        </div>
+    
+    
+    
 <div class="container page-wrapper">
 <!--   ----------------------  Start  Header Content -----------------------    -->
 <div class="container">
