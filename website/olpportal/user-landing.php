@@ -23,7 +23,14 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        #certificateButton
+        {
+            display:none;
+        }
+    </style>
      <script>
+         var g_coursesList=new Array();
         function getCoursesListAfterLogin()
         {
              var result="";
@@ -44,6 +51,7 @@
                              var content='';
                              for(var index=0;index<res.length;index++)
                              {
+                                 g_coursesList[index]=res[index].courseName;
                                  content+='<div id="course-content" class="col-xs-12 col-xs-6 col-md-3">';  
                                  content+='<div class="course-box">';     
                                  content+='<div class="course-header"><h5 class="course-title">Course '+res[index].idCourses+'</h5></div>';
@@ -65,18 +73,65 @@
                              }
                              
            document.getElementById("view-courses-list").innerHTML=content;
+           
+           
+            var progress=false;
+             // Check to invoke Certification Button
+             var lastCourseName=g_coursesList[g_coursesList.length-1];
+                   var courseId='0';
+                   var qres="";
+                  $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'TestDetails',
+                                        courseName : lastCourseName,
+                                        testType :'Post Test'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          qres=resp;
+                                    }
+                                   });
+                       
+                         qres=JSON.parse(qres);
+                         for(var ind=0;ind<qres.length;ind++)
+                         {
+                             courseId=qres[ind].idTestDetails;
+                         }
+             
+           var response=checkForTest(courseId, 'preTest');
+                                        
+                    var res=JSON.parse(response);
+
+                    for(var ind=0;ind<res.length;ind++)
+                    {
+                        console.log(res[ind].testTaken);
+                        if(res[ind].testTaken==='1')
+                        {
+                           progress=true;
+                        }
+                    }
+          
+          
+          if(progress===true)
+          {
+              document.getElementById("certificateButton").style.display='block';
+          }
+          
+          
+          
           
         }
-        function preTestforCourse(courseName, courseId, link)
+        function checkForTest(courseId, link)
         {
-            // Check for Tesr Taken Or Not 
-           // link='preTest';
-            var response;
+             var response;
              $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.courses.php',
                                     data: { 
                                         action : 'CheckForTest',
+                                        testType : link,
                                         courseId:courseId
                                     },
                                     success: function(resp)
@@ -84,52 +139,184 @@
                                           response=resp;
                                     }
                                    });
-            var res=JSON.parse(response);
-            var flag=false;
-            for(var ind=0;ind<res.length;ind++)
-            {
-                console.log(res[ind].testTaken);
-                if(res[ind].testTaken==='1')
-                {
-                    flag=true;
-                    
-                }
-            }
+           return response; 
+        }
+        function courseValidation(courseName, courseId, link)
+        // Check for Test Taken in sequence Or Not 
+        {
+            var progress=false;
+
+               console.log("g_coursesList Array : "+g_coursesList);  // list of courses in sequence
             
-            if(flag)
-            {
-                if(link==='preTest') {
-                  popupOpen();
-                  document.getElementById("popcontent").innerHTML='<h3>You have already completed the Pre-Test</h3>';
-                }
-                else if(link==='Details')
-                {
-                    window.location.href='details.php';
-                }
-                else if(link==='Module')
-                {
-                     window.location.href='#';
-                }
-                 else if(link==='Assessment')
-                {
-                     window.location.href='assessment.php';
-                }
-    } else {
-             var result="";
-                 $.ajax({type: "GET", 
+             
+             
+             
+             if(link==='Assessment')
+             {
+                 // check the current course preTest is completed or Not
+                    var response=checkForTest(courseId, 'Assessment');
+                                        
+                    var res=JSON.parse(response);
+
+                    for(var ind=0;ind<res.length;ind++)
+                    {
+                        console.log(res[ind].testTaken);
+                        if(res[ind].testTaken==='1')
+                        {
+                           progress=true;
+                        }
+                    }
+                    
+                    if(progress===false)
+                    {
+                        popupOpen();
+                        document.getElementById("popcontent").innerHTML='<h3>You have not completed the Pre-Test of '+courseName+'. Please do it first.</h3>';
+                       
+                    }
+                    
+             }
+             else if(link==='preTest')  // check for previous course Assessment completed or not
+             {
+                 // Get previous courseName
+                    var prevcourseName='';
+
+                    for(var ind=0;ind<g_coursesList.length;ind++)
+                    {
+                        console.log("array CourseName : "+g_coursesList[ind]);
+                        if(g_coursesList[ind]===courseName)
+                        {
+                            prevcourseName=g_coursesList[ind-1];
+                        }
+                    }
+                    console.log("current CourseName : "+courseName);
+                    console.log("prev CourseName : "+prevcourseName);
+
+                    if(prevcourseName===undefined)
+                    {
+                         progress=true;
+                    }
+                    else {
+                  // Get CourseId for previous CourseName and 'Post Test'
+                 // dac.questions.php ::: action=TestDetails
+                 var courseId='0';
+                   var qres="";
+                  $.ajax({type: "GET", 
                                     async: false,
-                                    url: 'php/sessions.php',
+                                    url: 'php/dac.questions.php',
                                     data: { 
-                                        action : 'SetCourseSession',
-                                        courseName : courseName,
-                                        courseId : courseId
+                                        action : 'TestDetails',
+                                        courseName : prevcourseName,
+                                        testType :'Post Test'
                                     },
                                     success: function(resp)
                                     {
-                                          result=resp;
+                                          qres=resp;
                                     }
                                    });
-           window.location.href='pre-test.php'; // Page Redirect  
+                       
+                         qres=JSON.parse(qres);
+                         for(var ind=0;ind<qres.length;ind++)
+                         {
+                             courseId=qres[ind].idTestDetails;
+                         }
+                         
+                         
+                         
+                   // check the previous course postTest is completed or Not
+                    var response=checkForTest(courseId, 'Assessment');
+                                        
+                    var res=JSON.parse(response);
+
+                    for(var ind=0;ind<res.length;ind++)
+                    {
+                        console.log(res[ind].testTaken);
+                        if(res[ind].testTaken==='1')
+                        {
+                           progress=true;
+                        }
+                    }
+                     
+                     
+                    }
+                    
+                         
+                    if(progress===false)
+                    {
+                        popupOpen();
+                        document.getElementById("popcontent").innerHTML='<h3>You have not completed the Assessment of '+prevcourseName+'. Please do it first.</h3>';
+                       
+                    }   
+             }
+    
+            return progress;
+        }
+        
+        function preTestforCourse(courseName, courseId, link)
+        {
+            var progress=courseValidation(courseName, courseId, link);
+            
+            if(progress===true)
+            {
+                
+                    var response=checkForTest(courseId, link);
+
+                    var res=JSON.parse(response);
+                    var flag=false;
+                    for(var ind=0;ind<res.length;ind++)
+                    {
+                        console.log(res[ind].testTaken);
+                        if(res[ind].testTaken==='1')
+                        {
+                            flag=true;
+
+                        }
+                    }
+
+                    if(flag)
+                    {
+                        if(link==='preTest') {
+                          popupOpen();
+                          document.getElementById("popcontent").innerHTML='<h3>You have already completed the Pre-Test</h3>';
+                        }
+                        else if(link==='Details')
+                        {
+                            window.location.href='details.php';
+                        }
+                        else if(link==='Module')
+                        {
+                             window.location.href='#';
+                        }
+                         else if(link==='Assessment')
+                        {
+                            popupOpen();
+                            document.getElementById("popcontent").innerHTML='<h3>You have already completed the Post-Test</h3>';
+
+                        }
+                } else {
+                       var result="";
+                                $.ajax({type: "GET", 
+                                                   async: false,
+                                                   url: 'php/sessions.php',
+                                                   data: { 
+                                                       action : 'SetCourseSession',
+                                                       courseName : courseName,
+                                                       courseId : courseId
+                                                   },
+                                                   success: function(resp)
+                                                   {
+                                                         result=resp;
+                                                   }
+                                                  });
+
+                         if(link==='preTest') {
+                              window.location.href='pre-test.php'; // Page Redirect 
+                         }
+                          else if(link==='Assessment')
+                            {
+                          window.location.href='assessment.php';
+                            }
+                        }
+            
             }
         }
         
@@ -292,6 +479,7 @@
 
     </div>
       <br/>
+      <input type="submit"  id="certificateButton" class="btn btn-default" value=" Submit " onclick="submitAnswers()" > 
       <br/>
       <br/>
 <!--   ---------------------- Start Details Page video Content -----------------------    -->
@@ -335,7 +523,7 @@
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

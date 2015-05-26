@@ -41,6 +41,7 @@
         var q_quesId=[];
         function submitAnswers()
         {
+            document.getElementById("submitButton").style.display='none';
             answerpicker();
             console.log("q_quesId : "+q_quesId);
             console.log("q_answer : "+JSON.stringify(q_answer));
@@ -249,6 +250,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'TestDetails',
+                                        testType:'Pre Test',
                                         courseName : courseName
                                     },
                                     success: function(resp)
@@ -263,11 +265,12 @@
                   var tdId=res[0].idTestDetails;
                   var time=res[0].testTime;
                   
-                  var t=time.split(":");
+                    var t=time.split(":"); 
                   var hour=t[0];
                   var min=t[1];
                   var sec=t[2];
                   
+                 
                   
                   timeloader(hour,min, sec);
                   

@@ -1,3 +1,9 @@
+<?php session_start();
+ require 'php/define.php';
+ if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
+ {
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,3 +175,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } else {     header("location:index.php"); } ?>

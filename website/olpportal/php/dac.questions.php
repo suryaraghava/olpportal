@@ -16,8 +16,9 @@ $action=$_GET["action"];
 if($action=='TestDetails')
 {
     $testName=$_GET["courseName"];
+    $testType=$_GET["testType"];
     $q=new Questions();
-    $json=$q->getTestDetails($testName);
+    $json=$q->getAllTestDetails($testName, $testType);
     echo $json;
 }
 

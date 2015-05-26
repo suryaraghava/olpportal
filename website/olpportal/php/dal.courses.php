@@ -77,9 +77,9 @@ class Courses
     }
     
     
-    function checkforTestDone($userId, $courseId)
+    function checkforTestDone($userId, $courseId, $testType)
     {
-        $sql="SELECT `testTaken` FROM `usercoursetest` WHERE `userID`=".$userId." AND `courseID`=".$courseId;
+        $sql="SELECT `testTaken` FROM `usercoursetest` WHERE `userID`=".$userId." AND `courseID`=".$courseId." AND `testType`='".$testType."'";
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
         return $json;

@@ -35,7 +35,19 @@ else if($action=='CheckForTest')
 {
   $userId=$_SESSION[constant("SESSION_USER_REGID")];
   $courseId=$_GET["courseId"];
+  $testType=$_GET["testType"];
+  
+  
+  if($testType=='preTest')
+  {
+      $testType='Pre Test';
+  }
+  else if($testType=='Assessment')
+  {
+      $testType='Post Test';
+  }
+  
   $course=new Courses();
-   $json=$course->checkforTestDone($userId, $courseId);
+   $json=$course->checkforTestDone($userId, $courseId, $testType);
     echo $json;    
 }

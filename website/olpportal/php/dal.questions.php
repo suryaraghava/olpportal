@@ -32,6 +32,14 @@ class Questions
        return $json;
     }
     
+    function getAllTestDetails($testName, $testType)
+    {
+        $dbObj=new InteractDatabase();
+        $sql="SELECT * FROM `testdetails` WHERE testName='".$testName."' and testType='".$testType."';";
+        $json=$dbObj->getJSONData($sql);
+        
+       return $json;
+    }
     
     function getIdTestDetails($testName, $testType)
     {

@@ -246,6 +246,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'TestDetails',
+                                        testType:'Post Test',
                                         courseName : courseName
                                     },
                                     success: function(resp)
@@ -253,17 +254,19 @@
                                           result=resp;
                                     }
                                    });
-                 // console.log("result : "+result); 
+                  console.log("result : "+result); 
                   var res=JSON.parse(result);
                   
                   var tqnum=res[0].totalquestions;
                   var tdId=res[0].idTestDetails;
                   var time=res[0].testTime;
                   
-                  var t=time.split(":");
+                  var t=time.split(":"); 
                   var hour=t[0];
                   var min=t[1];
                   var sec=t[2];
+                  
+                 
                   
                   
                   timeloader(hour,min, sec);
