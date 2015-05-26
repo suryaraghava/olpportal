@@ -33,21 +33,32 @@ else if($action=='viewCourseDetails')
 
 else if($action=='CheckForTest')
 {
-  $userId=$_SESSION[constant("SESSION_USER_REGID")];
-  $courseId=$_GET["courseId"];
-  $testType=$_GET["testType"];
-  
-  
-  if($testType=='preTest')
-  {
-      $testType='Pre Test';
-  }
-  else if($testType=='Assessment')
-  {
-      $testType='Post Test';
-  }
-  
-  $course=new Courses();
-   $json=$course->checkforTestDone($userId, $courseId, $testType);
-    echo $json;    
+    $userId=$_SESSION[constant("SESSION_USER_REGID")];
+    $courseId=$_GET["courseId"];
+    $testType=$_GET["testType"];
+
+
+    if($testType=='preTest')
+    {
+        $testType='Pre Test';
+    }
+    else if($testType=='Assessment')
+    {
+        $testType='Post Test';
+    }
+
+    $course=new Courses();
+     $json=$course->checkforTestDone($userId, $courseId, $testType);
+      echo $json;    
+}
+
+else if($action=='AddNewCourses')
+{
+    $courseName=$_GET["courseName"];
+    $courseNum=$_GET["courseNumber"];
+    
+    echo $courseName;
+   echo $courseNum;
+        $course=new Courses();
+        $course->addCourses($courseName, $courseNum, 'images/courses/course-2.jpg');
 }

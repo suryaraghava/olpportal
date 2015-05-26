@@ -43,7 +43,7 @@
                                  content+='<div class="course-header"><h5 class="course-title">Course '+res[index].idCourses+'</h5></div>';
                                  content+='<div align="center" class="course-img"><img src="'+res[index].courseImage+'" />';
                                  content+='</div>';
-                                 content+='<div class="course-footer"><a href="#">'+res[index].courseName+'<img src="images/course-arrow.png" class="pull-right" /></a></div>';
+                                 content+='<div class="course-footer"><a href="index.php">'+res[index].courseName+'<img src="images/course-arrow.png" class="pull-right" /></a></div>';
                                  content+=' </div>';
                                  content+='</div>';
                              }
@@ -60,7 +60,7 @@
          }
     </style>
   </head>
-<body onload="getCoursesListBeforeLogin()()">
+<body onload="getCoursesListBeforeLogin()">
 
 <div class="container page-wrapper">
 <!--   ----------------------  Start  Header Content -----------------------    -->

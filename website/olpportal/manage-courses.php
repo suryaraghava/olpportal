@@ -231,6 +231,36 @@
                    document.getElementById("view-courseDetails").style.display='block';
                    document.getElementById("view-courseDetails").innerHTML=content;
       }
+      
+      function addNewCourse()
+      {
+            var courseName=document.getElementById("add-courseName").value;
+            var courseNumber=document.getElementById("add-courseNumber").value;
+          
+          console.log("courseName : "+courseName);
+          console.log("courseNumber : "+courseNumber);
+          
+          
+           var result="";
+                $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        courseName:courseName,
+                                        courseNumber:courseNumber,
+                                      action : 'AddNewCourses'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                        console.log("Res : "+result);
+           viewLeftMenu1();             
+          // document.getElementById("add-courseName").value="";
+         //  document.getElementById("add-courseNumber").value="";             
+      }
+      
     </script>
   </head>
   <body onload="managecoursesload()">
@@ -331,6 +361,8 @@
                
             </div>
             
+            
+            
             <!-- viewLeftMenu2 : Add a Courses-->
             <div class="col-xs-12" id="leftMenuContainer2">
                 <div class="row">
@@ -343,7 +375,7 @@
                        CourseName:
                     </div>
                     <div class="col-xs-12">
-                        <input type="text" class="form-control" placeholder="Example: Natural Resources Management"/>
+                        <input type="text" id="add-courseName" class="form-control" placeholder="Example: Natural Resources Management"/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -351,17 +383,18 @@
                        Course Number:
                     </div>
                     <div class="col-xs-12">
-                        <input type="text" class="form-control" placeholder="Example: 0514"/>
+                        <input type="text" id="add-courseNumber"  class="form-control" placeholder="Example: 0514"/>
                     </div>
                 </div>
                 
                 <div id="form-Div" class="row">
                     
                     <div class="col-xs-12">
-                        <button class="btn btn-default pull-right">Add Course</button>
+                        <button class="btn btn-default pull-right" onclick="addNewCourse()">Add Course</button>
                     </div>
                 </div>
             </div>
+           
            
             
             <!-- viewLeftMenu3 : View Course Details-->
