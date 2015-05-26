@@ -115,7 +115,7 @@
                 var option = document.createElement("option");
 			option.id = res[ind].courseName;
 			option.text = res[ind].courseName;
-			option.value = res[ind].idCourses;
+			option.value = res[ind].courseName;
 			courseListing.add(option);
                console.log("courseName : "+res[ind].courseName);
            }
