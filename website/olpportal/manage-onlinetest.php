@@ -169,6 +169,116 @@
                    document.getElementById("view-courseDetails").style.display='block';
                    document.getElementById("view-courseDetails").innerHTML=content;
       }
+      
+      
+      
+      
+        function AddQuestionOnSubmit()
+        {
+            var courseList=document.getElementById("courseList").value;
+            
+            var test=[];
+            var answer;
+            var c_preTest=document.getElementById("C_PreTest");
+            var c_postTest=document.getElementById("C_PostTest");
+            
+            var addQuestion=document.getElementById("AddQuestion");
+            var t_option1=document.getElementById("T_Option1");
+            var t_option2=document.getElementById("T_Option2");
+            var t_option3=document.getElementById("T_Option3");
+            var t_option4=document.getElementById("T_Option4");
+            
+            var c_option1=document.getElementById("C_Option1");
+            var c_option2=document.getElementById("C_Option2");
+            var c_option3=document.getElementById("C_Option3");
+            var c_option4=document.getElementById("C_Option4");
+            
+            var act=document.getElementById("activeQuestion");
+            var active='0';
+            
+            if(act.checked)
+            {
+                active='1';
+            }
+            
+            if(c_preTest.checked)
+            {
+               test.push(c_preTest.value); 
+            }
+            if(c_postTest.checked)
+            {
+               test.push(c_postTest.value); 
+            }
+            
+            if(c_option1.checked)
+            {
+               answer=t_option1.value;
+            }
+            if(c_option2.checked)
+            {
+               answer=t_option2.value;
+            }
+             if(c_option3.checked)
+            {
+               answer=t_option3.value;
+            }
+             if(c_option4.checked)
+            {
+               answer=t_option4.value;
+            }
+            
+            console.log("courseList : "+courseList);
+            console.log("test : "+test);
+            console.log("addQuestion : "+addQuestion.value); 
+            console.log("t_option1 : "+t_option1.value);
+            console.log("t_option2 : "+t_option2.value);
+            console.log("t_option3 : "+t_option3.value);
+            console.log("t_option4 : "+t_option4.value);
+            console.log("answer : "+answer);
+            
+            // AdminAddQuestions
+            
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'AdminAddQuestions',
+                                        courseList : courseList,
+                                        testList:test,
+                                        addQuestion : addQuestion.value,
+                                        t_option1:t_option1.value,
+                                        t_option2 : t_option2.value,
+                                        t_option3 : t_option3.value,
+                                        t_option4 : t_option4.value,
+                                        answer : answer,
+                                        active : active
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("Data : "+result);
+            
+            // Clear Fields
+             c_preTest.checked=false;
+             c_postTest.checked=false;
+            
+             addQuestion.value='';
+             t_option1.value='';
+             t_option2.value='';
+             t_option3.value='';
+             t_option4.value='';
+            
+             c_option1.checked=false;
+             c_option2.checked=false;
+             c_option3.checked=false;
+             c_option4.checked=false;
+            
+        }
+      
+      
     </script>
   </head>
   <body onload="managecoursesload()">

@@ -308,6 +308,9 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                    });
                         console.log("Res : "+result);
             
+            document.getElementById("submitBttnFinish").style.display='none';
+            document.getElementById("signup-Greeting").style.display='block';
+            
         }
         
     </script>
@@ -606,9 +609,9 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
       <div class="modal-body">
 		<div class="well">
 			<ul class="nav nav-tabs">
-				<li id="boot-tab-1" ><a href="#step1" onclick="viewSignupStep1()" data-toggle="tab">Step1</a></li>
-				<li id="boot-tab-2" ><a href="#step2" onclick="viewSignupStep2()" data-toggle="tab">Step2</a></li>
-                                <li id="boot-tab-3" ><a href="#step3" onclick="viewSignupStep3()" data-toggle="tab">Step3</a></li>
+				<li id="boot-tab-1" ><a href="#step1" >Step1</a></li>
+				<li id="boot-tab-2" ><a href="#step2" >Step2</a></li>
+                                <li id="boot-tab-3" ><a href="#step3" >Step3</a></li>
 			</ul>
                     
 			<div id="myTabContent" class="tab-content">
@@ -715,7 +718,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                        <input class="form-control" type="text" id="signup_email" placeholder="Email ID">
                     </div>				
 						<div class="form-group">
-							<button type="submit" class="btn btn-default pull-right" onclick="RegStep3()">Confirm</button>
+							<button type="submit" id="submitBttnFinish" class="btn btn-default pull-right" onclick="RegStep3()">Confirm</button>
 						</div>
                         <div class="form-group">
                         <div id="signup-Greeting" class="alert alert-success">

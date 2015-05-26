@@ -479,7 +479,7 @@
 
     </div>
       <br/>
-      <input type="submit"  id="certificateButton" class="btn btn-default" value=" Submit " onclick="submitAnswers()" > 
+      <input type="submit"  id="certificateButton" class="btn btn-default" value=" View Certificates "/> 
       <br/>
       <br/>
 <!--   ---------------------- Start Details Page video Content -----------------------    -->

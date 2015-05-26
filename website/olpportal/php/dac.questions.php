@@ -128,7 +128,7 @@ if($action=='AdminAddQuestions')
    
    for($ind=0;$ind<count($testList);$ind++)
    {
-       $id;
+       $id=0;
         $test=$testList[$ind];
        // Get TestID from TestDetails Table
         $q=new Questions();
@@ -148,6 +148,7 @@ if($action=='AdminAddQuestions')
             }
         }
        
+        echo $id." ". $addQuestion." ". $t_option1." ".$t_option2." ". $t_option3." ".$t_option4." ". $answer." ".$active;
        
        // Add Question in testquestion Table
        $q->addQuestions($id, $addQuestion, $t_option1, $t_option2, $t_option3, $t_option4, $answer, $active);
