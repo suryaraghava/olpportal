@@ -31,6 +31,18 @@ if($action=='GetQuestions')
     echo $json;
 }
 
+if($action=='viewQuestions')
+{
+    $course=$_GET["course"];
+    $test=$_GET["test"];
+    
+    $q=new Questions();
+    $json=$q->getAllQuestions($course, $test);
+    echo $json;
+}
+
+
+
 if($action=='SendAnswers')
 {
     $userId=$_SESSION[constant("SESSION_USER_REGID")];

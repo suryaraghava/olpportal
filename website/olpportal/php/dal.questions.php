@@ -73,6 +73,22 @@ class Questions
     }
     
     
+    
+    
+     function getAllQuestions($test, $testType)
+    {
+        
+        $sql="SELECT testdetails.testType, testquestions.idTestQuestions, testquestions.question, testquestions.option1, ";
+        $sql.="testquestions.option2, testquestions.option3, testquestions.option4, testquestions.answer, ";
+        $sql.="testquestions.active FROM `testquestions`, `testdetails` WHERE ";
+        $sql.=" testquestions.idTestDetails=testdetails.idTestDetails AND testdetails.testName='".$test."' AND ";
+        $sql.=" testdetails.testType='".$testType."';";
+         $dbObj=new InteractDatabase();
+         $json=$dbObj->getJSONData($sql);
+         return $json;
+    }
+    
+    
     function getAnswersList($ansArray)
     {
         $sql="SELECT idTestQuestions, answer FROM `testquestions` WHERE ";

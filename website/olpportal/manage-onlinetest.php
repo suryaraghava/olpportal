@@ -11,7 +11,8 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <link rel="icon" href="">
     <title>::Samarthya::Online Learning Portal for Technical Staff under MGNREGA</title>
-
+    <script src="js/popup.js"></script>
+    <link href="css/popup.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,6 +29,10 @@
         .questions-text, .text-muted
         {
            margin-bottom:2%; 
+        }
+        #leftMenuTable1
+        {
+            display:none;
         }
     </style>
     <script type="text/javascript">
@@ -58,41 +63,56 @@
           document.getElementById("leftMenuContainer1").style.display='block';
           document.getElementById("leftMenuContainer2").style.display='none';
           
-          adminGetCourseList();
+          
+          // Build Dynamic Course-List
+          
+          var courseListing=document.getElementById("view-courseName");
+          var p_option = document.createElement("option");
+			 p_option.id = "";
+			p_option.text = "Select a Course";
+			p_option.value = "";
+			courseListing.add(p_option);
+            var res=coursesList;
+            for(var ind=0;ind<res.length;ind++)
+           {
+                var option = document.createElement("option");
+			option.id = res[ind].courseName;
+			option.text = res[ind].courseName;
+			option.value = res[ind].courseName;
+			courseListing.add(option);
+               console.log("courseName : "+res[ind].courseName);
+           }
+            
+          
+          
+      //    adminGetCourseList();
+          
+          
           $("#leftMenu-1").addClass("active");
           $("#leftMenu-2").removeClass("active");
       }
       
       function adminGetCourseList()
         {
-             var res=coursesList;
+            var result;
+          $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'courseListOnly',
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   var res=JSON.parse(result);
+                 
+                 
+                 
                  
                console.log("courses : "+res);
            
-               var content='<table class="table table-responsiv table-bordered">';
-                   content+='<thead>';
-                   content+='<tr>';
-                   content+='<th>S. No.</th>';
-                   content+='<th>Course Name</th>';
-                   content+='<th>Course Number</th>';
-                   content+='</tr>';
-                   content+='</thead>';
-                   content+='<tbody>';
-                  
-                  for(var index=0;index<res.length;index++)
-                  {
-                      content+='<tr>'
-                      content+='<td>'+(index+1)+'</td>';
-                      content+='<td>'+res[index].courseName+'</td>';
-                      content+='<td>'+res[index].courseNumber+'</td>';
-                      content+='</tr>'
-                  }
-                  
-                   content+='</tbody>';
-                   content+='</table>';
-                   content+='</div>';
-                   
-                   document.getElementById("leftMenuContainer1").innerHTML=content;
         }
       
       
@@ -126,50 +146,7 @@
       }
       
       
-      function viewCourseDetails()
-      {
-          var courseName=document.getElementById("view-courseName").value;
-           var result="";
-                 $.ajax({type: "GET", 
-                                    async: false,
-                                    url: 'php/dac.courses.php',
-                                    data: { 
-                                        action : 'viewCourseDetails',
-                                        courseID :courseName,
-                                       
-                                    },
-                                    success: function(resp)
-                                    {
-                                          result=resp;
-                                    }
-                                   });
-               console.log("answers : "+result);
-          
-          var res=JSON.parse(result);
-          var content='<table class="table table-responsiv table-bordered">';
-                   content+='<thead>';
-                   content+='<tr>';
-                   content+='<th>S. No.</th>';
-                   content+='<th>Title Name</th>';
-                   content+='</tr>';
-                   content+='</thead>';
-                   content+='<tbody>';
-                  
-                  for(var index=0;index<res.length;index++)
-                  {
-                      content+='<tr>'
-                      content+='<td>'+(index+1)+'</td>';
-                      content+='<td>'+res[index].title+'</td>';
-                      content+='</tr>'
-                  }
-                  
-                   content+='</tbody>';
-                   content+='</table>';
-                   content+='</div>';
-                   document.getElementById("view-courseDetails").style.display='block';
-                   document.getElementById("view-courseDetails").innerHTML=content;
-      }
-      
+    
       
       
       
@@ -276,12 +253,28 @@
              c_option3.checked=false;
              c_option4.checked=false;
             
+            
+            viewLeftMenu1();
         }
       
       
     </script>
   </head>
   <body onload="managecoursesload()">
+      
+      
+        <div id="PopupAudioBackground"></div> 
+        <div id="PopupAudioFrontEnd">
+            <a href="#" onclick="javascript:popupClose();">
+                         <img id="PopupAudioCloseButton" src="images/stuff/button.jpg"/> 
+             </a>
+            <div id="popcontent" align="center" class="col-xs-12">
+                
+            </div>
+        </div>
+      
+      
+      
 <div class="container page-wrapper">
 
 <!--   ----------------------  Start  Header Content -----------------------    -->
@@ -373,9 +366,163 @@
         
             
             <!-- viewLeftMenu1 : View Courses-->
-            <div id="leftMenuContainer1" class="panel panel-default">
-               
-            </div>
+            <div id="leftMenuContainer1">
+                
+                
+                 <div class="row">
+                    <div class="col-xs-12">
+                       Course Name : 
+                    </div>
+                    <div class="col-xs-12">
+                        <select id= "view-courseName" class="form-control">
+                            
+                        </select> 
+                    </div>
+                 </div>
+                
+                
+                 <div class="row">
+                    <div class="col-xs-12">
+                       Test type : 
+                    </div>
+                    <div class="col-xs-12">
+                            <div class="radio">
+                                  <label>
+                                      <input type="radio" name="quiz" id="view_C_PreTest" value="Pre Test" onclick="viewExamination()">
+                                    Pre-Test
+                                  </label>
+                            </div>
+                            <div class="radio">
+                                  <label>
+                                      <input type="radio" name="quiz" id="view_C_PostTest" value="Post Test" onclick="viewExamination()">
+                                      Post-Test
+                                  </label>
+                            </div>
+                    </div>
+                 </div>
+                
+                
+                <script type="text/javascript">
+                    function viewExamination()
+                    {
+                        var courseName=document.getElementById("view-courseName");
+                        var preTest=document.getElementById("view_C_PreTest");
+                        var postTest=document.getElementById("view_C_PostTest");
+                        
+                        var test='';
+                        if(preTest.checked)
+                        {
+                            test=preTest.value;
+                        }
+                        if(postTest.checked)
+                        {
+                            test=postTest.value;
+                        }
+                        
+                        if(courseName.value.length>0)
+                        {
+                             console.log("courseName : "+courseName.value);
+                             console.log("test : "+test);
+                             
+                             // Generate Dynamic Table
+                             document.getElementById("leftMenuTable1").style.display='block';
+                              var result="";
+                                $.ajax({type: "GET", 
+                                                    async: false,
+                                                    url: 'php/dac.questions.php',
+                                                    data: { 
+
+                                                        course :courseName.value,
+                                                        test:test,
+                                                        action : 'viewQuestions'
+                                                    },
+                                                  success: function(resp)
+                                                    {
+                                                          result=resp;
+                                                    }
+                                                   });
+                                        console.log("Res : "+result);
+                                   
+                                   var res=JSON.parse(result);
+                                   
+                                   
+                                   
+               var content='<table class="table table-responsiv table-bordered">';
+                   content+='<thead>';
+                   content+='<tr>';
+                   content+='<th>S. No.</th>';
+                   content+='<th>Test Type</th>';
+                   content+='<th>Question</th>';
+                   content+='<th>Option1</th>';
+                   content+='<th>Option2</th>';
+                   content+='<th>Option3</th>';
+                   content+='<th>Option4</th>';
+                   content+='<th>Answer</th>';
+                   content+='<th>Active</th>';
+                   content+='</tr>';
+                   content+='</thead>';
+                   content+='<tbody>';
+                  
+                  
+                           
+                                   for(var ind=0;ind<res.length;ind++)
+                                   {
+                                       
+                                        content+='<tr>';
+                                        content+='<td>'+(ind+1)+'</td>';
+                                        content+='<td>'+res[ind].testType+'</td>';
+                                        content+='<td>'+res[ind].question+'</td>';
+                                        content+='<td>'+res[ind].option1+'</td>';
+                                        content+='<td>'+res[ind].option2+'</td>';
+                                        content+='<td>'+res[ind].option3+'</td>';
+                                        content+='<td>'+res[ind].option4+'</td>';
+                                        content+='<td>'+res[ind].answer+'</td>';
+                                        content+='<td>'+res[ind].active+'</td>';
+                                        content+='</tr>'
+                                    
+                                        
+                                   }
+                                  
+                                  
+                                  
+                   content+='</tbody>';
+                   content+='</table>';
+                   content+='</div>';
+                                   
+                   
+                   document.getElementById("leftMenuTable1").innerHTML=content;
+                                   
+                                   
+                         
+                        }
+                        else
+                        {
+                            popupOpen();
+                            document.getElementById("popcontent").innerHTML='<h4>Please Select a course to Manage Examination Questions </h4>';
+                            
+                            preTest.checked=false;
+                            postTest.checked=false;
+                        }
+                        
+                        
+                    }
+                    
+                    
+                </script>
+                
+                
+                
+                
+                
+                <div class="row">
+                     <div class="col-xs-12">
+                         <div id="leftMenuTable1" class=" panel panel-default">
+                    
+                         </div>
+                      </div>
+                </div>
+                
+            </div> 
             
             <!-- viewLeftMenu2 : Add a Courses-->
             <div class="col-xs-12" id="leftMenuContainer2">
