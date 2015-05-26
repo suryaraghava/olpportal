@@ -40,6 +40,10 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
            display:none;
            margin-top:14%;
        }
+       #forgotPwd-Message
+       {
+           display:none;
+       }
      </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -313,6 +317,27 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             
         }
         
+        function forgotPwd()
+        {
+            var email=document.getElementById("forgotPwd-emailInput").value;
+            
+            // sendForgotPassword
+             var result="";
+                $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                      
+                                        email :email,
+                                        action : 'sendForgotPassword'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                        console.log("Res : "+result);
+        }
     </script>
   </head>
 <body onload="indexOnload()">
@@ -570,7 +595,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                     <div class="input-group">
                                       <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
                                       <!--EMAIL ADDRESS-->
-                                      <input id="emailInput" placeholder="email address" class="form-control" type="email" oninvalid="setCustomValidity('Please enter a valid email address!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
+                                      <input id="forgotPwd-emailInput" placeholder="email address" class="form-control" type="email" oninvalid="setCustomValidity('Please enter a valid email address!')" onchange="try{setCustomValidity('')}catch(e){}" required="">
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -580,7 +605,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                 <br/>
                                 <div class="container-fluid">
                                 <div class="form-group">
-                        <div class="alert alert-success">We sent password to your email id</div>
+                        <div id="forgotPwd-Message" class="alert alert-success">We sent password to your email id</div>
                         </div>
                         </div>
                               </form><!--/end form-->

@@ -79,7 +79,7 @@ else if($action=='updateRegistration')
      
      $emsg=new EmailMsg();
      $emailMsg=$emsg->signupGreeting($username, $d_pwd);
-     mail($emailID,"Signup Process",$emailMsg);
+     mail($emailID,"Samarthya Online learning Portal ::: Signup Process",$emailMsg);
 }
 else if($action=='getUserDetails')
 {
@@ -104,4 +104,21 @@ else if($action=='getUserDetails')
     $data=chop($data, ",");
     $data.="]}";
     echo $data;
+}
+else if($action=='sendForgotPassword')
+{
+     $acc=new UserAccounts();
+     $util=new Utils();
+     
+    $email=$_GET["email"];
+    $newpwd=$util->randomNumber(10);
+   
+    $json=$acc->updatePassword($email, md5($newpwd));
+    
+    $dejson=  json_decode($json);
+    $username=$dejson->{'username'};
+    
+    $msging=new EmailMsg();
+    $emailMsg=$msging->forgotPassword($username,$email, $password);
+     mail($email,"Samarthya Online learning Portal ::: Forgot Password",$emailMsg);
 }

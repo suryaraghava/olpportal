@@ -189,9 +189,13 @@ class UserAccounts
                 $sql="UPDATE `userlogin` SET `password`='".$newpwd."' ";
                 $sql.="WHERE userlogin.idUserRegistration=(SELECT `idUserRegistration` FROM ";
                 $sql.="`userregistration` WHERE `emailID`='".$login."') OR userlogin.username='".$login."';";
-               
+                 
+                $gsql="SELECT * FROM userlogin WHERE `emailID`='".$login."'";
                 $dbObj=new InteractDatabase();
                 $dbObj->addupdateData($sql);
+                $json=$dbObj->getJSONData($gsql);
+                
+                return $json;
             }
 
             function updateOTPCode()

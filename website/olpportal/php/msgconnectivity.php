@@ -19,6 +19,18 @@ class EmailMsg
         return $msg;
     }
     
+    
+    function forgotPassword($username,$email, $password)
+    {
+        $msg="Hello ".$username.",\n";
+        $msg.="The following are your credentials for Samarthya Online learning Portal.";
+        $msg.="Username : ".$username."\n";
+        $msg.="Password : ".$password."\n";
+        $msg.="Thanks and Regards,\n";
+        $msg.="Samarthya Online learning Portal";
+        return $msg;
+    }
+    
 }
 class MobileMsg 
 {
