@@ -46,11 +46,9 @@
             var content='<table class="table table-responsiv table-bordered">';
              content+='<thead>';
              content+='<tr>';
-             content+='<th>Course Page</th>';
-             content+='<th>Date</th>';
-             content+='<th>Start Time</th>';
-             content+='<th>End Time</th>';
-             content+='<th>IP</th>';
+             content+='<th>Course</th>';
+             content+='<th>Viewed Date</th>';
+             content+='<th>Viewed Time</th>';
              content+='</tr>';
              content+='</thead>';
              content+='<tbody>';
@@ -62,7 +60,6 @@
                 console.log("date : "+res[index].date);
                 console.log("startTime : "+res[index].startTime);
                 console.log("endTime : "+res[index].endTime);
-                console.log("IPAddress : "+res[index].IPAddress);
                 
                 if(index%2==0)
                 {
@@ -75,8 +72,6 @@
                 content+='<td>'+res[index].course+'</td>';
                 content+='<td>'+res[index].date+'</td>';
                 content+='<td>'+res[index].startTime+'</td>';
-                content+='<td>'+res[index].endTime+'</td>';
-                content+='<td>'+res[index].IPAddress+'</td>';
                 content+='</tr>';
 
             }
@@ -227,7 +222,7 @@
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>
