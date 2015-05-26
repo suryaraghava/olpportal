@@ -62,3 +62,21 @@ else if($action=='AddNewCourses')
         $course=new Courses();
         $course->addCourses($courseName, $courseNum, 'images/courses/course-2.jpg');
 }
+else if($action=='AddNewCourseDetails')
+{
+    $courseId=$_GET["courseId"];
+    $title=$_GET["title"];
+    $courseEngVideo=$_GET["courseEngVideo"];
+    $courseEngPDF=$_GET["courseEngPDF"];
+    
+    $courseHinVideo=$_GET["courseHinVideo"];
+    $courseHinPDF=$_GET["courseHinPDF"];
+    
+    $courseTelVideo=$_GET["courseTelVideo"];
+    $courseTelPDF=$_GET["courseTelPDF"];
+    
+    
+    $course=new Courses();
+    $course->addCourseLink($courseId, $title, $courseEngVideo, $courseEngPDF,
+            $courseHinVideo, $courseHinPDF, $courseTelVideo, $courseTelPDF);
+}

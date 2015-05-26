@@ -261,6 +261,57 @@
          //  document.getElementById("add-courseNumber").value="";             
       }
       
+      
+       function addDetailsToCourse()
+                {
+                    var courseName=document.getElementById("view-courseName2").value;
+                    var titleName=document.getElementById("addcourse-titleName").value;
+                    
+                    var engVideoLink=document.getElementById("addcourse-EngVideoLink").value;
+                    var hinVideoLink=document.getElementById("addcourse-HinVideoLink").value;
+                    var telVideoLink=document.getElementById("addcourse-TelVideoLink").value;
+                
+                    var engBookLink=document.getElementById("addcourse-EngBookLink").value;
+                    var hinBookLink=document.getElementById("addcourse-HinBookLink").value;
+                    var telBookLink=document.getElementById("addcourse-TelBookLink").value;
+                    
+             
+                    var result="";
+                            $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                      courseId:courseName,
+                                      title:titleName,
+                                      courseEngVideo:engVideoLink,
+                                      courseEngPDF:engBookLink,
+                                      courseHinVideo:hinVideoLink,
+                                      courseHinPDF:hinBookLink,
+                                      courseTelVideo:telVideoLink,
+                                      courseTelPDF:telBookLink,
+                                      action : 'AddNewCourseDetails'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   
+                        console.log("Res : "+result);
+                      
+                    document.getElementById("view-courseName2").value="";
+                    document.getElementById("addcourse-titleName").value="";
+                    
+                    document.getElementById("addcourse-EngVideoLink").value="";
+                    document.getElementById("addcourse-HinVideoLink").value="";
+                    document.getElementById("addcourse-TelVideoLink").value="";
+                
+                    document.getElementById("addcourse-EngBookLink").value="";
+                    document.getElementById("addcourse-HinBookLink").value="";
+                    document.getElementById("addcourse-TelBookLink").value="";
+                       
+                    viewLeftMenu3();
+                }
     </script>
   </head>
   <body onload="managecoursesload()">
@@ -447,7 +498,7 @@
                         Course Videolink (English Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
+                        <input id="addcourse-EngVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -455,7 +506,7 @@
                         Course Videolink (Hindi Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
+                        <input id="addcourse-HinVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -463,7 +514,7 @@
                         Course Videolink (Telugu Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
+                        <input id="addcourse-TelVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
                 </div>
                  <div id="form-Div" class="row">
@@ -471,7 +522,7 @@
                         Course Booklink (English Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
+                        <input id="addcourse-EngBookLink" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
                     </div>
                 </div>
                 
@@ -480,7 +531,7 @@
                         Course Booklink (Hindi Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
+                        <input id="addcourse-HinBookLink" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
                     </div>
                 </div>
                 
@@ -489,19 +540,21 @@
                         Course Booklink (Telugu Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
+                        <input id="addcourse-TelBookLink" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
                     </div>
                 </div>
                 
                  <div id="form-Div" class="row">
                     
                     <div class="col-xs-12">
-                        <button class="btn btn-default pull-right">Add Course Details</button>
+                        <button class="btn btn-default pull-right" onclick="addDetailsToCourse()">Add Course Details</button>
                     </div>
                 </div>
                 
             </div>
-            
+            <script type="text/javascript">
+               
+            </script>
         </div>
     </div>
 </div>

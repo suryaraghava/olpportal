@@ -30,7 +30,7 @@ class Courses
     {
         $dbObj=new InteractDatabase();
         
-        $sql="INSERT INTO `courselinks`(`courseID`, `title`, `courseEngVideoLink`, `coursePDFLink`,";
+        $sql="INSERT INTO `courselinks`(`courseID`, `title`, `courseEngVideoLink`, `courseEngPDFLink`,";
         $sql.="`courseHindiVideoLink`, `courseHindiPDFLink`, `courseTeluguVideoLink`, `courseTeluguPDFLink`) ";
         $sql.="VALUES (".$courseId.",'".$title."','".$courseEngVideo."','".$courseEngPDF."',";
         $sql.="'".$courseHinVideo."', '".$courseHinPDF."', '".$courseTelVideo."', '".$courseTelPDF."'";
