@@ -255,6 +255,26 @@
         {
             var progress=courseValidation(courseName, courseId, link);
             
+            var result="";
+                                $.ajax({type: "GET", 
+                                                   async: false,
+                                                   url: 'php/sessions.php',
+                                                   data: { 
+                                                       action : 'SetCourseSession',
+                                                       courseName : courseName,
+                                                       courseId : courseId
+                                                   },
+                                                   success: function(resp)
+                                                   {
+                                                         result=resp;
+                                                   }
+                                                  });
+                                                  
+            if(link==='Details')
+                        {
+                            window.location.href='details.php';
+                        }
+                        
             if(progress===true)
             {
                 
@@ -293,20 +313,7 @@
 
                         }
                 } else {
-                       var result="";
-                                $.ajax({type: "GET", 
-                                                   async: false,
-                                                   url: 'php/sessions.php',
-                                                   data: { 
-                                                       action : 'SetCourseSession',
-                                                       courseName : courseName,
-                                                       courseId : courseId
-                                                   },
-                                                   success: function(resp)
-                                                   {
-                                                         result=resp;
-                                                   }
-                                                  });
+                       
 
                          if(link==='preTest') {
                               window.location.href='pre-test.php'; // Page Redirect 
