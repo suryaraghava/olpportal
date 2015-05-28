@@ -363,10 +363,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
          </button>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Home</a></li>
-            <li><a href="#">Reports</a></li>
-         </ul>
+      
          <!--<ul class="nav navbar-nav navbar-right">
             <li><a href="#">Sign Up</a></li>
          </ul>-->
@@ -384,7 +381,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
 <!--   ---------------------- Start Home Page Slider -----------------------    -->
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-<div class="courses-btn"><a href="courses.php">COURSES</a></div>
+<div class="courses-btn"><a href="courses.php">Courses</a></div>
 <div class="login-form col-xs-6">
 <form class="form-horizontal">
 <fieldset>
@@ -533,7 +530,14 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
    <div class="row featurette">
       <div class="col-md-7">
          <h2 class="featurette-heading"><span class="text-muted">About</span> MGNREGA</h2>
-         <p class="lead">"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" &copy; 2015 NIRD Inc. All rights reserved.</p>
+         <p class="lead">
+             The National Rural Employment Guarantee Act 2005 (or, NREGA No 42) was later 
+             renamed as the "Mahatma Gandhi National Rural Employment Guarantee Act" (or, MGNREGA), 
+             is an Indian labour law and social security measure that aims to guarantee the 'right to work'.
+             It aims to ensure livelihood security in rural areas by providing at least 100 days of wage 
+             employment in a financial year to every household whose adult members volunteer to do unskilled 
+             manual work.It is one of the important scheme being implemented by government to 
+             achive inclusive growth.</p>
       </div>
       <div class="col-md-5"><img class="featurette-image img-responsive center-block" src="images/homepage-img.jpg" alt="About Image"></div>
    </div>
