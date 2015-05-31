@@ -21,6 +21,10 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+        input[type="button"]
+        {
+            margin-left:2%;
+        }
         #leftMenuContainer1, #leftMenuContainer2, 
         #leftMenuContainer3, #leftMenuContainer4
         {
@@ -88,6 +92,7 @@
                    content+='<th>S. No.</th>';
                    content+='<th>Course Name</th>';
                    content+='<th>Course Number</th>';
+                   content+='<th>Actions</th>';
                    content+='</tr>';
                    content+='</thead>';
                    content+='<tbody>';
@@ -98,6 +103,11 @@
                       content+='<td>'+(index+1)+'</td>';
                       content+='<td>'+res[index].courseName+'</td>';
                       content+='<td>'+res[index].courseNumber+'</td>';
+                      content+='<td>';
+                      content+='<input type="button" class="btn btn-primary" value="Edit"/>';
+                      content+='<input type="button" class="btn btn-danger" value="Delete"/>';
+                      content+='</td>';
+                     
                       content+='</tr>'
                   }
                   
@@ -213,6 +223,7 @@
                    content+='<tr>';
                    content+='<th>S. No.</th>';
                    content+='<th>Title Name</th>';
+                    content+='<th>Actions</th>';
                    content+='</tr>';
                    content+='</thead>';
                    content+='<tbody>';
@@ -222,6 +233,10 @@
                       content+='<tr>'
                       content+='<td>'+(index+1)+'</td>';
                       content+='<td>'+res[index].title+'</td>';
+                      content+='<td>';
+                      content+='<input type="button" class="btn btn-primary" value="Edit"/>';
+                      content+='<input type="button" class="btn btn-danger" value="Delete"/>';
+                      content+='</td>';
                       content+='</tr>'
                   }
                   
@@ -397,9 +412,9 @@
     <div id="course-container" class="col-xs-12">
         <div class="col-xs-3">
         <ul class="nav nav-pills nav-stacked">
-        <li id="leftMenu-1"><a href="#" onclick="viewLeftMenu1()">View Courses</a></li>
+        <li id="leftMenu-1"><a href="#" onclick="viewLeftMenu1()">View/Edit Courses</a></li>
         <li id="leftMenu-2"><a href="#" onclick="viewLeftMenu2()">Add a Course</a></li>
-        <li id="leftMenu-3"><a href="#" onclick="viewLeftMenu3()">View Course Details</a></li>
+        <li id="leftMenu-3"><a href="#" onclick="viewLeftMenu3()">View/Edit Course Details</a></li>
         <li id="leftMenu-4"><a href="#" onclick="viewLeftMenu4()">Add Course Details</a></li>
        </ul>
         </div>
