@@ -144,6 +144,22 @@ class Questions
     }
     
     
+     function getAdminTestResults()
+    {
+        $sql="SELECT firstName, lastName, courseName, testType,questionResults, marksResults, ExamDate, ExamStatus ";
+        $sql.=" FROM `usercoursetest`, `courses`, `userregistration` WHERE `courses`.idCourses= `usercoursetest`.courseID ";
+        $sql.=" AND `usercoursetest`.userID=`userregistration`.idUserRegistration";
+          
+        
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        
+        echo $json;
+    }
+    
+    
+    
+    
     
 }
 

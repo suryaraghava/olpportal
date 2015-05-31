@@ -126,6 +126,16 @@ if($action=='viewTestResults')
     echo $json;
 }
 
+if($action=='AdminViewTestResults')
+{
+  $q=new Questions();
+    $userId=$_SESSION[constant("SESSION_USER_REGID")];
+ 
+    $json=$q->getAdminTestResults();
+    echo $json;
+}
+
+
 if($action=='AdminAddQuestions')
 {
    $courseList=$_GET["courseList"];

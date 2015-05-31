@@ -30,7 +30,7 @@
                                     async: false,
                                     url: 'php/dac.questions.php',
                                     data: { 
-                                        action : 'viewTestResults'
+                                        action : 'AdminViewTestResults'
                                  
                                     },
                                     success: function(resp)
@@ -48,8 +48,9 @@
                              content+='<table class="table table-responsiv table-bordered">';
                              content+='<thead>';
                              content+='<tr>';
+                             content+='<th>Name</th>';
                              content+='<th>Examination</th>';
-                             content+='<th>TestModel</th>';
+                             content+='<th>Type of Test</th>';
                              content+='<th>Date of Examination</th>';
                              content+='<th>Questions</th>';
                              content+='<th>Marks</th>';
@@ -64,6 +65,7 @@
                 } else {
                    content+='<tr class="info">';
              }
+               content+='<td>'+res[index].firstName+" "+res[index].lastName+'</td>';  
                content+='<td>'+res[index].courseName+'</td>';   
                content+='<td>'+res[index].testType+'</td>';
                content+='<td>'+res[index].ExamDate+'</td>';
