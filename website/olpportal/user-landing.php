@@ -252,9 +252,43 @@
         
         function preTestforCourse(courseName, courseId, link)
         {
+                                                      
+           
             var progress=courseValidation(courseName, courseId, link);
             
             console.log("Progress : "+progress);
+            
+           
+            if(link==='Details')
+            {
+                 console.log("link : "+link);
+                 var access=false;
+                 var exesponse=checkForTest(courseId, 'preTest');
+                 console.log("exesponse : "+exesponse);
+                 exesponse=JSON.parse(exesponse);
+                 if(exesponse.length>0)
+                 {
+                      for(var ind=0;ind<exesponse.length;ind++)
+                      {
+                        console.log(exesponse[ind].testTaken);
+                        if(exesponse[ind].testTaken==='1')
+                        {
+                           access=true;
+                        }
+                     }
+                     
+                     if(access)
+                     {
+                         window.location.href='details.php';
+                     }
+                 }
+                 else
+                 {
+                       popupOpen();
+                       document.getElementById("popcontent").innerHTML='<h3>You need to completed the preTest to access the Details.</h3>';
+                      
+                 }
+            }
             var result="";
                                 $.ajax({type: "GET", 
                                                    async: false,
@@ -270,11 +304,7 @@
                                                    }
                                                   });
              
-                                                  
-            if(link==='Details')
-                        {
-                            window.location.href='details.php';
-                        }
+        
                         
             if(progress===true)
             {
@@ -323,6 +353,8 @@
                             {
                           window.location.href='assessment.php';
                             }
+                       
+                        
                         }
             
             }
