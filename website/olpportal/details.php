@@ -31,8 +31,34 @@
             cursor:pointer;
         }
     </style>
+    <script>
+        function pageOnlOad()
+        {
+            var course='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>';
+            var userId='<?php if(isset($_SESSION[constant("SESSION_USER_REGID")])) echo $_SESSION[constant("SESSION_USER_REGID")]; ?>';
+            // Add logs to Course Visited
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        userId :userId,
+                                        course : course,
+                                        action : 'AddcourseVisited'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                                   
+                                   console.log("result :"+result);
+                       
+        }
+    </script>
+        
   </head>
-<body onload="">
+<body onload="pageOnlOad()">
 
    <div class="container page-wrapper">
 

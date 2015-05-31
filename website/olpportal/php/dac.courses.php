@@ -16,6 +16,21 @@ if($action=='courseListOnly')
     $json=$course->viewCourseDetailsOnly();
     echo $json;
 }
+else if($action=='AddcourseVisited')
+{
+   $userId=$_GET["userId"];
+    $courseObj=new Courses();
+    $course=$_GET["course"];
+    $date=date("d/m/Y");
+    $startTime=date("h:i:sa");
+    $endTime='';
+    
+    $ipaddress='';
+    $courseObj->addCourseLogs($course, $date, $startTime, $endTime, $userId, $ipaddress);
+}
+
+
+
 else if($action=='courseVisited')
 {
     $userId=$_GET["userId"];
