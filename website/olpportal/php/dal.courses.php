@@ -56,6 +56,19 @@ class Courses
     }
     
     
+    function deleteCourseLink($idCourseLinks, $courseId, $title)
+    {
+        $dbObj=new InteractDatabase();
+        
+        $sql="DELETE FROM `courselinks` ";
+        $sql.="WHERE `courseID`=".$courseId." AND idCourseLinks=".$idCourseLinks." AND title='".$title."'";
+        
+        echo $sql;
+        
+        $dbObj->addupdateData($sql);
+    }
+    
+    
     
     
     

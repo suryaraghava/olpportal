@@ -80,3 +80,12 @@ else if($action=='AddNewCourseDetails')
     $course->addCourseLink($courseId, $title, $courseEngVideo, $courseEngPDF,
             $courseHinVideo, $courseHinPDF, $courseTelVideo, $courseTelPDF);
 }
+else if($action=='DeleteCourseDetails')
+{
+     $idCourseLinks=$_GET["idCourseLinks"];
+     $courseName=$_GET["courseName"];
+     $title=$_GET["title"];
+     
+     $course=new Courses();
+     $course->deleteCourseLink($idCourseLinks, $courseName, $title);
+}

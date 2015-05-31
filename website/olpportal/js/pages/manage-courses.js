@@ -214,8 +214,31 @@ var coursesList;
           document.getElementById("leftMenuContainer4").style.display='block';
           document.getElementById("CourseDetailsBttn").value='Edit Course Details';
           
+
       }
       
+      
+      
+      function deleteCourseDetails(idCourseLinks, courseName, title)
+      {
+          var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'DeleteCourseDetails',
+                                        idCourseLinks :idCourseLinks,
+                                        courseName:courseName,
+                                        title:title
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("answers : "+result);
+            window.location.href='manage-courses.php';
+      }
       
       
       function viewCourseDetails()
@@ -251,13 +274,14 @@ var coursesList;
                   for(var index=0;index<res.length;index++)
                   {
                       var idCourseLinks=res[index].idCourseLinks;
+           
                       content+='<tr>'
                       content+='<td>'+(index+1)+'</td>';
                       content+='<td>'+res[index].title+'</td>';
                       content+='<td>';
                       content+='<input type="button" class="btn btn-primary" value="Edit" ';
                       content+=' onclick="EditCourseDetails(\''+idCourseLinks+'\',\''+courseName+'\',\''+res[index].title+'\', \''+res[index].courseEngVideoLink+'\',\''+res[index].courseHindiVideoLink+'\',\''+res[index].courseTeluguVideoLink+'\',\''+res[index].courseEngPDFLink+'\')"/>';
-                      content+='<input type="button" class="btn btn-danger" value="Delete"/>';
+                      content+='<input type="button" class="btn btn-danger" value="Delete" onclick="deleteCourseDetails(\''+res[index].idCourseLinks+'\', \''+res[index].courseID+'\', \''+res[index].title+'\');"/>';
                       content+='</td>';
                       content+='</tr>'
                   }
