@@ -125,13 +125,13 @@
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
                 <li><a href="user-details.php">User Details</a></li>
                 <li><a href="user-history.php">User History</a></li>
-                <li><a href="previous-test-results.php">User Test Results</a></li>
+                <li><a href="admin-test-results.php">User Test Results</a></li>
                 <?php } else { ?>
-                <li><a href="previous-test-results.php">Test Results</a></li>
+                <li class="active"><a href="previous-test-results.php">Test Results</a></li>
                 <?php  } ?>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li class="active"><a href="manage-courses.php">Manage Courses</a></li>
+                <li><a href="manage-courses.php">Manage Courses</a></li>
                 <li><a href="manage-onlinetest.php">Manage Tests</a></li>
                 <?php } else {?>
                  <li><a href="visited-courses.php">Visited Courses</a></li>

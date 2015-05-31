@@ -51,7 +51,7 @@ if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
                 <li><a href="user-details.php">User Details</a></li>
                 <li><a href="user-history.php">User History</a></li>
-                <li><a href="previous-test-results.php">User Test Results</a></li>
+                <li><a href="admin-test-results.php">User Test Results</a></li>
                 <?php } else { ?>
                 <li><a href="previous-test-results.php">Test Results</a></li>
                 <?php  } ?>
