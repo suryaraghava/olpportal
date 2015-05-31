@@ -30,6 +30,7 @@
          #form-Div {   margin-bottom: 3%; }
         #view-courseDetails { display:none; }
         #course-container { width:100%;height:100%; }
+        #video-preview1, #video-preview2, #video-preview3 { margin-top:1%; display:none; }
     </style>
     <script type="text/javascript" src="js/pages/manage-courses.js"></script>
   </head>
@@ -220,28 +221,53 @@
                     </div>
                 </div>
                 <div id="form-Div" class="row">
+                    
                     <div class="col-xs-12">
                         Course Videolink (English Version):
                     </div>
+                    
                     <div class="col-xs-12">
                         <input id="addcourse-EngVideoLink" name="addcourse-EngVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
+                    
+                    
+                    <div id="video-preview1" class="col-xs-12">
+                        <input type="button" class="btn btn-primary pull-right" value="Preview" onclick="videoPreview1()"/>
+                    </div>
+                    
+                    
                 </div>
                 <div id="form-Div" class="row">
+                    
                     <div class="col-xs-12">
                         Course Videolink (Hindi Version):
                     </div>
+                    
                     <div class="col-xs-12">
                         <input id="addcourse-HinVideoLink" name="addcourse-HinVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
+                    
+                    
+                    <div id="video-preview2" class="col-xs-12">
+                        <input type="button" class="btn btn-primary pull-right" value="Preview"  onclick="videoPreview2()"/>
+                    </div>
+                    
+                    
                 </div>
                 <div id="form-Div" class="row">
+                    
                     <div class="col-xs-12">
                         Course Videolink (Telugu Version):
                     </div>
+                    
                     <div class="col-xs-12">
                         <input id="addcourse-TelVideoLink" name="addcourse-TelVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
+                    
+                    <div id="video-preview3" class="col-xs-12">
+                        <input type="button" class="btn btn-primary pull-right" value="Preview"  onclick="videoPreview3()"/>
+                    </div>
+                    
                 </div>
                  <div id="form-Div" class="row">
                     <div class="col-xs-12">

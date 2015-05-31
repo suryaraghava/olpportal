@@ -185,9 +185,32 @@ var coursesList;
           $("#leftMenu-4").addClass("active");
       }
       
+       function videoPreview1()
+       {
+           var url=document.getElementById("addcourse-EngVideoLink").value;;
+           window.open(url);
+       }
+      
+       function videoPreview2()
+       {
+           var url=document.getElementById("addcourse-HinVideoLink").value;;
+           window.open(url);
+       }
+      
+       function videoPreview3()
+       {
+           var url=document.getElementById("addcourse-TelVideoLink").value;;
+           window.open(url); 
+       }
+      
+      
+      
       function EditCourseDetails(idCourseLinks, courseName, title, engvideo, hindivideo, teluguvideo, engPDF)
       {
           
+           document.getElementById("video-preview1").style.display='block';
+           document.getElementById("video-preview2").style.display='block';
+           document.getElementById("video-preview3").style.display='block';
            document.getElementById("idCourseLinks").value=idCourseLinks;
            document.getElementById("coursedetailsOperation").value='Edit';
            document.getElementById("addcourse-titleName").value=title;
