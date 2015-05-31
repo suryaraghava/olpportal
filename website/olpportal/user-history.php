@@ -22,8 +22,87 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <link href="css/jquery.dataTables.css"/>
+    <script src="js/jquery.dataTables.min.js"></script>
+     <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap.css" rel="stylesheet">
+    <style>
+        thead{
+            background-color: #0075b0;
+            color:#fff;
+        }
+    </style>
+   <script type="text/javascript">
+        function reportloading()
+        {
+             $('input[type="search"]').addClass('form-control');
+             
+             
+               var  table=$('#adminviewuserdetails').dataTable( {
+			 "ajax":'php/dac.useraccounts.php?action=GetAdminUserReports',
+			 "scrollY": "400px",
+			 "columns": [{ "title": "FULL NAME" , "class": "center"},
+				     { "title": "DESIGNATION" , "class": "center"},
+			             { "title": "COURSE NAME", "type" : "string", "class": "center" },
+                                     { "title": "TYPE OF TEST", "type" : "string", "class": "center" },
+                                     { "title": "SCORE", "type" : "string", "class": "center" }
+                                    ]
+				 } );
+            // Name
+           // Staff ID
+           // Designation
+           //  State
+           // Course Name
+           // Type of Test
+            // Status
+          /*  var content='';
+             content+=''; 
+             content+='<table class="table table-responsiv table-bordered">'
+             content+='<thead>';
+             content+='<tr>';
+             content+='<th>Name</th>
+             content+='<th>Staff ID</th>
+             content+='<th>Designation</th>
+             content+='<th>State</th>
+             content+='<th>Course Name</th>
+             content+='<th>Type of Test</th>
+             content+='<th>Status</th>
+             content+='</tr>
+content+='</thead>
+content+='<tbody>
+content+='<tr>
+content+='<td>002</td>
+content+='<td>Farm Pond</td>
+<td>Farm Pond</td>
+<td>Post Test</td>
+<td>80</td>
+<td>Pass</td>
+</tr>
+<tr class="info">
+<td>001</td>
+<td>Deep Ploughing</td>
+<td>Deep Ploughing</td>
+<td>Post Test</td>
+<td>50</td>
+<td>Fail</td>
+</tr>
+<tr>
+<td>003</td>
+<td>Deep Ploughing</td>
+<td>Deep Ploughing</td>
+<td>Pre Test</td>
+<td>70</td>
+<td>Pass</td>
+</tr>
+</tbody>
+</table>
+            document.getElementById("report-container").innerHTML=''; */
+        }
+    </script>
   </head>
-<body>
+<body onload="reportloading()">
 
     <div class="container page-wrapper">
 
@@ -89,9 +168,9 @@
 <!--   ---------------------- Start Home Page About Content -----------------------    -->
 <br/>
 <div class="col-xs-12">
-    <a href="dashboard.php"> 
+    <!--a href="dashboard.php"> 
         <button class="btn btn-default pull-right">View Dashboard</button>
-    </a>
+    </a-->
 </div>
 <br/>
 <div class="container">
@@ -102,42 +181,9 @@
 </div>
 <div class="container">
 <div class="col-xs-12">
-<div class="panel panel-default">
-<table class="table table-responsiv table-bordered">
-<thead>
-<tr>
-<th>Course Page</th>
-<th>Date</th>
-<th>Start Time</th>
-<th>End Time</th>
-<th>IP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Farm Pond</td>
-<td>20/04/2015</td>
-<td>17:25:20</td>
-<td>20:25:20</td>
-<td>10.10.10.4</td>
-</tr>
-<tr class="info">
-<td>Deep Ploughing</td>
-<td>22/04/2015</td>
-<td>18:25:20</td>
-<td>23:25:20</td>
-<td>10.10.8.4</td>
-</tr>
-<tr>
-<td>Diversion Canal</td>
-<td>23/04/2015</td>
-<td>6:25:20</td>
-<td>8:12:20</td>
-<td>10.10.9.4</td>
-</tr>
-</tbody>
-</table>
-</div>
+ <table id="adminviewuserdetails" class="table table-responsiv table-bordered">
+        
+ </table>
 <p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
 <br/>
 </div>
@@ -183,7 +229,6 @@
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

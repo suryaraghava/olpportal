@@ -52,6 +52,7 @@
                                           result=resp;
                                     }
                                    });
+                                   console.log(result);
                                    var res=JSON.parse(result);
           coursesList=res;
           viewLeftMenu1();

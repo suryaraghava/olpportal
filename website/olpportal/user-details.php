@@ -143,9 +143,9 @@
 <!--   ---------------------- Start Home Page About Content -----------------------    -->
 <br/>
 <div class="col-xs-12">
-    <a href="dashboard.php"> 
+    <!--a href="dashboard.php"> 
         <button class="btn btn-default pull-right">View Dashboard</button>
-    </a>
+    </a-->
 </div>
 <br/>
 <div class="container">

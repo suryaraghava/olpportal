@@ -130,7 +130,6 @@ else if($action=='GetUserReports')
     $acc=new UserAccounts();
     $json=$acc->userCourseReports();
     
-     //echo $json;
     $dejson=json_decode($json);
    $data="{\"data\": [";
     for($ind=0;$ind<count($dejson);$ind++)
@@ -140,6 +139,27 @@ else if($action=='GetUserReports')
         $data.="\"".$dejson[$ind]->{'designation'}."\",";
         $data.="\"".$dejson[$ind]->{'staffID'}."\",";
         $data.="\"".$dejson[$ind]->{'state'}."\",";
+        $data.="\"".$dejson[$ind]->{'courseName'}."\",";
+        $data.="\"".$dejson[$ind]->{'testType'}."\",";
+        $data.="\"".$dejson[$ind]->{'marksResults'}."\"";
+        $data.="],";
+    }
+    $data=chop($data, ",");
+      $data.="]}";
+    echo $data;
+}
+else if($action=='GetAdminUserReports')
+{
+    $acc=new UserAccounts();
+    $json=$acc->userCourseReports();
+    
+    $dejson=json_decode($json);
+   $data="{\"data\": [";
+    for($ind=0;$ind<count($dejson);$ind++)
+    {
+        $data.="[";       
+        $data.="\"".$dejson[$ind]->{'firstName'}." ".$dejson[$ind]->{'lastName'}."\",";
+        $data.="\"".$dejson[$ind]->{'designation'}."\",";
         $data.="\"".$dejson[$ind]->{'courseName'}."\",";
         $data.="\"".$dejson[$ind]->{'testType'}."\",";
         $data.="\"".$dejson[$ind]->{'marksResults'}."\"";
