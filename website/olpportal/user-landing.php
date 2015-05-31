@@ -505,10 +505,6 @@
           <li>|</li>
           <li class="active"><a href="#">Courses</a></li>
           <li>|</li>
-          <li class="active"><a href="#">Login</a></li>
-          <li>|</li>
-          <li class="active"><a href="#">Sign Up</a></li>
-          <li>|</li>
           <li class="active"><a href="contact.php">Contact Us</a></li>   
        </ul>
        </div>
