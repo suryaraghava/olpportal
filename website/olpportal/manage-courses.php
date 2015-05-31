@@ -29,7 +29,7 @@
         }
          #form-Div {   margin-bottom: 3%; }
         #view-courseDetails { display:none; }
-        #course-container { width:100%;height:800px; }
+        #course-container { width:100%;height:100%; }
     </style>
     <script type="text/javascript" src="js/pages/manage-courses.js"></script>
   </head>
@@ -190,19 +190,25 @@
                 </div>
             </div>
             
+            <form action="php/dac.courseDetails.php" method="POST"  enctype="multipart/form-data">
             <!-- viewLeftMenu4 : Add Course Details-->
             <div id="leftMenuContainer4" class="col-xs-12">
+                 <input type="hidden" id="coursedetailsOperation" name="coursedetailsOperation" class="form-control" value="Add"/>
+                 <input type="hidden" id="setCourseName" name="setCourseName" class="form-control" value=""/>
+                 <input type="hidden" id="idCourseLinks" name="idCourseLinks" class="form-control" value=""/>
+                
+                
                 <div class="row">
                     <div class="col-xs-12">
-                        <h4><B>Add Course Details</B></h4><hr/>
+                        <h4 id="courseDetailHeading"><B>Add Course Details</B></h4><hr/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
-                    <div class="col-xs-12">
+                    <div id="view-courseName2-label" class="col-xs-12">
                        Course Name:
                     </div>
                     <div class="col-xs-12">
-                        <select id="view-courseName2" class="form-control"></select>
+                        <select id="view-courseName2" name="view-courseName2" class="form-control"></select>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -210,7 +216,7 @@
                        Title Name:
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-titleName" class="form-control" placeholder="Example : WaterShed"/>
+                        <input id="addcourse-titleName" name="addcourse-titleName"  class="form-control" placeholder="Example : WaterShed"/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -218,7 +224,7 @@
                         Course Videolink (English Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-EngVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
+                        <input id="addcourse-EngVideoLink" name="addcourse-EngVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -226,7 +232,7 @@
                         Course Videolink (Hindi Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-HinVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
+                        <input id="addcourse-HinVideoLink" name="addcourse-HinVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
                 </div>
                 <div id="form-Div" class="row">
@@ -234,7 +240,7 @@
                         Course Videolink (Telugu Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-TelVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
+                        <input id="addcourse-TelVideoLink" name="addcourse-TelVideoLink" class="form-control"  placeholder="Example : https://www.youtube.com/QOrVotzBNto"/>
                     </div>
                 </div>
                  <div id="form-Div" class="row">
@@ -242,36 +248,21 @@
                         Course Booklink (English Version):
                     </div>
                     <div class="col-xs-12">
-                        <input id="addcourse-EngBookLink" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
-                    </div>
-                </div>
-                
-                 <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Booklink (Hindi Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-HinBookLink" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
-                    </div>
-                </div>
-                
-                 <div id="form-Div" class="row">
-                    <div class="col-xs-12">
-                        Course Booklink (Telugu Version):
-                    </div>
-                    <div class="col-xs-12">
-                        <input id="addcourse-TelBookLink" class="form-control"  placeholder="Example : https://books.google.com/ebooks?uid=117522004192189783614&as_coll=1058"/>
+                        
+                        <div id="alreadyShow" class="col-xs-5"><span id="existingFile"></span></div>
+                        <div class="col-xs-6"><input type="file" id="addcourse-EngBookLink"  name="addcourse-EngBookLink"/></div>
                     </div>
                 </div>
                 
                  <div id="form-Div" class="row">
                     
                     <div class="col-xs-12">
-                        <button class="btn btn-default pull-right" onclick="addDetailsToCourse()">Add Course Details</button>
+                        <input type="submit" id="CourseDetailsBttn" class="btn btn-default pull-right" onclick="addDetailsToCourse()" value="Add Course Details"/>
                     </div>
                 </div>
                 
             </div>
+        </form>
             <script type="text/javascript">
                
             </script>

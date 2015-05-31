@@ -107,6 +107,7 @@ var coursesList;
           $("#leftMenu-3").removeClass("active");
           $("#leftMenu-4").removeClass("active");
       }
+     
       function viewLeftMenu3()
       {
           document.getElementById("leftMenuContainer1").style.display='none';
@@ -139,12 +140,23 @@ var coursesList;
           $("#leftMenu-3").addClass("active");
           $("#leftMenu-4").removeClass("active");
       }
+     
       function viewLeftMenu4()
       {
           document.getElementById("leftMenuContainer1").style.display='none';
           document.getElementById("leftMenuContainer2").style.display='none';
           document.getElementById("leftMenuContainer3").style.display='none';
           document.getElementById("leftMenuContainer4").style.display='block';
+          
+          //
+           document.getElementById("coursedetailsOperation").value='Add';
+          document.getElementById("alreadyShow").style.display='none';
+          document.getElementById("courseDetailHeading").innerHTML='<B>Add Course Details</B>';
+          document.getElementById("view-courseName2-label").style.display='block';
+          document.getElementById("view-courseName2").style.display='block';
+          document.getElementById("leftMenuContainer4").style.display='block';
+          document.getElementById("CourseDetailsBttn").value='Add Course Details';
+          
           
            // Dynamic Menu
           
@@ -173,6 +185,38 @@ var coursesList;
           $("#leftMenu-4").addClass("active");
       }
       
+      function EditCourseDetails(idCourseLinks, courseName, title, engvideo, hindivideo, teluguvideo, engPDF)
+      {
+          
+           document.getElementById("idCourseLinks").value=idCourseLinks;
+           document.getElementById("coursedetailsOperation").value='Edit';
+           document.getElementById("addcourse-titleName").value=title;
+           document.getElementById("addcourse-EngVideoLink").value=engvideo;
+           document.getElementById("addcourse-HinVideoLink").value=hindivideo;
+           document.getElementById("addcourse-TelVideoLink").value=teluguvideo;
+           document.getElementById("setCourseName").value=courseName;
+          
+          
+          if(engPDF.length>0)
+          {
+              document.getElementById("existingFile").innerHTML='<B>'+engPDF+'</B>';
+          }
+          else
+          {
+              document.getElementById("existingFile").innerHTML='<B>No File is uploaded Before</B>';
+          }
+          
+          
+          
+          document.getElementById("courseDetailHeading").innerHTML='<B>Edit Course Details</B>';
+          document.getElementById("view-courseName2-label").style.display='none';
+          document.getElementById("view-courseName2").style.display='none';
+          document.getElementById("leftMenuContainer4").style.display='block';
+          document.getElementById("CourseDetailsBttn").value='Edit Course Details';
+          
+      }
+      
+      
       
       function viewCourseDetails()
       {
@@ -197,20 +241,22 @@ var coursesList;
           var content='<table class="table table-responsiv table-bordered">';
                    content+='<thead>';
                    content+='<tr>';
-                   content+='<th>S. No.</th>';
-                   content+='<th>Title Name</th>';
-                    content+='<th>Actions</th>';
+                   content+='<th align="center" style="width:10%;">S. No.</th>';
+                   content+='<th align="center" >Title Name</th>';
+                   content+='<th align="center" style="width:20%;">Actions</th>';
                    content+='</tr>';
                    content+='</thead>';
                    content+='<tbody>';
                   
                   for(var index=0;index<res.length;index++)
                   {
+                      var idCourseLinks=res[index].idCourseLinks;
                       content+='<tr>'
                       content+='<td>'+(index+1)+'</td>';
                       content+='<td>'+res[index].title+'</td>';
                       content+='<td>';
-                      content+='<input type="button" class="btn btn-primary" value="Edit"/>';
+                      content+='<input type="button" class="btn btn-primary" value="Edit" ';
+                      content+=' onclick="EditCourseDetails(\''+idCourseLinks+'\',\''+courseName+'\',\''+res[index].title+'\', \''+res[index].courseEngVideoLink+'\',\''+res[index].courseHindiVideoLink+'\',\''+res[index].courseTeluguVideoLink+'\',\''+res[index].courseEngPDFLink+'\')"/>';
                       content+='<input type="button" class="btn btn-danger" value="Delete"/>';
                       content+='</td>';
                       content+='</tr>'

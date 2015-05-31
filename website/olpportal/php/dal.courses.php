@@ -39,6 +39,32 @@ class Courses
         $dbObj->addupdateData($sql);
     }
     
+    
+    
+     
+    function updateCourseLink($idCourseLinks, $courseId, $title, $courseEngVideo, $courseEngPDF,
+            $courseHinVideo, $courseHinPDF, $courseTelVideo, $courseTelPDF)
+    /* Updating CourseLinks */
+    {
+        $dbObj=new InteractDatabase();
+        
+        $sql="UPDATE `courselinks` SET `title`='".$title."', `courseEngVideoLink`='".$courseEngVideo."', `courseEngPDFLink`='".$courseEngPDF."',";
+        $sql.="`courseHindiVideoLink`='".$courseHinVideo."', `courseHindiPDFLink`='".$courseHinPDF."', `courseTeluguVideoLink`='".$courseTelVideo."', `courseTeluguPDFLink`='".$courseTelPDF."' ";
+        $sql.="WHERE `courseID`=".$courseId." AND idCourseLinks=".$idCourseLinks;
+        
+        $dbObj->addupdateData($sql);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     function viewCourseFullDetails($courseID)
     /* Getting  Course Full Details */
     {
