@@ -22,6 +22,7 @@
   
     <![endif]-->
       <style>
+       
         #course-details-view
         {
             margin-top:4%;
@@ -55,6 +56,7 @@
                                    console.log("result :"+result);
                        
         }
+      
     </script>
         
   </head>
@@ -102,10 +104,16 @@
          <ul class="nav navbar-nav navbar-right right-margin">
              <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
          <li><a href="php/logout.php">Logout</a></li>
-            <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-               <li><a href="user-details.php">Profile</a></li>
-            </ul>
+            <li class="active dropdown">
+                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="icon-cog"></span>Settings<span class="caret"></span></a>
+                 <ul class="dropdown-menu" role="menu">
+                    <li class="mychangedrop">
+                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                           <?php include 'templates/changePassword.php';?>
+                         </a>
+                    </li>
+                 </ul>
             </li>
          </ul>
       </div>
