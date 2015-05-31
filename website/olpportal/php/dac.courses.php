@@ -62,6 +62,27 @@ else if($action=='AddNewCourses')
         $course=new Courses();
         $course->addCourses($courseName, $courseNum, 'images/courses/course-2.jpg');
 }
+else if($action=='EditNewCourses')
+{
+    $idCourses=$_GET["idCourses"];
+    $courseName=$_GET["courseName"];
+    $courseNum=$_GET["courseNumber"];
+    
+    echo $courseName;
+   echo $courseNum;
+        $course=new Courses();
+        $course->updateCourses($idCourses, $courseName, $courseNum, 'images/courses/course-2.jpg');
+}
+
+else if($action=='DeleteCourse')
+{
+    $idCourses=$_GET["idCourses"];
+    
+        $course=new Courses();
+        $course->deleteCourses($idCourses);
+}
+
+
 else if($action=='AddNewCourseDetails')
 {
     $courseId=$_GET["courseId"];

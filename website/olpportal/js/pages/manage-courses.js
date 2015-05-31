@@ -38,8 +38,10 @@ var coursesList;
           $("#leftMenu-4").removeClass("active");
       }
       
-      function courseEdit(courseName, courseNumber)
+      function courseEdit(idCourses, courseName, courseNumber)
       {
+          
+         document.getElementById("idCourses").value=idCourses;
          document.getElementById("courseOperation").value='Edit';
          document.getElementById("courseHeading").innerHTML='<B>Edit a Course</B>';
          document.getElementById("leftMenuContainer2").style.display='block';
@@ -53,7 +55,7 @@ var coursesList;
         {
              var res=coursesList;
                  
-               console.log("courses : "+res);
+               console.log("courses : "+JSON.stringify(res));
            
                var content='<table class="table table-responsiv table-bordered">';
                    content+='<thead>';
@@ -73,8 +75,8 @@ var coursesList;
                       content+='<td>'+res[index].courseName+'</td>';
                       content+='<td>'+res[index].courseNumber+'</td>';
                       content+='<td>';
-                      content+='<input type="button" class="btn btn-primary" value="Edit" onclick=\"courseEdit(\''+res[index].courseName+'\',\''+res[index].courseNumber+'\')\"/>';
-                      content+='<input type="button" class="btn btn-danger" value="Delete"/>';
+                      content+='<input type="button" class="btn btn-primary" value="Edit" onclick=\"courseEdit(\''+res[index].idCourses+'\',\''+res[index].courseName+'\',\''+res[index].courseNumber+'\')\"/>';
+                      content+='<input type="button" class="btn btn-danger" value="Delete" onclick=\"courseDelete(\''+res[index].idCourses+'\');\"/>';
                       content+='</td>';
                      
                       content+='</tr>'
@@ -86,6 +88,26 @@ var coursesList;
                    
                    document.getElementById("leftMenuContainer1").innerHTML=content;
         }
+      
+      function courseDelete(idCourses)
+      {
+          var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'DeleteCourse',
+                                        idCourses :idCourses,
+                                       
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("answers : "+result);
+            window.location.href='manage-courses.php';
+      }
       
       
       function viewLeftMenu2()
@@ -318,21 +340,23 @@ var coursesList;
       
       function addNewCourse()
       {
+            var operation=document.getElementById("courseOperation").value;
             var courseName=document.getElementById("add-courseName").value;
             var courseNumber=document.getElementById("add-courseNumber").value;
           
           console.log("courseName : "+courseName);
           console.log("courseNumber : "+courseNumber);
           
-          
-           var result="";
+          if(operation=='Add')
+          {
+              var result="";
                 $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.courses.php',
                                     data: { 
                                         courseName:courseName,
                                         courseNumber:courseNumber,
-                                      action : 'AddNewCourses'
+                                        action : 'AddNewCourses'
                                     },
                                   success: function(resp)
                                     {
@@ -340,7 +364,29 @@ var coursesList;
                                     }
                                    });
                         console.log("Res : "+result);
-           viewLeftMenu1();             
+          }
+          else
+          {
+              var idCourses=document.getElementById("idCourses").value;
+                var result="";
+                $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        idCourses:idCourses,
+                                        courseName:courseName,
+                                        courseNumber:courseNumber,
+                                        action : 'EditNewCourses'
+                                    },
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                        console.log("Res : "+result);
+          }
+        //   viewLeftMenu1();    
+         window.location.href='manage-courses.php';         
           // document.getElementById("add-courseName").value="";
          //  document.getElementById("add-courseNumber").value="";             
       }

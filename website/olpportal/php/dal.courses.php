@@ -24,6 +24,48 @@ class Courses
         return $courseId;
     }
     
+    
+    
+    function updateCourses($idCourses, $courseName, $courseNum, $courseImg)
+    /* Adding Courses and It returns Primary Key */
+    {
+        $dbObj=new InteractDatabase();
+        $isql="UPDATE `courses` SET `courseName`='".$courseName."', `courseNumber`=".$courseNum.", `courseImage`='".$courseImg."' ";
+        $isql.= "  WHERE `idCourses`=".$idCourses;
+       // $gsql="SELECT * FROM `courses` WHERE `courseName`='".$courseName."' AND `courseNumber`=".$courseNum.";";
+        
+        echo $isql;
+        $dbObj->addupdateData($isql);
+       // $json=$dbObj->getJSONData($gsql);
+      //  $dejson=json_decode($json);
+       // $courseId=$dejson[0]->{'idCourses'};
+        
+      //  return $courseId;
+    }
+    
+    
+        
+    function deleteCourses($idCourses)
+    /* Adding Courses and It returns Primary Key */
+    {
+        $dbObj=new InteractDatabase();
+        $isql="DELETE FROM `courses` ";
+        $isql.= "  WHERE `idCourses`=".$idCourses;
+       // $gsql="SELECT * FROM `courses` WHERE `courseName`='".$courseName."' AND `courseNumber`=".$courseNum.";";
+        
+        echo $isql;
+        $dbObj->addupdateData($isql);
+       // $json=$dbObj->getJSONData($gsql);
+      //  $dejson=json_decode($json);
+       // $courseId=$dejson[0]->{'idCourses'};
+        
+      //  return $courseId;
+    }
+    
+    
+    
+    
+    
     function addCourseLink($courseId, $title, $courseEngVideo, $courseEngPDF,
             $courseHinVideo, $courseHinPDF, $courseTelVideo, $courseTelPDF)
     /* Adding CourseLinks */

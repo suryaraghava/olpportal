@@ -137,6 +137,7 @@
             <!-- viewLeftMenu2 : Add a Courses-->
             <div class="col-xs-12" id="leftMenuContainer2">
                 <input type="hidden" id="courseOperation" class="form-control" value="Add"/>
+                <input type="hidden" id="idCourses" class="form-control" value=""/>
                 <div class="row">
                     <div class="col-xs-12">
                         <h4 id="courseHeading"><B>Add a Course</B></h4><hr/>
