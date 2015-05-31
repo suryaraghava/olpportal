@@ -50,24 +50,19 @@
          <ul class="nav navbar-nav">
                 <li><a href="user-landing.php">Home</a></li>
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li class="active">
-                    <a href="#"  data-toggle="dropdown" role="button" aria-expanded="false">
-                        Dashboard<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="active"><a href="user-details.php">View User Details</a></li>
-                        <li><a href="user-history.php">View User History</a></li>
-                    </ul>
-                
-                </li>
-                <?php } ?>
-                <li><a href="previous-test-results.php">Previous Test Results</a></li>
-                <li><a href="visited-courses.php">Visit Courses</a></li>
+                <li><a href="user-details.php">User Details</a></li>
+                <li><a href="user-history.php">User History</a></li>
+                <li><a href="previous-test-results.php">User Test Results</a></li>
+                <?php } else { ?>
+                <li><a href="previous-test-results.php">Test Results</a></li>
+                <?php  } ?>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="manage-courses.php">Manage Courses</a></li>
-                <li><a href="manage-onlinetest.php">Manage Online Tests</a></li>
-                <?php } ?>
+                <li class="active"><a href="manage-courses.php">Manage Courses</a></li>
+                <li><a href="manage-onlinetest.php">Manage Tests</a></li>
+                <?php } else {?>
+                 <li><a href="visited-courses.php">Visited Courses</a></li>
+                <?php  } ?>
          </ul>
           
          <ul class="nav navbar-nav navbar-right right-margin">
