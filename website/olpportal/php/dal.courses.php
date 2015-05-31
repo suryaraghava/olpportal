@@ -151,7 +151,7 @@ class Courses
     
     function getCourseLogs($userId)
     {
-        $sql="SELECT * FROM `uservisitedcourse` WHERE `userId`='".$userId."'";
+        $sql="SELECT * FROM `uservisitedcourse` WHERE `userId`=".$userId." ORDER BY date ASC";
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
         return $json;

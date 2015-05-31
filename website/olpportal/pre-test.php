@@ -354,9 +354,13 @@
                      </li>
          <li><a href="#">Logout</a></li>
             <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-               <li><a href="#">Profile</a></li>
-            </ul>
+                 <ul class="dropdown-menu" role="menu" data-toggle="dropdown">
+                    <li class="mychangedrop">
+                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                           <?php include 'templates/changePassword.php';?>
+                         </a>
+                    </li>
+                 </ul>
             </li>
          </ul>
       </div>

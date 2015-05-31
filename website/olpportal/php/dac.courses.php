@@ -18,6 +18,10 @@ if($action=='courseListOnly')
 }
 else if($action=='AddcourseVisited')
 {
+    if (function_exists('date_default_timezone_set'))
+    {
+      date_default_timezone_set('Asia/Calcutta');
+    }
    $userId=$_GET["userId"];
     $courseObj=new Courses();
     $course=$_GET["course"];
@@ -26,7 +30,7 @@ else if($action=='AddcourseVisited')
     $endTime='';
     
     $ipaddress='';
-    $courseObj->addCourseLogs($course, $date, $startTime, $endTime, $userId, $ipaddress);
+    echo $courseObj->addCourseLogs($course, $date, $startTime, $endTime, $userId, $ipaddress);
 }
 
 

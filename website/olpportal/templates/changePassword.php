@@ -15,7 +15,9 @@ and open the template in the editor.
              #labelInput { margin-bottom:2%; }
         </style>
         <script>
-          
+          function opendropdown(){
+                $(".dropdown-menu").dropdown("toggle");
+              }
         </script>
     </head>
     <body>
@@ -23,11 +25,11 @@ and open the template in the editor.
              <div id="labelPwd" align="center" class="col-xs-12"><B> Change Password </B> </div>
              <div id="label" class="col-xs-12"><B> Password </B> </div>
              <div id="labelInput" class="col-xs-12">
-                 <input id="input-Pwd"  type="password" class="form-control" placeholder="Enter password ... "/>
+                 <input id="input-Pwd"  type="password" class="form-control" placeholder="Enter password ... " onclick="opendropdown()"/>
              </div>
              <div  id="label" class="col-xs-12"><B> Re-enter Password </B> </div>
              <div  id="labelInput" class="col-xs-12">
-                <input id="input-RePwd" type="password" class="form-control" placeholder="Enter Re-enter password ... "/>
+                <input id="input-RePwd" type="password" class="form-control" placeholder="Enter Re-enter password ... "  onclick="opendropdown()"/>
              </div>
              <div  id="label" class="col-xs-12">
                  <button class="btn btn-danger pull-right">Reset Password</button>
