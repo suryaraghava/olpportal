@@ -215,6 +215,16 @@ class UserAccounts
                 return $json;  
             }
             
+            
+            function userCourseReports()
+            {
+                $sql="SELECT * FROM usercoursetest, userregistration, courses WHERE usercoursetest.userID=userregistration.idUserRegistration AND courses.idCourses=usercoursetest.courseID";
+            
+                $dbObj=new InteractDatabase();
+                $json= $dbObj->getJSONData($sql);
+                return $json;  
+            }
+            
 }
 
 

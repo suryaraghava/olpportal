@@ -88,9 +88,9 @@
             <li><a href="reports.php">Reports</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
-            <li class="active"><a href="#"><span class="icon-login"></span>Login</a></li>
+            <li class="active"><a href="index.php"><span class="icon-login"></span>Login</a></li>
             <li class="separator"></li>
-            <li class="active"><a href="#"><span class="icon-signup"></span>Sign Up</a></li>
+            <li class="active"><a href="index.php"><span class="icon-signup"></span>Sign Up</a></li>
          </ul>
       </div>
    </div>

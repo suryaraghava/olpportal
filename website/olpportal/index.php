@@ -403,7 +403,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="courses.php">Home</a></li>
             <li><a href="reports.php">Reports</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-xs hidden-lg">
