@@ -149,13 +149,12 @@
                console.log("g_coursesList Array : "+g_coursesList);  // list of courses in sequence
             
              
-             
-             
              if(link==='Assessment')
              {
                  // check the current course preTest is completed or Not
-                    var response=checkForTest(courseId, 'Assessment');
-                                        
+                    var response=checkForTest(courseId, 'preTest');
+                          
+                          console.log("Test Response : "+response);
                     var res=JSON.parse(response);
 
                     for(var ind=0;ind<res.length;ind++)
@@ -213,7 +212,7 @@
                                           qres=resp;
                                     }
                                    });
-                       
+                       console.log(qres);
                          qres=JSON.parse(qres);
                          for(var ind=0;ind<qres.length;ind++)
                          {
@@ -255,6 +254,7 @@
         {
             var progress=courseValidation(courseName, courseId, link);
             
+            console.log("Progress : "+progress);
             var result="";
                                 $.ajax({type: "GET", 
                                                    async: false,
@@ -269,6 +269,7 @@
                                                          result=resp;
                                                    }
                                                   });
+             
                                                   
             if(link==='Details')
                         {
@@ -279,7 +280,7 @@
             {
                 
                     var response=checkForTest(courseId, link);
-
+                    console.log("Test : "+response);
                     var res=JSON.parse(response);
                     var flag=false;
                     for(var ind=0;ind<res.length;ind++)
