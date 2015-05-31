@@ -65,7 +65,7 @@
                 <li><a href="visited-courses.php">Visit Courses</a></li>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="manage-courses.php">Manage Courses</a></li>
+                <!--li><a href="manage-courses.php">Manage Courses</a></li-->
                 <li><a href="manage-onlinetest.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>

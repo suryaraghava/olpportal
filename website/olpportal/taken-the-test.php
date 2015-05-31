@@ -1,3 +1,9 @@
+<?php 
+require 'php/define.php';
+session_start(); 
+if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
+{?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +55,7 @@
                 <li><a href="visited-courses.php">Visit Courses</a></li>
 
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="manage-courses.php">Manage Courses</a></li>
+                <!--li><a href="manage-courses.php">Manage Courses</a></li-->
                 <li><a href="manage-onlinetest.php">Manage Online Tests</a></li>
                 <?php } ?>
          </ul>
@@ -170,3 +176,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php } else {     header("location:index.php"); }?>

@@ -84,7 +84,8 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-            <li ><a style="color:#FFF" href="index.php">Home</a></li>
+            <li class="active"><a style="color:#FFF" href="index.php">Home</a></li>
+            <li><a href="reports.php">Reports</a></li>
          </ul>
          <ul class="nav navbar-nav navbar-right right-margin">
             <li class="active"><a href="#"><span class="icon-login"></span>Login</a></li>

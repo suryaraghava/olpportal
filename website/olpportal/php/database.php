@@ -16,6 +16,7 @@ class Utils
 
 class InteractDatabase
 {
+    
     function dbinteraction()
     {
         $conn = new mysqli(constant("SERVER_NAME"),
