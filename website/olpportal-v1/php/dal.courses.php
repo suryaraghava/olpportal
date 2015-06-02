@@ -9,6 +9,37 @@ require 'database.php';
 
 class Courses
 {
+    /* GetCourseId based on CourseName */
+    function getCourseId($courseName)
+    {
+         $dbObj=new InteractDatabase();
+         $sql="SELECT * FROM `courses` WHERE courseName='".$courseName."'";
+         $json=$dbObj->getJSONData($sql);
+         $dejson=json_decode($json);
+         $courseId='';
+         if(count($dejson)>0)
+         {
+              $courseId=$dejson[0]->{'idCourses'};
+         }
+        
+         return $courseId;
+    }
+    /* GetCourseLinkId based on title */
+    function getCourseLinkId($title)
+    {
+        $dbObj=new InteractDatabase();
+        $sql="SELECT * FROM `courselinks` WHERE title='".$title."';";   
+        $json=$dbObj->getJSONData($sql);
+
+         $dejson=json_decode($json);
+          $courseId='';
+         if(count($dejson)>0)
+         {
+         $courseId=$dejson[0]->{'idCourseLinks'};
+         }
+         return $courseId;
+    }
+    
     function addCourses($courseName, $courseNum, $courseImg)
     /* Adding Courses and It returns Primary Key */
     {

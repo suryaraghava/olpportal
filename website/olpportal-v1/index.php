@@ -73,6 +73,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             document.getElementById("login-viewform").style.display='none';
           
         }
+        
+        function displaylogin()
+        {
+            document.getElementById("login-viewform").style.display='block';
+        }
         function viewSignupStep1()
         {
             document.getElementById("tab-step-1").style.display='block';
@@ -93,6 +98,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         }
         function login()
         {
+           if($('#login-user-1').val().length>0 && $('#login-pwd-1').val().length>0)
+           {
+               $('#login-user').val($('#login-user-1').val());
+               $('#login-pwd').val($('#login-pwd-1').val());
+           }
             var user=$('#login-user');
             var pwd=$('#login-pwd');
             
@@ -383,116 +393,135 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
   </head>
 <body  onload="indexOnload()">
 <div class="container page-wrapper">
-<!--   ----------------------  Start  Header Content -----------------------    -->
-<div class="container">
-   <div class="col-xs-12 col-xs-6 col-md-8"><a href="#"><img class="img-responsive" src="images/samarthya-logo.jpg" alt="samarthya" /></a></div>
-   <div class="col-xs-12 col-xs-6 col-md-4"><img class="img-responsive center-block pull-right" src="images/emblem-img.jpg" alt="Indian Emblem" /></div>
-   </div>
-<!--   ---------------------- End  Header Content -----------------------    -->
+        <!--   ----------------------  Start  Header Content -----------------------    -->
+        <div class="container">
+           <div class="col-xs-12 col-xs-6 col-md-8"><a href="#"><img class="img-responsive" src="images/samarthya-logo.jpg" alt="samarthya" /></a></div>
+           <div class="col-xs-12 col-xs-6 col-md-4"><img class="img-responsive center-block pull-right" src="images/emblem-img.jpg" alt="Indian Emblem" /></div>
+           </div>
+        <!--   ---------------------- End  Header Content -----------------------    -->
 
-<!--   ---------------------- Start  Navigation -----------------------    -->
-<nav class="navbar navbar-default">
-   <div class="container-fluid">   
-      <div class="navbar-header">
-         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-         </button>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-            <li><a href="courses.php">Home</a></li>
-            <li><a href="reports.php">Reports</a></li>
-         </ul>
-         <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-xs hidden-lg">
-            <li><a href="#" data-toggle="modal" data-target="#myModal2">Login</a></li>
-         </ul>
-      </div>
-   </div>
-</nav>
-<!--   ---------------------- End  Navigation -----------------------    -->
-
-<!--   ---------------------- Start  Login Form -----------------------    -->
-
-<!--   ---------------------- End  Login Form -----------------------    -->
-
-
-<!--   ---------------------- Start Home Page Slider -----------------------    -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-<div class="courses-btn"><a href="courses.html">COURSES</a></div>
-<div class="login-form col-xs-6 hidden-xs hidden-sm hidden-md">
-<form class="form-horizontal">
-<fieldset>
-<legend class="login-txt">LOGIN</legend>
-  <div class="container-fluid">
-      <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text"  id="login-user" class="form-control" placeholder="USERNAME">
-    </div>
-      <div class="input-group space">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password"  id="login-pwd"  class="form-control" placeholder="PASSWORD">
+        <!--   ---------------------- Start  Navigation -----------------------    -->
+        <nav class="navbar navbar-default">
+                <div class="container-fluid">   
+                   <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                         <span class="sr-only">Toggle navigation</span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                      </button>
+                   </div>
+                   <div id="navbar" class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav">
+                         <li class="active"><a href="index.php">Home</a></li>
+                         <li><a href="reports.php">Reports</a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-xs hidden-lg">
+                         <li><a href="#" data-toggle="modal" data-target="#myModal2" onclick="displaylogin()">Login</a></li>
+                      </ul>
+                   </div>
                 </div>
-       <span id="login-ErrorMsg"></span>
-      <div class="input-group space login-btn">
-                    <button type="button" class="btn btn-default loginbtn"  onclick="javascript:login()">Login</button>
-    </div>
-    </div>
-    <div class="container-fluid">
-    <div class="col-sm-6 left-padding">
-      <div class="input-group space">
-         <a href="#" data-toggle="modal" data-target="#myModal">Sign Up</a>
-      </div>
-    </div>
-    <div class="col-sm-6 right-padding">
-      <div class="input-group space login-btn">
-         <a href="#" data-toggle="modal" data-target="#myModal1">Forgot Password?</a>
-      </div>
-    </div>
-    </div>
-</fieldset>
-</form>
-</div>
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-        <li data-target="#myCarousel" data-slide-to="4"></li>
-        <li data-target="#myCarousel" data-slide-to="5"></li>
-        <li data-target="#myCarousel" data-slide-to="6"></li>
-        <li data-target="#myCarousel" data-slide-to="7"></li>
-        <li data-target="#myCarousel" data-slide-to="8"></li>
-        <li data-target="#myCarousel" data-slide-to="9"></li>
-      </ol>
+        </nav>
+        <!--   ---------------------- End  Navigation -----------------------    -->
+
+        <!--   ---------------------- Start  Login Form -----------------------    -->
+
+        <!--   ---------------------- End  Login Form -----------------------    -->
+
+
+        <!--   ---------------------- Start Home Page Slider -----------------------    -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="courses-btn"><a href="courses.php">COURSES</a></div>
+                <div class="login-form col-xs-6 hidden-xs hidden-sm hidden-md">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend class="login-txt">LOGIN</legend>
+                                <div class="container-fluid">
+                                    
+                                    <div class="input-group">
+                                                  <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                                  <input type="text"  id="login-user" class="form-control" placeholder="USERNAME">
+                                    </div>
+                                    
+                                    <div class="input-group space">
+                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                         <input type="password"  id="login-pwd"  class="form-control" placeholder="PASSWORD">
+                                    </div>
+                                    
+                                    <span id="login-ErrorMsg"></span>
+                          
+                                    <div class="input-group space login-btn">
+                                        <button type="button" class="btn btn-default loginbtn"  onclick="javascript:login()">Login</button>
+                                    </div>
+                                    
+                                </div>
+    
+                               <div class="container-fluid">
+    
+                                   <div class="col-sm-6 left-padding">
+                                       
+                                        <div class="input-group space">
+                                           <a href="#" data-toggle="modal" data-target="#myModal">Sign Up</a>
+                                        </div>
+                                       
+                                   </div>
+   
+                                   <div class="col-sm-6 right-padding">
+            
+                                       <div class="input-group space login-btn">
+                                                <a href="#" data-toggle="modal" data-target="#myModal1">Forgot Password?</a>
+                                       </div>
+                                   </div>
+                              
+                               </div>
+                            
+                        </fieldset>
+                 </form>
+            </div>
+            
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" data-slide-to="3"></li>
+              <li data-target="#myCarousel" data-slide-to="4"></li>
+              <li data-target="#myCarousel" data-slide-to="5"></li>
+              <li data-target="#myCarousel" data-slide-to="6"></li>
+              <li data-target="#myCarousel" data-slide-to="7"></li>
+              <li data-target="#myCarousel" data-slide-to="8"></li>
+              <li data-target="#myCarousel" data-slide-to="9"></li>
+            </ol>
+            
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="first-slide" src="images/slider-img-01.jpg" height="430" alt="First slide">
-          <div class="container-fluid hidden-xs">
-            <div class="carousel-caption">
-              <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+        
+          <div class="item active">
+            <img class="first-slide" src="images/slider-img-01.jpg" height="430" alt="First slide">
+            <div class="container-fluid hidden-xs">
+              <div class="carousel-caption">
+                <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item">
-          <img class="second-slide" src="images/slider-img-02.jpg" height="430" alt="Second slide">
-          <div class="container-fluid hidden-xs">
-            <div class="carousel-caption">
-              <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+          
+          <div class="item">
+            <img class="second-slide" src="images/slider-img-02.jpg" height="430" alt="Second slide">
+            <div class="container-fluid hidden-xs">
+              <div class="carousel-caption">
+                <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="third-slide" src="images/slider-img-03.jpg" height="430" alt="Third slide">
-          <div class="container-fluid hidden-xs">
-            <div class="carousel-caption">
-              <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
-            </div>
-          </div>
-        </div>
+           </div>
+          
+           <div class="item">
+                <img class="third-slide" src="images/slider-img-03.jpg" height="430" alt="Third slide">
+                <div class="container-fluid hidden-xs">
+                  <div class="carousel-caption">
+                    <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+                  </div>
+                </div>
+           </div>
+          
         <div class="item">
           <img class="fourth-slide" src="images/slider-img-04.jpg" height="430" alt="Fourth slide">
           <div class="container-fluid hidden-xs">
@@ -501,6 +530,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-05.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -509,6 +539,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-06.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -517,6 +548,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-07.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -525,6 +557,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-08.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -533,6 +566,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-09.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -541,6 +575,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-10.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -549,7 +584,9 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
       </div>
+            
       <a class="left carousel-control hidden-xs" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -584,15 +621,15 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
    <hr class="featurette-divider footerdivider">
    <div class="col-xs-12 col-md-7">
    <ul class="nav navbar-nav footer-menu">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.php">Home</a></li>
       <li>|</li>
-      <li><a href="courses.html">Courses</a></li>
+      <li><a href="courses.php">Courses</a></li>
       <li>|</li>
-      <li><a href="index.html">Login</a></li>
+      <li><a href="index.php">Login</a></li>
       <li>|</li>
       <li><a href="#" data-target="#myModal" data-toggle="modal">Sign Up</a></li>
       <li>|</li>
-      <li><a href="contact.html">Contact Us</a></li>   
+      <li><a href="contact.php">Contact Us</a></li>   
    </ul>
    </div>
    <div class="col-xs-12 col-md-5">
@@ -613,8 +650,13 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="cursor:pointer;">
+            <span aria-hidden="true">x</span>
+        </button>
         <h3 class="text-center">Forgot Password?</h3>
+        
       </div>
       <br/>
     <div class="container-fluid">
@@ -676,14 +718,14 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
   <div class="container-fluid">
       <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" class="form-control" placeholder="USERNAME">
+                    <input type="text" class="form-control" id="login-user-1"  placeholder="USERNAME">
     </div>
       <div class="input-group space">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" class="form-control" placeholder="PASSWORD">
+                    <input type="password" class="form-control" id="login-pwd-1"   placeholder="PASSWORD">
                 </div>
       <div class="input-group space login-btn">
-                    <button type="button" class="btn btn-default loginbtn">Login</button>
+                    <button type="button" class="btn btn-default loginbtn"  onclick="javascript:login()">Login</button>
     </div>
     </div>
     <div class="container-fluid">
