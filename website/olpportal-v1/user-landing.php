@@ -28,6 +28,7 @@
         {
             display:none;
         }
+        .btn { margin-right :3%; }
     </style>
      <script>
          var g_coursesList=new Array();
@@ -78,6 +79,7 @@
             var progress=false;
              // Check to invoke Certification Button
              var lastCourseName=g_coursesList[g_coursesList.length-1];
+             console.log("lastCourseName : "+lastCourseName);
                    var courseId='0';
                    var qres="";
                   $.ajax({type: "GET", 
@@ -99,7 +101,9 @@
                          {
                              courseId=qres[ind].idTestDetails;
                          }
-             
+             // Hard-Code
+                courseId=4;
+                
            var response=checkForTest(courseId, 'preTest');
                                         
                     var res=JSON.parse(response);
@@ -197,7 +201,7 @@
                     else {
                   // Get CourseId for previous CourseName and 'Post Test'
                  // dac.questions.php ::: action=TestDetails
-                 var courseId='0';
+                 var courseId=0;
                    var qres="";
                   $.ajax({type: "GET", 
                                     async: false,
@@ -218,14 +222,32 @@
                          {
                              courseId=qres[ind].idTestDetails;
                          }
-                         
-                         
+                     
+                    
+                    // Hard-code
+                    if(prevcourseName=='Natural Resources Management')
+                    {
+                        courseId=1;
+                    }
+                    else if(prevcourseName=='Community/Individual Assets')
+                    {
+                        courseId=2;
+                    }
+                    else if(prevcourseName=='Common Infrastructure')
+                    {
+                        courseId=3;
+                    }
+                    else if(prevcourseName=='Rural Infrastructure')
+                    {
+                        courseId=4;
+                    }
                          
                    // check the previous course postTest is completed or Not
                     var response=checkForTest(courseId, 'Assessment');
-                                        
+                               
                     var res=JSON.parse(response);
 
+                   console.log("Response : "+res);
                     for(var ind=0;ind<res.length;ind++)
                     {
                         console.log(res[ind].testTaken);
@@ -340,7 +362,7 @@
                          else if(link==='Assessment')
                         {
                             popupOpen();
-                            document.getElementById("popcontent").innerHTML='<h3>You have already completed the Post-Test</h3>';
+                            document.getElementById("popcontent").innerHTML='<h3>You have already completed the Assessment</h3>';
 
                         }
                 } else {
@@ -527,7 +549,9 @@
 
     </div>
       <br/>
-      <input type="submit"  id="certificateButton" class="btn btn-default" value=" Go for Final Test "/> 
+      <a href="finalTest.php">
+        <input type="submit"  id="certificateButton" class="btn btn-default pull-right" value=" Go for Final Test "/> 
+      </a>
       <br/>
       <br/>
 <!--   ---------------------- Start Details Page video Content -----------------------    -->

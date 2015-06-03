@@ -41,34 +41,7 @@
         var q_quesId=[];
         function submitAnswers()
         {
-            popupOpen();
-            var courseName='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>'; 
-            var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) echo $_SESSION[constant("SESSION_COURSEID")]; ?>'; 
-             
-            var resdetails="";
-                                $.ajax({type: "GET", 
-                                                   async: false,
-                                                   url: 'php/sessions.php',
-                                                   data: { 
-                                                       action : 'SetCourseSession',
-                                                       courseName : courseName,
-                                                       courseId : courseId
-                                                   },
-                                                   success: function(resp)
-                                                   {
-                                                         resdetails=resp;
-                                                   }
-                                                  });
-            
-            var popupcontent='You have completed PreTest';
-            popupcontent+='<br/>';
-            popupcontent+='<a href="details.php">';
-            popupcontent+='<input type="button" class="btn btn-warning" value="Go to Details Page"/>';
-             popupcontent+='</a>';
-            document.getElementById("popcontent").innerHTML=popupcontent;
             document.getElementById("submitButton").style.display='none';
-            document.getElementById("PopupAudioCloseButton").style.display='none';
-             
             answerpicker();
             console.log("q_quesId : "+q_quesId);
             console.log("q_answer : "+JSON.stringify(q_answer));
@@ -78,7 +51,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'SendAnswers',
-                                        testType :'Pre Test',
+                                        testType :'Assessment',
                                         questions : q_quesId,
                                         answers : JSON.stringify(q_answer)
                                     },
@@ -89,7 +62,7 @@
                                    });
                console.log("answers : "+result);
                
-          //  window.location.href='previous-test-results.php';
+            window.location.href='previous-test-results.php';
         }
          
             
@@ -277,7 +250,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'TestDetails',
-                                        testType:'Pre Test',
+                                        testType:'Final Test',
                                         courseName : courseName
                                     },
                                     success: function(resp)
@@ -416,10 +389,10 @@
 <h3 class="featurette-heading">COURSE-1:
     <span class="text-muted">
     <?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?> 
-        (PRE TEST)
+        (ASSESSMENT)
     </span>
    
-    <div id="countdowntimer" class="time-left pull-right">Time Left: <span id="future_date" class="text-muted">00:00 Hrs</span></div></h3>
+    <div id="countdowntimer" class="time-left pull-right">Time Left: <span id="future_date" class="text-muted"></span></div></h3>
       <hr class="featurette-divider">
 </div>
 </div>

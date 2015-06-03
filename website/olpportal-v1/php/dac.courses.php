@@ -66,7 +66,7 @@ else if($action=='CheckForTest')
     $courseId=$_GET["courseId"];
     $testType=$_GET["testType"];
 
-
+   
     if($testType=='preTest')
     {
         $testType='Pre Test';
