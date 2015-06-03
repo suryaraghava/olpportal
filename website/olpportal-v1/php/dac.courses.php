@@ -16,6 +16,16 @@ if($action=='courseListOnly')
     $json=$course->viewCourseDetailsOnly();
     echo $json;
 }
+else if($action=='GetCourseId')
+{
+    $courseName=$_GET["courseName"];
+    $course=new Courses();
+    $json=$course->getCourseId($courseName);
+    echo $json;
+}
+
+
+
 else if($action=='AddcourseVisited')
 {
     if (function_exists('date_default_timezone_set'))
@@ -63,7 +73,7 @@ else if($action=='CheckForTest')
     }
     else if($testType=='Assessment')
     {
-        $testType='Post Test';
+        $testType='Assessment';
     }
 
     $course=new Courses();

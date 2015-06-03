@@ -274,15 +274,27 @@
                   
                   timeloader(hour,min, sec);
                   
-              
-                  
+              var c_resp="";
+              $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'GetCourseId',
+                                        courseName : courseName
+                                    },
+                                    success: function(resp)
+                                    {
+                                          c_resp=resp;
+                                    }
+                                   });
+                
                   var qres="";
                   $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'GetQuestions',
-                                        TestDetailsID : tdId,
+                                        TestDetailsID : c_resp,
                                         qtotal :tqnum
                                     },
                                     success: function(resp)

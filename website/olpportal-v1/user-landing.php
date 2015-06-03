@@ -86,7 +86,7 @@
                                     data: { 
                                         action : 'TestDetails',
                                         courseName : lastCourseName,
-                                        testType :'Post Test'
+                                        testType :'Assessment'
                                     },
                                     success: function(resp)
                                     {
@@ -205,7 +205,7 @@
                                     data: { 
                                         action : 'TestDetails',
                                         courseName : prevcourseName,
-                                        testType :'Post Test'
+                                        testType :'Assessment'
                                     },
                                     success: function(resp)
                                     {
@@ -527,7 +527,7 @@
 
     </div>
       <br/>
-      <input type="submit"  id="certificateButton" class="btn btn-default" value=" View Certificates "/> 
+      <input type="submit"  id="certificateButton" class="btn btn-default" value=" Go for Final Test "/> 
       <br/>
       <br/>
 <!--   ---------------------- Start Details Page video Content -----------------------    -->
