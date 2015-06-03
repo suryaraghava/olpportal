@@ -13,6 +13,13 @@ require 'dal.questions.php';
  */
 $action=$_GET["action"];
 
+if($action=='TestDetailsByTest')
+{
+    $testName=$_GET["courseName"];
+    $q=new Questions();
+    $json=$q->getTestDetails($testName);
+    echo $json;
+}
 if($action=='TestDetails')
 {
     $testName=$_GET["courseName"];

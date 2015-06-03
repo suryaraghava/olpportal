@@ -35,6 +35,17 @@
         {
             display:none;
         }
+        #viewTestDetailsTable
+        {
+            margin-top:3%;
+            display:none;
+        }
+        .btn{
+            margin-left:1%;
+        }
+        .label-form-control { margin-top: 2%; }
+        #Bttn_AddExamDetails {  margin-top:3%; }
+        #Add_viewExamDetails { display:none; }
     </style>
     <script type="text/javascript">
        
@@ -312,7 +323,75 @@
                 </div>
                 
                 <div class="col-xs-12">
-                   
+                   Course Name :
+                </div>
+                
+                
+                 <div class="col-xs-12">
+                     <select id="view-OnlineTest-courseName" class="form-control" onchange="viewTestDetailsTable()">
+                     </select>
+                 </div>  
+                 
+                
+                <div class="col-xs-12">
+                   <div id="viewTestDetailsTable" class=" panel panel-default">
+                    
+                   </div>
+                    
+                </div>
+                
+                
+                <div id="Add_viewExamDetails" class="col-xs-12">
+                    
+                    <div class="col-xs-12">
+                        <h4 id="AddViewExamDetails_header"><B>Add Examination Details</B></h4><hr/>
+                    </div>
+                    
+                    <div class="col-xs-12">
+                        Type of Test:
+                    </div>
+                    <div class="col-xs-12 label-form-control">
+                        <select id="AddViewExamDetails_TestType" class="form-control">
+                            <option value="">Choose a Test</option>
+                            <option value="Pre Test">Pre Test</option>
+                            <option value="Assessment">Assessment</option>
+                        </select>
+                    </div>
+                    
+                     <div class="col-xs-12  label-form-control">
+                        Test Duration:
+                    </div>
+                     <div class="col-xs-12 label-form-control">
+                       <input type="time" class="form-control"/>
+                    </div>
+                    
+                    
+                    <div class="col-xs-12  label-form-control">
+                        Total Questions:
+                    </div>
+                     <div class="col-xs-12 label-form-control">
+                       <input type="number" class="form-control"/>
+                    </div>
+                    
+                    
+                    <div class="col-xs-12  label-form-control">
+                        Total Marks:
+                    </div>
+                     <div class="col-xs-12 label-form-control">
+                       <input type="number" class="form-control"/>
+                    </div>
+                    
+                    
+                     <div class="col-xs-12  label-form-control">
+                        Pass Marks:
+                    </div>
+                     <div class="col-xs-12 label-form-control">
+                       <input type="number" class="form-control"/>
+                    </div>
+                    
+                    <div class="col-xs-12  label-form-control">
+                        <input type="button" id="AddViewExamDetails_submit" class="btn btn-warning pull-right" value="Add Exam Details"/>
+                    </div>
                 </div>
                 
             </div>

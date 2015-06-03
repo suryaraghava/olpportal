@@ -145,7 +145,122 @@
           $("#leftMenu-2").removeClass("active");
           $("#leftMenu-3").removeClass("active");
           $("#leftMenu-4").addClass("active");
+          
+          // View viewTestDetailsTable
+           
+          // Build Dynamic Course-List
+          
+          var courseListing=document.getElementById("view-OnlineTest-courseName");
+          var p_option = document.createElement("option");
+			 p_option.id = "";
+			p_option.text = "Select a Course";
+			p_option.value = "";
+			courseListing.add(p_option);
+            var res=coursesList;
+            for(var ind=0;ind<res.length;ind++)
+           {
+                var option = document.createElement("option");
+			option.id = res[ind].courseName;
+			option.text = res[ind].courseName;
+			option.value = res[ind].courseName;
+			courseListing.add(option);
+               console.log("courseName : "+res[ind].courseName);
+           }
        }
+      
+      function viewTestDetailsTable()
+      {
+          document.getElementById("viewTestDetailsTable").style.display='block';
+          var onlinecourseName=document.getElementById("view-OnlineTest-courseName").value;
+          
+             var result="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'TestDetailsByTest',
+                                       courseName : onlinecourseName,
+                                      
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+               console.log("Pre Data : "+result);
+               
+              result=JSON.parse(result);
+              
+               var content='<table class="table table-responsiv table-bordered">';
+                   content+='<thead>';
+                   content+='<tr>';
+                   content+='<th>S. No.</th>';
+                   content+='<th>Type of Test</th>';
+                   content+='<th>Test Duration</th>';
+                   content+='<th>Total Questions</th>';
+                   content+='<th>Total Marks</th>';
+                   content+='<th>Pass Marks</th>';
+                   content+='<th>Actions</th>';
+                   content+='</tr>';
+                   content+='</thead>';
+                   content+='<tbody>';
+                  
+              for(var index=0;index<result.length;index++)
+              {
+                  console.log(result[index].testName);
+                  console.log(result[index].testType);
+                  console.log(result[index].testTime);
+                  console.log(result[index].totalquestions);
+                  console.log(result[index].totalmarks);
+                  console.log(result[index].passMarks);
+                   content+='<tr>';
+                   content+='<td>'+(index+1)+'</td>';
+                   
+               
+                   content+='<th>'+result[index].testType+'</th>';
+               
+                   content+='<th>'+result[index].testTime+'</th>';
+                   content+='<th>'+result[index].totalquestions+'</th>';
+                   content+='<th>'+result[index].totalmarks+'</th>';
+                   content+='<th>'+result[index].passMarks+'</th>';
+                   content+='<th style="width:21%">';
+                   content+='<input type="button" class="btn btn-primary" value="Edit"  onclick="manageAddEditTestDetails(\'Edit\')"/>';
+                   content+='<input type="button" class="btn btn-danger" value="Delete"/>';
+                   content+='</th>';
+                   content+='</tr>';
+              }
+              content+='</tbody>';
+              content+='</table>';
+              
+              content+='<div class="col-xs-12">';
+              content+='<input type="button" id="Bttn_AddExamDetails" class="btn btn-success pull-right" value="Add Exam Details" onclick="manageAddEditTestDetails(\'Add\')"/>';          
+              content+='</div>';
+              
+              document.getElementById("viewTestDetailsTable").innerHTML=content;
+           
+              
+              
+      }
+      
+      function manageAddEditTestDetails(operate)
+      {
+          document.getElementById("Add_viewExamDetails").style.display='block';
+          if(operate==='Add')
+          {
+              document.getElementById("AddViewExamDetails_header").innerHTML='<B>Add Examination Details</B>';
+              document.getElementById("AddViewExamDetails_submit").value='Add Exam Details';
+              
+              
+          }
+          else if(operate==='Edit')
+          {
+            document.getElementById("AddViewExamDetails_header").innerHTML='<B>Edit Examination Details</B>';  
+            document.getElementById("AddViewExamDetails_submit").value='Edit Exam Details';
+          }
+      }
+      
+      
+      
       
         function AddQuestionOnSubmit()
         {
