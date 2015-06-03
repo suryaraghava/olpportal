@@ -5,7 +5,9 @@ require('spreadsheets/excel_reader2.php');
 require('spreadsheets/SpreadsheetReader.php');
 require('dal.courses.php');       
 
-$Filepath='../Files/Samarthya-Pre-Test.xlsx';
+$Filepath=$_GET["ExcelFile"];
+
+// $Filepath='../Files/Samarthya-Pre-Test.xlsx';
 
 /* GetIds Based on CourseName */	
 

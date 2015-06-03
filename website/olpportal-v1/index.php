@@ -176,23 +176,26 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                     // Set Session 
                     g_state=state;
                      g_phone=phone;
-                    /*var result="";
+                     
+                     // Check the Number in NIC Portal
+                     var result="";
                      $.ajax({type: "GET", 
                                     async: false,
-                                    url: 'php/sessions.php',
+                                    url: 'php/dac.nicportal.php',
                                     data: { 
-                                        signup_state :state,
-                                        signup_phone : phone,
-                                        action : 'SetRegStep1'
+                                        phoneNumber : phone,
+                                        action : 'CheckUser'
                                     },
-                                  
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
                                    });
-                        
-                     
-                      console.log("session_state : "+session_state);
-                      console.log("session_phone : "+session_phone);
-      */
-                       //   window.location.href='#step2';
+                      console.log("Nic Result : "+result);
+                      if(result.length>0)
+                      {
+                         result=JSON.parse(result); 
+                         
                           $('#boot-tab-1').removeClass('active');
                           $('#boot-tab-2').addClass('active');
                           $('#boot-tab-3').removeClass('active');
@@ -215,6 +218,31 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                    });
                         console.log("Registration Id : "+regId);
                         g_regId=regId;
+                      }
+                      else
+                      {
+                           msg.style.display='block';
+                          msg.innerHTML="<strong>You cannot register into OLP unless you are registered in MGNREGA staff database</strong>";
+                      }
+                      
+                    /* var result="";
+                     $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/sessions.php',
+                                    data: { 
+                                        signup_state :state,
+                                        signup_phone : phone,
+                                        action : 'SetRegStep1'
+                                    },
+                                  
+                                   });
+                        
+                     
+                      console.log("session_state : "+session_state);
+                      console.log("session_phone : "+session_phone);
+      */
+                       //   window.location.href='#step2';
+                 
                 }
                 else
                 {
@@ -309,7 +337,8 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
            document.getElementById("signup_designation").value='<?php if(isset($_SESSION["GET_DESIGNATION"])) echo $_SESSION["GET_DESIGNATION"];  ?>';
            document.getElementById("signup_email").value='<?php  if(isset($_SESSION["GET_EMAILID"])) echo $_SESSION["GET_EMAILID"]; ?>';          
                         
-            
+                        
+          
         }
         
         function resendOTP()
@@ -365,6 +394,16 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             
             document.getElementById("submitBttnFinish").style.display='none';
             document.getElementById("signup-Greeting").style.display='block';
+            
+            
+           document.getElementById("signup_userName").disabled = true;
+           document.getElementById("signup_firstName").disabled = true;
+           document.getElementById("signup_lastName").disabled = true;
+           document.getElementById("signup_staffId").disabled = true;
+           document.getElementById("signup_designation").disabled = true;
+           document.getElementById("signup_email").disabled = true;          
+                        
+            
             
         }
         
@@ -762,18 +801,19 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
       <div class="modal-body">
 		<div class="well">
 			<ul class="nav nav-tabs">
-				<li id="boot-tab-1" ><a href="#step1">Step1</a></li>
-				<li id="boot-tab-2" ><a href="#step2">Step2</a></li>
-                                <li id="boot-tab-3" ><a href="#step3">Step3</a></li>
+				<li id="boot-tab-1" ><a href="#step1" >Step1</a></li>
+				<li id="boot-tab-2" ><a href="#step2" >Step2</a></li>
+                                <li id="boot-tab-3" ><a href="#step3" >Step3</a></li>
 			</ul>
+                    
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane active in" id="step1">
-					<form class="form-horizontal" action='' method="POST">
-                                 <div  id="tab-step-1" class="container-fluid">
-                                        <div class="form-group">
-                     <br/>
-                      <select  id="Reg-State" class="form-control" value="">
-                         <option value="">Select State</option>
+					<!--form class="form-horizontal" action='' method="POST"-->
+                                     <div id="tab-step-1" class="container-fluid">
+                                             <div class="form-group">
+                                    <br/>
+                                   <select id="Reg-State" class="form-control" value="">
+                                   <option value="">Select State</option>
                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -801,49 +841,54 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                    <option value="Nagaland">Nagaland</option>
                                    <option value="Odisha">Odisha</option>
                                    <option value="Telangana">Telangana</option>
-                      </select>
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" id="Reg-PhneNum"  placeholder="Mobile Number">
-  </div>
-  <div class="form-group">
-  <button type="submit" class="btn btn-default pull-right" onclick="javascript:RegStep1()">Submit</button>
-  </div>
-  <div class="form-group">
-  <div id="OLP-NotRegMsg" class="alert alert-danger bs-alert-old-docs">
-     
-    </div>
-  </div>
-  <div class="form-group">
-    <div id="Signup-Message" class="alert alert-danger bs-alert-old-docs">
-      <strong>"If you have not registered with the MGNREGA staff portal,</strong> <a href="http://getbootstrap.com/components/">click here"</a>
-    </div>
-  </div>
-  </div>
-					</form>                
+                                </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" id="Reg-PhneNum" class="form-control" id="mobileNumber" placeholder="Mobile Number">
+                                    </div>
+                                    <div class="form-group">
+                                    <button type="submit" class="btn btn-default pull-right" onclick="javascript:RegStep1()">Submit</button>
+
+                                    </div>
+                                    <div class="form-group">
+
+                                    <div id="OLP-NotRegMsg" class="alert alert-danger bs-alert-old-docs">
+
+                                      </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                    <div id="Signup-Message" class="alert alert-danger bs-alert-old-docs">
+                                        <strong>"If you have not registered with the MGNREGA staff portal,</strong> 
+                                        <a href="http://nrega.nic.in/netnrega/home.aspx">click here"</a>
+                                      </div>
+                                    </div>
+                                    </div>
+					<!--/form-->                
 				</div>
-				<div class="tab-pane fade" id="step2">
-					<form id="tab" class="form-horizontal">
-                    <div  id="tab-step-2" class="container-fluid">
+                            
+				<!--div class="tab-pane fade" id="step2"-->
+					<!--form id="tab" class="form-horizontal"-->
+                    <div id="tab-step-2" class="container-fluid">
                     <div class="form-group">
                     <br/>
-                    <label for="exampleInputFile">Enter NETSECURE<sup>TM</sup>(OTP) Code</label>
-    <input type="text" id="otp-Number"><button type="submit" class="btn btn-default pull-right">Resend OTP</button></div>
+    <label for="exampleInputFile">Enter NETSECURE<sup>TM</sup>(OTP) Code</label>
+    <input type="text" id="otp-Number"><button type="submit" class="btn btn-default pull-right" onclick="resendOTP()">Resend OTP</button></div>
     <div class="form-group">
     <div id="OTP-NotValid" class="alert alert-danger bs-alert-old-docs">
       <strong>"The OTP</strong> is <strong>not valid, please reenter the OTP"</strong></a>
     </div>
   </div>					
 						<div class="form-group">
-							<button type="submit" class="btn btn-default pull-right">Submit</button>
+							<button type="submit" class="btn btn-default pull-right" onclick="RegStep2()">Submit</button>
 						</div>
                         </div>
-					</form>
-				</div>
-                <div class="tab-pane fade" id="step3">
-					<form id="tab" class="form-horizontal">
-                    <div  id="tab-step-3" class="container-fluid">
-                     <div class="form-group">
+					<!--/form-->
+				<!--/div-->
+                <!--div class="tab-pane fade" id="step3"-->
+					<!--form id="tab" class="form-horizontal"-->
+                    <div id="tab-step-3" class="container-fluid">
+                        <div class="form-group">
                           <br/>
                           <input class="form-control" type="text" id="signup_userName" placeholder="User Name">
                         </div>
@@ -873,8 +918,8 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
                         </div>
                         </div>
-					</form>
-				</div>
+					<!--/form-->
+				<!--/div-->
 			</div>
 		</div>
 	</div>

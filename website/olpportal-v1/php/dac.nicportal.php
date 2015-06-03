@@ -12,7 +12,8 @@ if($action=='CheckUser')
 {
     $phoneNumber=$_GET["phoneNumber"];
     $portal=new nicportal();
-    $portal->getUserData($phoneNumber);
+    $json=$portal->getUserData($phoneNumber);
+    echo $json;
 }
 else if($action=='AddUser')
 {
