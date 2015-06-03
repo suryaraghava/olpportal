@@ -50,8 +50,8 @@
                                     async: false,
                                     url: 'php/dac.questions.php',
                                     data: { 
-                                        action : 'SendAnswers',
-                                        testType :'Assessment',
+                                        action : 'SendFinalAnswers',
+                                        testType :'Final Test',
                                         questions : q_quesId,
                                         answers : JSON.stringify(q_answer)
                                     },
@@ -60,7 +60,7 @@
                                           result=resp;
                                     }
                                    });
-               console.log("answers : "+result);
+               console.log("sending answers : "+result);
                
             window.location.href='previous-test-results.php';
         }
@@ -251,14 +251,14 @@
                                     data: { 
                                         action : 'TestDetails',
                                         testType:'Final Test',
-                                        courseName : courseName
+                                        courseName : 'All'
                                     },
                                     success: function(resp)
                                     {
                                           result=resp;
                                     }
                                    });
-                 // console.log("result : "+result); 
+                  console.log("result : "+result); 
                   var res=JSON.parse(result);
                   
                   var tqnum=res[0].totalquestions;
@@ -273,7 +273,8 @@
                  
                   
                   timeloader(hour,min, sec);
-                  
+              
+              /*
               var c_resp="";
               $.ajax({type: "GET", 
                                     async: false,
@@ -287,14 +288,15 @@
                                           c_resp=resp;
                                     }
                                    });
-                
+                */
+               
+               
                   var qres="";
                   $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.questions.php',
                                     data: { 
-                                        action : 'GetQuestions',
-                                        TestDetailsID : c_resp,
+                                        action : 'FinalTest',
                                         qtotal :tqnum
                                     },
                                     success: function(resp)
@@ -388,8 +390,7 @@
 <div class="col-xs-12">
 <h3 class="featurette-heading">COURSE-1:
     <span class="text-muted">
-    <?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?> 
-        (ASSESSMENT)
+        FINAL EXAMINATION
     </span>
    
     <div id="countdowntimer" class="time-left pull-right">Time Left: <span id="future_date" class="text-muted"></span></div></h3>
