@@ -39,7 +39,7 @@ else if($action=='AddcourseVisited')
     $startTime=date("h:i:sa");
     $endTime='';
     
-    $ipaddress='';
+    $ipaddress=$_GET["ipaddress"];
     echo $courseObj->addCourseLogs($course, $date, $startTime, $endTime, $userId, $ipaddress);
 }
 

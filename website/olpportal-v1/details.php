@@ -32,9 +32,25 @@
             cursor:pointer;
         }
     </style>
+    <script type="application/javascript" src="http://www.telize.com/geoip?callback=getgeoip"></script>
     <script>
-        function pageOnlOad()
+         function pageOnload()
         {
+
+            // Get UserIP Address
+            var ipaddress='';
+              $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action :'GetUserIP'}
+                                    success: function(resp)
+                                    {
+                                          ipaddress=resp;
+                                    }
+                                   });
+               console.log("ipaddress : "+ipaddress);
+                
             var course='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>';
             var userId='<?php if(isset($_SESSION[constant("SESSION_USER_REGID")])) echo $_SESSION[constant("SESSION_USER_REGID")]; ?>';
             // Add logs to Course Visited
@@ -45,6 +61,7 @@
                                     data: { 
                                         userId :userId,
                                         course : course,
+                                        ipaddress :ipaddress,
                                         action : 'AddcourseVisited'
                                     },
                                     success: function(resp)
@@ -60,7 +77,7 @@
     </script>
         
   </head>
-<body onload="pageOnlOad()">
+  <body onload="pageOnload()">
 
    <div class="container page-wrapper">
 
