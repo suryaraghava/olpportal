@@ -16,6 +16,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/popup.js"></script>
+    <script src="js/roman.js"></script>
     <link href="css/popup.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,10 +53,12 @@
                              var content='';
                              for(var index=0;index<res.length;index++)
                              {
+              
                                  g_coursesList[index]=res[index].courseName;
                                  content+='<div id="course-content" class="col-xs-12 col-xs-6 col-md-3">';  
                                  content+='<div class="course-box">';     
-                                 content+='<div class="course-header"><h5 class="course-title">Course '+res[index].idCourses+'</h5></div>';
+                                
+                                 content+='<div class="course-header"><h5 class="course-title">Course '+getRomanNumber(res[index].idCourses)+'</h5></div>';
                                  content+='<div align="center" class="course-img"><img src="'+res[index].courseImage+'" />';
                                  content+='</div>';
                                  content+='<div class="course-footer"><a href="#">'+res[index].courseName+'<img src="images/course-arrow.png" class="pull-right" /></a></div>';
