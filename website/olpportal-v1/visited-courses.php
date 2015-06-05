@@ -49,6 +49,7 @@
              content+='<th>Course</th>';
              content+='<th>Viewed Date</th>';
              content+='<th>Viewed Time</th>';
+             content+='<th>IP Address</th>';
              content+='</tr>';
              content+='</thead>';
              content+='<tbody>';
@@ -56,11 +57,6 @@
 
             for(var index=0;index<res.length;index++)
             {
-                console.log("course : "+res[index].course);
-                console.log("date : "+res[index].date);
-                console.log("startTime : "+res[index].startTime);
-                console.log("endTime : "+res[index].endTime);
-                
                 if(index%2==0)
                 {
                 content+='<tr>';
@@ -72,6 +68,7 @@
                 content+='<td>'+res[index].course+'</td>';
                 content+='<td>'+res[index].date+'</td>';
                 content+='<td>'+res[index].startTime+'</td>';
+                 content+='<td>'+res[index].IPAddress+'</td>';
                 content+='</tr>';
 
             }

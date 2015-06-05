@@ -32,7 +32,6 @@
             cursor:pointer;
         }
     </style>
-    <script type="application/javascript" src="http://www.telize.com/geoip?callback=getgeoip"></script>
     <script>
          function pageOnload()
         {
@@ -41,9 +40,9 @@
             var ipaddress='';
               $.ajax({type: "GET", 
                                     async: false,
-                                    url: 'php/dac.courses.php',
+                                    url: 'php/dac.util.php',
                                     data: { 
-                                        action :'GetUserIP'}
+                                        action :'GetUserIP'},
                                     success: function(resp)
                                     {
                                           ipaddress=resp;
