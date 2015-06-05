@@ -28,21 +28,62 @@ session_start();
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/dataTables.bootstrap.css" rel="stylesheet">
     <style>
+        @media screen and (max-width: 800px) {
+       
+        }
         thead{
             background-color: #0075b0;
             color:#fff;
         }
+        .report-descriptive
+        {
+            height:60px;
+        }
+        .custom
+        {
+            margin-top:-30px;
+           text-align:center;
+        }
+        
     </style>
+    <script type="text/javascript" src="js/jquery.dataTables.columnFilter.js"></script>
     <script type="text/javascript">
         function reportloading()
         {
              $('input[type="search"]').addClass('form-control');
              
+             // Type of Test Assessment
+             // State Filtering
+             // CourseName Filtering
+             // Designation Filtering
+             // Add a Status at Last column and Add Filter
+             // Remove Staff-ID Column
+             
+             var filter_fullName=[ 'Super Administrator', 'Super Tester'];
+             var filter_designation=[];
+             var filter_staffId=[];
+             var filter_state=[];
+             var filter_courseName=[];
+             var filter_testType=[];
+             var filter_score=[];
+           /*  
+              $('#adminviewuserdetails thead tr#filterrow th').each( function () {
+        var title = $('#adminviewuserdetails thead th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
+ 
+    // DataTable
+    //var table = $('#example').DataTable();
+     */
+    
+             
              
                var  table=$('#adminviewuserdetails').dataTable( {
-			 "ajax":'php/dac.useraccounts.php?action=GetUserReports',
-			 "scrollY": "400px",
-			 "columns": [{ "title": "FULL NAME" , "class": "center"},
+                   
+        	 "ajax":'php/dac.useraccounts.php?action=GetUserReports',
+			//  "scrollY": "400px",
+    
+			 "columns": [{ "title": "FULL NAME" , "class": "custom"},
 				     { "title": "DESIGNATION" , "class": "center"},
 			             { "title": "STAFF-ID", "type" : "string", "class": "center" },
 				     { "title": "STATE", "type" : "string", "class": "center" },
@@ -50,7 +91,23 @@ session_start();
                                      { "title": "TYPE OF TEST", "type" : "string", "class": "center" },
                                      { "title": "SCORE", "type" : "string", "class": "center" }
                                     ]
-				 } );
+				 } ).columnFilter({
+                                     sPlaceHolder: "head:after",
+                                     
+                                     aoColumns:[null,
+                                               {  type:"select", values:filter_designation },
+                                              null,
+                                               {  type:"select", values:filter_state },
+                                               {  type:"select", values:filter_courseName },
+                                               null,
+                                               null
+                                              /* {  type:"select", values:filter_courseName } */
+                                              ]
+         });
+                   
+            
+         
+                                 
             // Name
            // Staff ID
            // Designation
@@ -127,7 +184,7 @@ content+='<td>Farm Pond</td>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-                <li><a href="courses.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li class="active"><a href="reports.php">Reports</a></li>
          </ul>
           <ul class="nav navbar-nav navbar-right right-margin">
@@ -151,13 +208,24 @@ content+='<td>Farm Pond</td>
 </div>
 </div>
 <div class="container">
-<div class="col-xs-12">
+<div id="table-container" class="col-xs-12">
 <!--div id="report-container" class="panel panel-default"-->
     <table id="adminviewuserdetails" class="table table-responsiv table-bordered">
         
+        <tfoot>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+                        <th></th>
+			<th></th>
+		</tr>
+	</tfoot>
     </table>
 <!--/div-->
-<p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
+<p class="report-descriptive"></p>
 <br/>
 </div>
 </div>

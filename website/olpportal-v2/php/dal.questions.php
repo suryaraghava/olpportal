@@ -74,6 +74,15 @@ class Questions
     
     
     
+    function getFinalExamQuestions( $active, $qtotal)
+    {
+        
+        $sql="SELECT idTestQuestions, question, option1, option2, option3, option4 FROM `testquestions` WHERE active=".$active." ORDER BY RAND() LIMIT ".$qtotal;
+         $dbObj=new InteractDatabase();
+         $json=$dbObj->getJSONData($sql);
+         return $json;
+    }
+    
     
      function getAllQuestions($test, $testType)
     {
@@ -143,6 +152,17 @@ class Questions
         echo $json;
     }
     
+    
+    function getFinalTestResults($userID)
+    {
+       $sql="SELECT testType,questionResults, marksResults, ExamDate, ExamStatus FROM `usercoursetest` ";
+        $sql.="WHERE `usercoursetest`.courseID=0 AND `usercoursetest`.userID=".$userID;
+          
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        
+        echo $json;  
+    }
     
      function getAdminTestResults()
     {

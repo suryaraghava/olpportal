@@ -5,6 +5,9 @@ require('spreadsheets/excel_reader2.php');
 require('spreadsheets/SpreadsheetReader.php');
 require('dal.courses.php');       
 
+// Add Excel Upload Code here..
+
+
 $Filepath=$_GET["ExcelFile"];
 
 // $Filepath='../Files/Samarthya-Pre-Test.xlsx';
@@ -70,7 +73,12 @@ $Filepath=$_GET["ExcelFile"];
                                    //  echo  $option2.' | '.$option3.' | ';   
                                    //  echo  $option4.' | '.$answer.' | '.$active.' | '.' \n';
                                      
-                                     
+                                     $question=urlencode($question);
+                                     $option1=urlencode($option1);
+                                     $option2=urlencode($option2);
+                                     $option3=urlencode($option3);
+                                     $option4=urlencode($option4);
+                                        
                                      $insertSql="INSERT INTO `testquestions`( `idTestDetails`, `courselinkId`, `question`, `option1`, `option2`, `option3`, `option4`, `answer`, `active`) ";
                                      $insertSql.="VALUES (".$idTestDetails.",".$courselinkId.",'".$question."','".$option1."','".$option2."','".$option3."','".$option4."','".$answer."',".$active.");";
                                    

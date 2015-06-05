@@ -38,8 +38,8 @@ class nicportal {
     
     function getUserData($phoneNumber)
     {
-        $sql="SELECT * FROM `nicdata` WHERE `phoneNumber`=".$phoneNumber;
-        
+        $sql="SELECT * FROM `nicdata` WHERE `phoneNumber`='".$phoneNumber."'";
+    
         $conn = new mysqli(constant("SERVER_NAME_NIC"),
                            constant("DB_USER_NIC"), 
                            constant("DB_PASSWORD_NIC"), 

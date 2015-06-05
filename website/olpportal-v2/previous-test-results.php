@@ -39,8 +39,24 @@
                                     }
                                    });
                console.log("answers : "+result);
-               
                var res=JSON.parse(result);
+               
+               var response="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.questions.php',
+                                    data: { 
+                                        action : 'viewFinalTestResults'
+                                 
+                                    },
+                                    success: function(resp)
+                                    {
+                                          response=resp;
+                                    }
+                                   });
+               console.log("response : "+response);
+               
+               
                
                var content='';
                var tmp=[];
@@ -61,23 +77,44 @@
                {
                     if(index%2===0){
                     content+='<tr>';
-                } else {
-                   content+='<tr class="info">';
-             }
-               content+='<td>'+res[index].courseName+'</td>';   
-               content+='<td>'+res[index].testType+'</td>';
-               content+='<td>'+res[index].ExamDate+'</td>';
-               content+='<td>'+res[index].questionResults+'</td>';  
-               content+='<td>'+res[index].marksResults+'</td>'; 
-               content+='<td>'+res[index].ExamStatus+'</td>'; 
-               
-               content+='</tr>';
-           
-               
-               
-               
-                  
+                            } else {
+                                  content+='<tr class="info">';
+                                    }
+                        content+='<td>'+res[index].courseName+'</td>';   
+                        content+='<td>'+res[index].testType+'</td>';
+                        content+='<td>'+res[index].ExamDate+'</td>';
+                        content+='<td>'+res[index].questionResults+'</td>';  
+                        content+='<td>'+res[index].marksResults+'</td>'; 
+                        content+='<td>'+res[index].ExamStatus+'</td>'; 
+
+                        content+='</tr>';  
                }
+               
+               if(response.length>0)
+               {
+                    console.log(response);
+                    response=JSON.parse(response);
+                   
+                     for(var index=0;index<response.length;index++)
+                        {
+                             if(index%2===0){
+                    content+='<tr>';
+                            } else {
+                                  content+='<tr class="info">';
+                                    }
+                        content+='<td>Final Examination</td>';   
+                        content+='<td>'+response[index].testType+'</td>';
+                        content+='<td>'+response[index].ExamDate+'</td>';
+                        content+='<td>'+response[index].questionResults+'</td>';  
+                        content+='<td>'+response[index].marksResults+'</td>'; 
+                        content+='<td>'+response[index].ExamStatus+'</td>'; 
+
+                        content+='</tr>';  
+
+                        }
+              }
+               
+              
                content+='</tbody>';
                content+='</table>';
              //  content+='<th>Pre Test</th>';
@@ -212,7 +249,7 @@
 <!--   ---------------------- End Footer Page Content -----------------------    -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

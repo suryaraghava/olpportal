@@ -41,7 +41,34 @@
         var q_quesId=[];
         function submitAnswers()
         {
+            popupOpen();
+            var courseName='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>'; 
+            var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) echo $_SESSION[constant("SESSION_COURSEID")]; ?>'; 
+             
+            var resdetails="";
+                                $.ajax({type: "GET", 
+                                                   async: false,
+                                                   url: 'php/sessions.php',
+                                                   data: { 
+                                                       action : 'SetCourseSession',
+                                                       courseName : courseName,
+                                                       courseId : courseId
+                                                   },
+                                                   success: function(resp)
+                                                   {
+                                                         resdetails=resp;
+                                                   }
+                                                  });
+            
+            var popupcontent='You have completed PreTest';
+            popupcontent+='<br/>';
+            popupcontent+='<a href="details.php">';
+            popupcontent+='<input type="button" class="btn btn-warning" value="Go to Details Page"/>';
+             popupcontent+='</a>';
+            document.getElementById("popcontent").innerHTML=popupcontent;
             document.getElementById("submitButton").style.display='none';
+            document.getElementById("PopupAudioCloseButton").style.display='none';
+             
             answerpicker();
             console.log("q_quesId : "+q_quesId);
             console.log("q_answer : "+JSON.stringify(q_answer));
@@ -62,7 +89,7 @@
                                    });
                console.log("answers : "+result);
                
-            window.location.href='previous-test-results.php';
+          //  window.location.href='previous-test-results.php';
         }
          
             
@@ -274,15 +301,27 @@
                   
                   timeloader(hour,min, sec);
                   
-              
-                  
+              var c_resp="";
+              $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'GetCourseId',
+                                        courseName : courseName
+                                    },
+                                    success: function(resp)
+                                    {
+                                          c_resp=resp;
+                                    }
+                                   });
+                
                   var qres="";
                   $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'GetQuestions',
-                                        TestDetailsID : tdId,
+                                        TestDetailsID : c_resp,
                                         qtotal :tqnum
                                     },
                                     success: function(resp)

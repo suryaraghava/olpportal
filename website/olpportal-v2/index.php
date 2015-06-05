@@ -73,6 +73,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             document.getElementById("login-viewform").style.display='none';
           
         }
+        
+        function displaylogin()
+        {
+            document.getElementById("login-viewform").style.display='block';
+        }
         function viewSignupStep1()
         {
             document.getElementById("tab-step-1").style.display='block';
@@ -93,6 +98,11 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
         }
         function login()
         {
+           if($('#login-user-1').val().length>0 && $('#login-pwd-1').val().length>0)
+           {
+               $('#login-user').val($('#login-user-1').val());
+               $('#login-pwd').val($('#login-pwd-1').val());
+           }
             var user=$('#login-user');
             var pwd=$('#login-pwd');
             
@@ -166,23 +176,26 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                     // Set Session 
                     g_state=state;
                      g_phone=phone;
-                    /*var result="";
+                     
+                     // Check the Number in NIC Portal
+                     var result="";
                      $.ajax({type: "GET", 
                                     async: false,
-                                    url: 'php/sessions.php',
+                                    url: 'php/dac.nicportal.php',
                                     data: { 
-                                        signup_state :state,
-                                        signup_phone : phone,
-                                        action : 'SetRegStep1'
+                                        phoneNumber : phone,
+                                        action : 'CheckUser'
                                     },
-                                  
+                                  success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
                                    });
-                        
-                     
-                      console.log("session_state : "+session_state);
-                      console.log("session_phone : "+session_phone);
-      */
-                       //   window.location.href='#step2';
+                      console.log("Nic Result : "+result);
+                      if(result.length>0)
+                      {
+                         result=JSON.parse(result); 
+                         
                           $('#boot-tab-1').removeClass('active');
                           $('#boot-tab-2').addClass('active');
                           $('#boot-tab-3').removeClass('active');
@@ -205,6 +218,31 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                    });
                         console.log("Registration Id : "+regId);
                         g_regId=regId;
+                      }
+                      else
+                      {
+                           msg.style.display='block';
+                          msg.innerHTML="<strong>You cannot register into OLP unless you are registered in MGNREGA staff database</strong>";
+                      }
+                      
+                    /* var result="";
+                     $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/sessions.php',
+                                    data: { 
+                                        signup_state :state,
+                                        signup_phone : phone,
+                                        action : 'SetRegStep1'
+                                    },
+                                  
+                                   });
+                        
+                     
+                      console.log("session_state : "+session_state);
+                      console.log("session_phone : "+session_phone);
+      */
+                       //   window.location.href='#step2';
+                 
                 }
                 else
                 {
@@ -299,7 +337,8 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
            document.getElementById("signup_designation").value='<?php if(isset($_SESSION["GET_DESIGNATION"])) echo $_SESSION["GET_DESIGNATION"];  ?>';
            document.getElementById("signup_email").value='<?php  if(isset($_SESSION["GET_EMAILID"])) echo $_SESSION["GET_EMAILID"]; ?>';          
                         
-            
+                        
+          
         }
         
         function resendOTP()
@@ -356,6 +395,16 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             document.getElementById("submitBttnFinish").style.display='none';
             document.getElementById("signup-Greeting").style.display='block';
             
+            
+           document.getElementById("signup_userName").disabled = true;
+           document.getElementById("signup_firstName").disabled = true;
+           document.getElementById("signup_lastName").disabled = true;
+           document.getElementById("signup_staffId").disabled = true;
+           document.getElementById("signup_designation").disabled = true;
+           document.getElementById("signup_email").disabled = true;          
+                        
+            
+            
         }
         
         function forgotPwd()
@@ -383,116 +432,135 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
   </head>
 <body  onload="indexOnload()">
 <div class="container page-wrapper">
-<!--   ----------------------  Start  Header Content -----------------------    -->
-<div class="container">
-   <div class="col-xs-12 col-xs-6 col-md-8"><a href="#"><img class="img-responsive" src="images/samarthya-logo.jpg" alt="samarthya" /></a></div>
-   <div class="col-xs-12 col-xs-6 col-md-4"><img class="img-responsive center-block pull-right" src="images/emblem-img.jpg" alt="Indian Emblem" /></div>
-   </div>
-<!--   ---------------------- End  Header Content -----------------------    -->
+        <!--   ----------------------  Start  Header Content -----------------------    -->
+        <div class="container">
+           <div class="col-xs-12 col-xs-6 col-md-8"><a href="#"><img class="img-responsive" src="images/samarthya-logo.jpg" alt="samarthya" /></a></div>
+           <div class="col-xs-12 col-xs-6 col-md-4"><img class="img-responsive center-block pull-right" src="images/emblem-img.jpg" alt="Indian Emblem" /></div>
+           </div>
+        <!--   ---------------------- End  Header Content -----------------------    -->
 
-<!--   ---------------------- Start  Navigation -----------------------    -->
-<nav class="navbar navbar-default">
-   <div class="container-fluid">   
-      <div class="navbar-header">
-         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-         </button>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-            <li><a href="courses.php">Home</a></li>
-            <li><a href="reports.php">Reports</a></li>
-         </ul>
-         <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-xs hidden-lg">
-            <li><a href="#" data-toggle="modal" data-target="#myModal2">Login</a></li>
-         </ul>
-      </div>
-   </div>
-</nav>
-<!--   ---------------------- End  Navigation -----------------------    -->
-
-<!--   ---------------------- Start  Login Form -----------------------    -->
-
-<!--   ---------------------- End  Login Form -----------------------    -->
-
-
-<!--   ---------------------- Start Home Page Slider -----------------------    -->
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-<div class="courses-btn"><a href="courses.html">COURSES</a></div>
-<div class="login-form col-xs-6 hidden-xs hidden-sm hidden-md">
-<form class="form-horizontal">
-<fieldset>
-<legend class="login-txt">LOGIN</legend>
-  <div class="container-fluid">
-      <div class="input-group">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text"  id="login-user" class="form-control" placeholder="USERNAME">
-    </div>
-      <div class="input-group space">
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password"  id="login-pwd"  class="form-control" placeholder="PASSWORD">
+        <!--   ---------------------- Start  Navigation -----------------------    -->
+        <nav class="navbar navbar-default">
+                <div class="container-fluid">   
+                   <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                         <span class="sr-only">Toggle navigation</span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                         <span class="icon-bar"></span>
+                      </button>
+                   </div>
+                   <div id="navbar" class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav">
+                         <li class="active"><a href="index.php">Home</a></li>
+                         <li><a href="reports.php">Reports</a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right visible-sm visible-md visible-xs hidden-lg">
+                         <li><a href="#" data-toggle="modal" data-target="#myModal2" onclick="displaylogin()">Login</a></li>
+                      </ul>
+                   </div>
                 </div>
-       <span id="login-ErrorMsg"></span>
-      <div class="input-group space login-btn">
-                    <button type="button" class="btn btn-default loginbtn"  onclick="javascript:login()">Login</button>
-    </div>
-    </div>
-    <div class="container-fluid">
-    <div class="col-sm-6 left-padding">
-      <div class="input-group space">
-         <a href="#" data-toggle="modal" data-target="#myModal">Sign Up</a>
-      </div>
-    </div>
-    <div class="col-sm-6 right-padding">
-      <div class="input-group space login-btn">
-         <a href="#" data-toggle="modal" data-target="#myModal1">Forgot Password?</a>
-      </div>
-    </div>
-    </div>
-</fieldset>
-</form>
-</div>
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-        <li data-target="#myCarousel" data-slide-to="4"></li>
-        <li data-target="#myCarousel" data-slide-to="5"></li>
-        <li data-target="#myCarousel" data-slide-to="6"></li>
-        <li data-target="#myCarousel" data-slide-to="7"></li>
-        <li data-target="#myCarousel" data-slide-to="8"></li>
-        <li data-target="#myCarousel" data-slide-to="9"></li>
-      </ol>
+        </nav>
+        <!--   ---------------------- End  Navigation -----------------------    -->
+
+        <!--   ---------------------- Start  Login Form -----------------------    -->
+
+        <!--   ---------------------- End  Login Form -----------------------    -->
+
+
+        <!--   ---------------------- Start Home Page Slider -----------------------    -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="courses-btn"><a href="courses.php">COURSES</a></div>
+                <div class="login-form col-xs-6 hidden-xs hidden-sm hidden-md">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <legend class="login-txt">LOGIN</legend>
+                                <div class="container-fluid">
+                                    
+                                    <div class="input-group">
+                                                  <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                                  <input type="text"  id="login-user" class="form-control" placeholder="USERNAME">
+                                    </div>
+                                    
+                                    <div class="input-group space">
+                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                         <input type="password"  id="login-pwd"  class="form-control" placeholder="PASSWORD">
+                                    </div>
+                                    
+                                    <span id="login-ErrorMsg"></span>
+                          
+                                    <div class="input-group space login-btn">
+                                        <button type="button" class="btn btn-default loginbtn"  onclick="javascript:login()">Login</button>
+                                    </div>
+                                    
+                                </div>
+    
+                               <div class="container-fluid">
+    
+                                   <div class="col-sm-6 left-padding">
+                                       
+                                        <div class="input-group space">
+                                           <a href="#" data-toggle="modal" data-target="#myModal">Sign Up</a>
+                                        </div>
+                                       
+                                   </div>
+   
+                                   <div class="col-sm-6 right-padding">
+            
+                                       <div class="input-group space login-btn">
+                                                <a href="#" data-toggle="modal" data-target="#myModal1">Forgot Password?</a>
+                                       </div>
+                                   </div>
+                              
+                               </div>
+                            
+                        </fieldset>
+                 </form>
+            </div>
+            
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" data-slide-to="3"></li>
+              <li data-target="#myCarousel" data-slide-to="4"></li>
+              <li data-target="#myCarousel" data-slide-to="5"></li>
+              <li data-target="#myCarousel" data-slide-to="6"></li>
+              <li data-target="#myCarousel" data-slide-to="7"></li>
+              <li data-target="#myCarousel" data-slide-to="8"></li>
+              <li data-target="#myCarousel" data-slide-to="9"></li>
+            </ol>
+            
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="first-slide" src="images/slider-img-01.jpg" height="430" alt="First slide">
-          <div class="container-fluid hidden-xs">
-            <div class="carousel-caption">
-              <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+        
+          <div class="item active">
+            <img class="first-slide" src="images/slider-img-01.jpg" height="430" alt="First slide">
+            <div class="container-fluid hidden-xs">
+              <div class="carousel-caption">
+                <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item">
-          <img class="second-slide" src="images/slider-img-02.jpg" height="430" alt="Second slide">
-          <div class="container-fluid hidden-xs">
-            <div class="carousel-caption">
-              <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+          
+          <div class="item">
+            <img class="second-slide" src="images/slider-img-02.jpg" height="430" alt="Second slide">
+            <div class="container-fluid hidden-xs">
+              <div class="carousel-caption">
+                <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="item">
-          <img class="third-slide" src="images/slider-img-03.jpg" height="430" alt="Third slide">
-          <div class="container-fluid hidden-xs">
-            <div class="carousel-caption">
-              <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
-            </div>
-          </div>
-        </div>
+           </div>
+          
+           <div class="item">
+                <img class="third-slide" src="images/slider-img-03.jpg" height="430" alt="Third slide">
+                <div class="container-fluid hidden-xs">
+                  <div class="carousel-caption">
+                    <h1>Enabling technical staff under MGNREGA to enhance their skill</h1>
+                  </div>
+                </div>
+           </div>
+          
         <div class="item">
           <img class="fourth-slide" src="images/slider-img-04.jpg" height="430" alt="Fourth slide">
           <div class="container-fluid hidden-xs">
@@ -501,6 +569,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-05.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -509,6 +578,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-06.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -517,6 +587,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-07.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -525,6 +596,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-08.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -533,6 +605,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-09.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -541,6 +614,7 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
         <div class="item">
           <img class="fifth-slide" src="images/slider-img-10.jpg" height="430" alt="Fifth slide">
           <div class="container-fluid hidden-xs">
@@ -549,7 +623,9 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
           </div>
         </div>
+          
       </div>
+            
       <a class="left carousel-control hidden-xs" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -584,15 +660,15 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
    <hr class="featurette-divider footerdivider">
    <div class="col-xs-12 col-md-7">
    <ul class="nav navbar-nav footer-menu">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.php">Home</a></li>
       <li>|</li>
-      <li><a href="courses.html">Courses</a></li>
+      <li><a href="courses.php">Courses</a></li>
       <li>|</li>
-      <li><a href="index.html">Login</a></li>
+      <li><a href="index.php">Login</a></li>
       <li>|</li>
       <li><a href="#" data-target="#myModal" data-toggle="modal">Sign Up</a></li>
       <li>|</li>
-      <li><a href="contact.html">Contact Us</a></li>   
+      <li><a href="contact.php">Contact Us</a></li>   
    </ul>
    </div>
    <div class="col-xs-12 col-md-5">
@@ -613,8 +689,13 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="cursor:pointer;">
+            <span aria-hidden="true">x</span>
+        </button>
         <h3 class="text-center">Forgot Password?</h3>
+        
       </div>
       <br/>
     <div class="container-fluid">
@@ -676,14 +757,14 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
   <div class="container-fluid">
       <div class="input-group">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                    <input type="text" class="form-control" placeholder="USERNAME">
+                    <input type="text" class="form-control" id="login-user-1"  placeholder="USERNAME">
     </div>
       <div class="input-group space">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                    <input type="password" class="form-control" placeholder="PASSWORD">
+                    <input type="password" class="form-control" id="login-pwd-1"   placeholder="PASSWORD">
                 </div>
       <div class="input-group space login-btn">
-                    <button type="button" class="btn btn-default loginbtn">Login</button>
+                    <button type="button" class="btn btn-default loginbtn"  onclick="javascript:login()">Login</button>
     </div>
     </div>
     <div class="container-fluid">
@@ -720,18 +801,19 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
       <div class="modal-body">
 		<div class="well">
 			<ul class="nav nav-tabs">
-				<li id="boot-tab-1" ><a href="#step1">Step1</a></li>
-				<li id="boot-tab-2" ><a href="#step2">Step2</a></li>
-                                <li id="boot-tab-3" ><a href="#step3">Step3</a></li>
+				<li id="boot-tab-1" ><a href="#step1" >Step1</a></li>
+				<li id="boot-tab-2" ><a href="#step2" >Step2</a></li>
+                                <li id="boot-tab-3" ><a href="#step3" >Step3</a></li>
 			</ul>
+                    
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane active in" id="step1">
-					<form class="form-horizontal" action='' method="POST">
-                                 <div  id="tab-step-1" class="container-fluid">
-                                        <div class="form-group">
-                     <br/>
-                      <select  id="Reg-State" class="form-control" value="">
-                         <option value="">Select State</option>
+					<!--form class="form-horizontal" action='' method="POST"-->
+                                     <div id="tab-step-1" class="container-fluid">
+                                             <div class="form-group">
+                                    <br/>
+                                   <select id="Reg-State" class="form-control" value="">
+                                   <option value="">Select State</option>
                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -759,49 +841,54 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                                    <option value="Nagaland">Nagaland</option>
                                    <option value="Odisha">Odisha</option>
                                    <option value="Telangana">Telangana</option>
-                      </select>
-  </div>
-  <div class="form-group">
-    <input type="text" class="form-control" id="Reg-PhneNum"  placeholder="Mobile Number">
-  </div>
-  <div class="form-group">
-  <button type="submit" class="btn btn-default pull-right" onclick="javascript:RegStep1()">Submit</button>
-  </div>
-  <div class="form-group">
-  <div id="OLP-NotRegMsg" class="alert alert-danger bs-alert-old-docs">
-     
-    </div>
-  </div>
-  <div class="form-group">
-    <div id="Signup-Message" class="alert alert-danger bs-alert-old-docs">
-      <strong>"If you have not registered with the MGNREGA staff portal,</strong> <a href="http://getbootstrap.com/components/">click here"</a>
-    </div>
-  </div>
-  </div>
-					</form>                
+                                </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="text" id="Reg-PhneNum" class="form-control" id="mobileNumber" placeholder="Mobile Number">
+                                    </div>
+                                    <div class="form-group">
+                                    <button type="submit" class="btn btn-default pull-right" onclick="javascript:RegStep1()">Submit</button>
+
+                                    </div>
+                                    <div class="form-group">
+
+                                    <div id="OLP-NotRegMsg" class="alert alert-danger bs-alert-old-docs">
+
+                                      </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                    <div id="Signup-Message" class="alert alert-danger bs-alert-old-docs">
+                                        <strong>"If you have not registered with the MGNREGA staff portal,</strong> 
+                                        <a href="http://nrega.nic.in/netnrega/home.aspx">click here"</a>
+                                      </div>
+                                    </div>
+                                    </div>
+					<!--/form-->                
 				</div>
-				<div class="tab-pane fade" id="step2">
-					<form id="tab" class="form-horizontal">
-                    <div  id="tab-step-2" class="container-fluid">
+                            
+				<!--div class="tab-pane fade" id="step2"-->
+					<!--form id="tab" class="form-horizontal"-->
+                    <div id="tab-step-2" class="container-fluid">
                     <div class="form-group">
                     <br/>
-                    <label for="exampleInputFile">Enter NETSECURE<sup>TM</sup>(OTP) Code</label>
-    <input type="text" id="otp-Number"><button type="submit" class="btn btn-default pull-right">Resend OTP</button></div>
+    <label for="exampleInputFile">Enter NETSECURE<sup>TM</sup>(OTP) Code</label>
+    <input type="text" id="otp-Number"><button type="submit" class="btn btn-default pull-right" onclick="resendOTP()">Resend OTP</button></div>
     <div class="form-group">
     <div id="OTP-NotValid" class="alert alert-danger bs-alert-old-docs">
       <strong>"The OTP</strong> is <strong>not valid, please reenter the OTP"</strong></a>
     </div>
   </div>					
 						<div class="form-group">
-							<button type="submit" class="btn btn-default pull-right">Submit</button>
+							<button type="submit" class="btn btn-default pull-right" onclick="RegStep2()">Submit</button>
 						</div>
                         </div>
-					</form>
-				</div>
-                <div class="tab-pane fade" id="step3">
-					<form id="tab" class="form-horizontal">
-                    <div  id="tab-step-3" class="container-fluid">
-                     <div class="form-group">
+					<!--/form-->
+				<!--/div-->
+                <!--div class="tab-pane fade" id="step3"-->
+					<!--form id="tab" class="form-horizontal"-->
+                    <div id="tab-step-3" class="container-fluid">
+                        <div class="form-group">
                           <br/>
                           <input class="form-control" type="text" id="signup_userName" placeholder="User Name">
                         </div>
@@ -831,8 +918,8 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
             </div>
                         </div>
                         </div>
-					</form>
-				</div>
+					<!--/form-->
+				<!--/div-->
 			</div>
 		</div>
 	</div>

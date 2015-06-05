@@ -14,6 +14,8 @@
     <title>::Samarthya::Online Learning Portal for Technical Staff under MGNREGA</title>
 
     <!-- Bootstrap -->
+    <script src="js/popup.js"></script>
+    <link href="css/popup.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -39,6 +41,15 @@
         var q_quesId=[];
         function submitAnswers()
         {
+            popupOpen();
+            document.getElementById("PopupAudioCloseButton").style.display='none';
+            var redirectContent='You have completed your Post-Test';
+            redirectContent+='<br/>';
+             redirectContent+='<a href="postTest.php">';
+            redirectContent+='<input type="button" class="btn btn-warning" value="Go for Post-Test"/>';
+             redirectContent+='<a/>';
+            document.getElementById("popcontent").innerHTML=redirectContent;
+            document.getElementById("submitButton").style.display='none';
             answerpicker();
             console.log("q_quesId : "+q_quesId);
             console.log("q_answer : "+JSON.stringify(q_answer));
@@ -48,7 +59,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'SendAnswers',
-                                        testType :'Post Test',
+                                        testType :'Assessment',
                                         questions : q_quesId,
                                         answers : JSON.stringify(q_answer)
                                     },
@@ -59,7 +70,7 @@
                                    });
                console.log("answers : "+result);
                
-            window.location.href='previous-test-results.php';
+           // window.location.href='previous-test-results.php';
         }
          
             
@@ -79,7 +90,8 @@
             
             if(q_ans.length===0)
             {
-               alert("Please Select any Answer"); 
+                popupOpen();
+                document.getElementById("popcontent").innerHTML='<h3>Please Select any Answer</h3>'
             }
             else
             {
@@ -246,7 +258,7 @@
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'TestDetails',
-                                        testType:'Post Test',
+                                        testType:'Assessment',
                                         courseName : courseName
                                     },
                                     success: function(resp)
@@ -254,32 +266,43 @@
                                           result=resp;
                                     }
                                    });
-                  console.log("result : "+result); 
+                 // console.log("result : "+result); 
                   var res=JSON.parse(result);
                   
                   var tqnum=res[0].totalquestions;
                   var tdId=res[0].idTestDetails;
                   var time=res[0].testTime;
                   
-                  var t=time.split(":"); 
+                    var t=time.split(":"); 
                   var hour=t[0];
                   var min=t[1];
                   var sec=t[2];
                   
                  
                   
-                  
                   timeloader(hour,min, sec);
                   
-              
-                  
+              var c_resp="";
+              $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'GetCourseId',
+                                        courseName : courseName
+                                    },
+                                    success: function(resp)
+                                    {
+                                          c_resp=resp;
+                                    }
+                                   });
+                
                   var qres="";
                   $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.questions.php',
                                     data: { 
                                         action : 'GetQuestions',
-                                        TestDetailsID : tdId,
+                                        TestDetailsID : c_resp,
                                         qtotal :tqnum
                                     },
                                     success: function(resp)
@@ -295,6 +318,16 @@
   </head>
 <body onload="pageOnload()">
 
+     <div id="PopupAudioBackground"></div> 
+        <div id="PopupAudioFrontEnd">
+            <a href="#" onclick="javascript:popupClose();">
+                         <img id="PopupAudioCloseButton" src="images/stuff/button.jpg"/> 
+             </a>
+            <div id="popcontent" align="center" class="col-xs-12"></div>
+        </div>
+    
+    
+    
 <div class="container page-wrapper">
 <!--   ----------------------  Start  Header Content -----------------------    -->
 <div class="container">
@@ -364,10 +397,10 @@
 <h3 class="featurette-heading">COURSE-1:
     <span class="text-muted">
     <?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?> 
-        (PRE TEST)
+        (ASSESSMENT)
     </span>
    
-    <div id="countdowntimer" class="time-left pull-right">Time Left: <span id="future_date" class="text-muted">00:00 Hrs</span></div></h3>
+    <div id="countdowntimer" class="time-left pull-right">Time Left: <span id="future_date" class="text-muted"></span></div></h3>
       <hr class="featurette-divider">
 </div>
 </div>
