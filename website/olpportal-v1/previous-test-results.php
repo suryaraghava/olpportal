@@ -158,12 +158,13 @@
       </div>
   <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
-                <li><a href="user-landing.php">Home</a></li>
+                
                 <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
                 <li><a href="user-details.php">User Details</a></li>
                 <li><a href="user-history.php">User History</a></li>
                 <li><a href="admin-test-results.php">User Test Results</a></li>
                 <?php } else { ?>
+                <li><a href="user-landing.php">Home</a></li>
                 <li class="active"><a href="previous-test-results.php">Test Results</a></li>
                 <?php  } ?>
 

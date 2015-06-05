@@ -45,7 +45,7 @@
       <div id="navbar" class="navbar-collapse collapse">
          <ul class="nav navbar-nav">
                 <?php   if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) { ?>
-                     <li><a href="user-landing.php">Home</a></li>
+                     
                       <?php  if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
                         <li><a href="user-details.php">User Details</a></li>
                         <li><a href="user-history.php">User History</a></li>
@@ -53,6 +53,7 @@
                         <li class="active"><a href="manage-courses.php">Manage Courses</a></li>
                         <li><a href="manage-onlinetest.php">Manage Tests</a></li>
                      <?php } else { ?>
+                        <li><a href="user-landing.php">Home</a></li>
                         <li><a href="previous-test-results.php">Test Results</a></li>
                         <li><a href="visited-courses.php">Visited Courses</a></li>
                     <?php  } ?>
