@@ -8,5 +8,13 @@
 $action=$_GET["action"];
 if($action=='GetUserIP')
 {
-    echo file_get_contents('http://www.telize.com/ip');
+    $ipaddress=@file_get_contents('http://www.telize.com/ip');
+    if($ipaddress==false)
+    {
+       echo "---"; 
+    }
+    else
+    {
+        echo $ipaddress;
+    }
 }

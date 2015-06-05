@@ -61,6 +61,7 @@
                                         userId :userId,
                                         course : course,
                                         ipaddress :ipaddress,
+                                        status :'Page Visited',
                                         action : 'AddcourseVisited'
                                     },
                                     success: function(resp)

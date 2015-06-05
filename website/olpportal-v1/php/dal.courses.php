@@ -170,10 +170,10 @@ class Courses
         return $json;
     }
     
-    function addCourseLogs($course, $date, $startTime, $endTime, $userId, $ipaddress)
+    function addCourseLogs($course, $date, $startTime, $status, $userId, $ipaddress)
     {
-        $sql="INSERT INTO `uservisitedcourse`( `course`, `date`, `startTime`,`endTime`, `userId`, `IPAddress`) ";
-        $sql.="VALUES('".$course."','".$date."','".$startTime."','".$endTime."',".$userId.",'".$ipaddress."')";
+        $sql="INSERT INTO `uservisitedcourse`( `course`, `date`, `startTime`,`status`, `userId`, `IPAddress`) ";
+        $sql.="VALUES('".$course."','".$date."','".$startTime."','".$status."',".$userId.",'".$ipaddress."')";
         echo $sql;
         $dbObj=new InteractDatabase();
         $result=$dbObj->addupdateData($sql);

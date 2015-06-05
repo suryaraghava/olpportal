@@ -46,8 +46,9 @@
             var content='<table class="table table-responsiv table-bordered">';
              content+='<thead>';
              content+='<tr>';
-             content+='<th>Course</th>';
              content+='<th>Viewed Date</th>';
+             content+='<th>Course</th>';
+             content+='<th>Description</th>';
              content+='<th>Viewed Time</th>';
              content+='<th>IP Address</th>';
              content+='</tr>';
@@ -65,8 +66,10 @@
                {
                 content+='<tr class="info">';
             } 
-                content+='<td>'+res[index].course+'</td>';
                 content+='<td>'+res[index].date+'</td>';
+                content+='<td>'+res[index].course+'</td>';
+                content+='<td>'+res[index].status+'</td>';
+                
                 content+='<td>'+res[index].startTime+'</td>';
                  content+='<td>'+res[index].IPAddress+'</td>';
                 content+='</tr>';
