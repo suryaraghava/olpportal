@@ -34,21 +34,23 @@ function youtubeBuilder($courseID)
         if(isset($engVideo))
         {
             $html.='<div id="englishVideo" align="center" class="video-frame">';
-            $html.='<iframe width="92%" height="80%" src="'.$engVideo.'&output=embed" frameborder="0" allowfullscreen></iframe>';
+            $html.='<iframe width="92%" height="80%" src="'.$engVideo.'" frameborder="0" allowfullscreen></iframe>';
             $html.='</div>';
         }
         
         else if(isset($hindiVideo))
         {
             $html.='<div id="hindiVideo" align="center" class="video-frame">';
-            $html.='<iframe width="92%" height="80%" src="'.$hindiVideo.'&output=embed" frameborder="0" allowfullscreen></iframe>';
+            $html.='<iframe width="92%" height="80%" src="'.$hindiVideo.'" frameborder="0" allowfullscreen onclick="alert(\"English Video\")"></iframe>';
             $html.='</div>';
         }
         
         else if(isset($telVideo))
         {
             $html.='<div id="teluguVideo" align="center" class="video-frame">';
-            $html.='<iframe width="92%" height="80%" src="'.$telVideo.'&output=embed" frameborder="0" allowfullscreen></iframe>';
+            $html.='<a href="'.$telVideo.'"';
+            $html.='<iframe width="92%" height="80%" src="'.$telVideo.'" frameborder="0" allowfullscreen></iframe>';
+            $html.='</a>';
             $html.='</div>';
         }
         $html.='<div>';
