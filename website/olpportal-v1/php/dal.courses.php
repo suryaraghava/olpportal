@@ -182,7 +182,7 @@ class Courses
     
     function getCourseLogs($userId)
     {
-        $sql="SELECT * FROM `uservisitedcourse` WHERE `userId`=".$userId." ORDER BY date ASC";
+        $sql="SELECT * FROM `uservisitedcourse` WHERE `userId`=".$userId." ORDER BY date, startTime  DESC LIMIT 0, 25";
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
         return $json;
@@ -198,34 +198,25 @@ class Courses
     }
     
     
+    /* Sub-Courses : 
+     *   When user downloads all the sub-courses then, he will have the access to do Assessment
+     *   Table Name - courseuserview
+     */
     
+    function activateCoursesDetails($courseLinksID, $userID, $CourseID, $View)
+    {
+        $sql="INSERT INTO `courseuserview`( `courseLinksID`, `userID`, `CourseID`, `View`) ";
+        $sql.="VALUES (".$courseLinksID.",".$userID.",".$CourseID.",".$View.")";
+        echo $sql;
+        $dbObj=new InteractDatabase();
+        $dbObj->addupdateData($sql);
+    }
+    
+    function getListOfActivatedCourseDetails($userId, $courseId)
+    {
+        $sql="SELECT * FROM `courseuserview` WHERE `userID`=".$userId." AND  CourseID=".$courseId;
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        return $json;
+    }
 }
-
- //$c=new Courses();
- //$c->addCourseLogs('Natural Resources Management', date("d/m/Y"), date("h:i:sa"),'' ,'1', '192.168.1.1');
-
-/*
-function get_client_ip()
-{ $ipaddress = ''; 
-  if (!empty($_SERVER['HTTP_CLIENT_IP']))
-      $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-  else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) 
-      $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  else if(!empty($_SERVER['HTTP_X_FORWARDED'])) 
-      $ipaddress = $_SERVER['HTTP_X_FORWARDED']; 
-   else if(!empty($_SERVER['HTTP_FORWARDED_FOR'])) 
-       $ipaddress = $_SERVER['HTTP_FORWARDED_FOR']; 
-   else if(!empty($_SERVER['HTTP_FORWARDED'])) 
-       $ipaddress = $_SERVER['HTTP_FORWARDED']; 
-   else if(!empty($_SERVER['REMOTE_ADDR']))
-       $ipaddress = $_SERVER['REMOTE_ADDR']; 
-   else $ipaddress = 'UNKNOWN'; 
-   return $ipaddress;
-   }
- */
-//$ip=$_SERVER['HTTP_CLIENT_IP'];
-// $ip2=$_SERVER['HTTP_X_FORWARDED_FOR'];
- //echo get_client_ip();
-
- //  $ip = getenv('HTTP_CLIENT_IP')?: getenv('HTTP_X_FORWARDED_FOR')?: getenv('HTTP_X_FORWARDED')?: getenv('HTTP_FORWARDED_FOR')?: getenv('HTTP_FORWARDED')?: getenv('REMOTE_ADDR');
-//echo $ip;

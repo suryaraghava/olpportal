@@ -22,7 +22,7 @@
   
     <![endif]-->
       <style>
-       
+       #AssessmentTestBttn { display:none; }
         #course-details-view
         {
             margin-top:4%;
@@ -34,9 +34,10 @@
         #note { color:#cc0033;}
     </style>
     <script>
-         function pageOnload()
+        var g_userId;
+        var g_course;
+        function getIPAddress()
         {
-
             // Get UserIP Address
             var ipaddress='';
               $.ajax({type: "GET", 
@@ -49,11 +50,47 @@
                                           ipaddress=resp;
                                     }
                                    });
+            return ipaddress;
+        }
+         function pageOnload()
+        {
+               var ipaddress=getIPAddress();
+            
                console.log("ipaddress : "+ipaddress);
                 
             var course='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>';
             var userId='<?php if(isset($_SESSION[constant("SESSION_USER_REGID")])) echo $_SESSION[constant("SESSION_USER_REGID")]; ?>';
+            var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) echo $_SESSION[constant("SESSION_COURSEID")]; ?>';
+            // Check for Displaying Go for Assessment Option
+            // Inputs : courseId, userId
+            var testresp="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        userId :userId,
+                                        course : courseId,
+                                        action : 'checkForAssessmentTest'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          testresp=resp;
+                                    }
+                                   });
+                                   
+                                   console.log("testResp :"+testresp);
+            
+            if(testresp==='Done')
+            {
+                document.getElementById("AssessmentTestBttn").style.display='block';
+            }
+            
+            
+            
             // Add logs to Course Visited
+            g_course=course;
+            g_userId=userId;
+           
              var result="";
                  $.ajax({type: "GET", 
                                     async: false,
@@ -74,7 +111,48 @@
                                    console.log("result :"+result);
                        
         }
-      
+      function pdfDownloadLogs(title, subcourseId, courseId)
+      {
+          var ipaddress=getIPAddress();
+          
+                   var result="";
+                            $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        userId :g_userId,
+                                        course : g_course,
+                                        ipaddress :ipaddress,
+                                        status :'Downloaded '+title,
+                                        action : 'AddcourseVisited'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                               console.log("result :"+result);
+                               
+           /* Adding to visited link */
+           var userID='<?php if(isset($_SESSION["SESSION_USER_REGID"])) { echo $_SESSION["SESSION_USER_REGID"]; } ?>';
+           var response="";
+                     $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        courseLinksID :subcourseId,
+                                        CourseID : courseId,
+                                        userID :userID,
+                                        action : 'AddUserVisitedHistory'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          response=resp;
+                                    }
+                                   });
+         
+                 console.log("response : "+response);                  
+      }
     </script>
         
   </head>
@@ -173,7 +251,7 @@
    
     <div class="col-xs-12">
         <a href="assessment.php">
-        <button class="btn btn-default pull-right">Go for Assesment</button>
+        <input id="AssessmentTestBttn" class="btn btn-default pull-right" value="Go for Assesment"/>
         </a>
     </div>
     

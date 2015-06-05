@@ -21,6 +21,8 @@ function youtubeBuilder($courseID)
     $html='';
     for($ind=0;$ind<count($dejson);$ind++)
     {
+        $subcourseId=$dejson[$ind]->{'idCourseLinks'};
+        $courseId=$dejson[$ind]->{'courseID'};
         $title=$dejson[$ind]->{'title'};
         $engVideo=$dejson[$ind]->{'courseEngVideoLink'};
         $hindiVideo=$dejson[$ind]->{'courseEngVideoLink'};
@@ -57,7 +59,7 @@ function youtubeBuilder($courseID)
         $html.='<a href="'.$engVideo.'" target="new"><div class="english"></div></a>';
         $html.='<a href="'.$hindiVideo.'" target="new"><div class="hindi"></div></a>';
         $html.='<a href="'.$telVideo.'" target="new"><div class="telugu"></div></a>';
-        $html.='<a href="'.$engPDF.'" target="new">';
+        $html.='<a href="'.$engPDF.'" target="new" onclick="pdfDownloadLogs(\''.$title.'\',\''.$subcourseId.'\',\''.$courseId.'\')">';
         $html.='<div class="pdf-download"></div>';
         $html.='</a>';
         $html.='</div>';
