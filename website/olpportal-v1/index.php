@@ -142,7 +142,15 @@ if(!isset($_SESSION[constant("SESSION_USER_USERNAME")]))
                 else
                 {
                     msgElem.style.display='none';
-                    window.location.href='user-landing.php';
+                    if(user.val()==='Administrator')
+                    {
+                        window.location.href='user-details.php';
+                    }
+                    else
+                    {
+                        window.location.href='user-landing.php';
+                    }
+                    
                 }
                 
                     
