@@ -13,16 +13,81 @@ and open the template in the editor.
              #labelPwd { color:#0033cc;font-size: 16px;margin-top:2%;margin-bottom:2%; }
              #label {  margin-top:1%;margin-bottom:1%;}
              #labelInput { margin-bottom:2%; }
+             
+             #PopupLogoutBackground { display: none;
+                 position: fixed;top: 0%;left: 0%;
+                 width: 100%;height: 100%;
+                 background-color: #888888;
+                 z-index:1001;-moz-opacity: 0.8;
+                 opacity:.80;filter: alpha(opacity=80);
+             }
+             #PopupLogoutFrontEnd {  
+                overflow:hidden;display: none;position: fixed;
+                margin-left:305px;  margin-top: 180px;
+                width: 740px;height: 200px;
+                padding: 16px;border: 4px solid #C75314;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border-top-left-radius: 5px;
+                box-shadow: 10px 10px 5px #888888;
+                background-color: white;
+                z-index:1002;
+             }
+             #PopupLogoutCloseButton
+            {
+               height:28px;
+               width:30px; 
+               position:fixed;
+               left: 1120px;
+               margin-top:-28px;
+               z-index:-1;
+               overflow: hidden;
+            }
+            #popLogoutcontent
+            {
+                margin-top: 6%;
+            }
         </style>
         <script>
             
+            function popupLogoutOpen()
+            {
+                document.getElementById("PopupLogoutFrontEnd").style.display='block';
+                document.getElementById("PopupLogoutBackground").style.display='block';
+                
+                var content='<B>Are you sure to logout from SAMARTHYA ONLINE PORTAL?</B>';
+                content+='<br/>';
+                content+='<a href="php/logout.php" onclick="popupLogoutClose()">';
+                content+='<input type="button" class="btn btn-danger" value="logout"/>';
+                content+='</a>';
+                content+='<a href="#"  onclick="popupLogoutClose()">';
+                content+='<input type="button" class="btn btn-danger" value="cancel"/>';
+                content+='</a>';
+                document.getElementById("popLogoutcontent").innerHTML=content;
+
+            }
+            
+            function popupLogoutClose()
+            {
+                document.getElementById("PopupLogoutFrontEnd").style.display='none';
+                document.getElementById("PopupLogoutBackground").style.display='none';
+            }
           function opendropdown(){
                 $(".dropdown-menu").dropdown("toggle");
               }
         </script>
     </head>
     <body>
+        <!-- POP-UP CONTENT -->
+        <div id="PopupLogoutBackground"></div> 
+        <div id="PopupLogoutFrontEnd">
+            <a href="#" onclick="javascript:popupClose();">
+                         <img id="PopupLogoutCloseButton" src="images/stuff/button.jpg"/> 
+             </a>
+            <div id="popLogoutcontent" align="center" class="col-xs-12"></div>
+        </div>
         
+        <!-- NAVIGATION CONTENT -->
         <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                        <?php   if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) { ?>
@@ -117,7 +182,8 @@ and open the template in the editor.
              
              
                  <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
-                 <li><a href="php/logout.php">Logout</a></li>
+                 <li><a href="#" onclick="popupLogoutOpen();">Logout</a></li>
+                 
                  <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" data-toggle="dropdown">
                          <li class="mychangedrop">
