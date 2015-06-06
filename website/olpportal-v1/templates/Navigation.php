@@ -35,20 +35,63 @@ and open the template in the editor.
                                                  <li><a href="user-details.php">User Details</a></li>
                                         <?php } ?>
                                      
-                                     
-                       <li><a href="user-history.php">User History</a></li>
-                       <li  class="active"><a href="admin-test-results.php">User Test Results</a></li>
+                                        <!-- Page : User History --->
+                                        <?php   if($page=="UserHistory") {?>
+                                                <li class="active"><a href="user-history.php">User History</a></li>
+                                        <?php } else { ?>
+                                                <li><a href="user-history.php">User History</a></li>
+                                        <?php } ?>
+                                                
+                                        <!-- Page : AdminTestResults --->
+                                        <?php   if($page=="AdminTestResults") {?>
+                                              <li class="active"><a href="admin-test-results.php">User Test Results</a></li>
+                                        <?php } else { ?>
+                                              <li><a href="admin-test-results.php">User Test Results</a></li>
+                                        <?php } ?>
+                                                
                        <?php } else { ?>
-                       <li><a href="user-landing.php">Home</a></li>
-                       <li><a href="previous-test-results.php">Test Results</a></li>
+                                         
+                                        <!-- Page : UserLanding Page -->
+                                         <?php   if($page=="Home") {?>
+                                            <li class="active"><a href="user-landing.php">Home</a></li>
+                                        <?php } else { ?>
+                                            <li><a href="user-landing.php">Home</a></li>
+                                        <?php } ?>
+                                            
+                                        <!-- Page : PreviousTestResults --->
+                                        <?php   if($page=="PreviousTestResults") {?>
+                                             <li class="active"><a href="previous-test-results.php">Test Results</a></li>
+                                        <?php } else { ?>
+                                             <li><a href="previous-test-results.php">Test Results</a></li>
+                                        <?php } ?>
+                                             
                        <?php  } ?>
 
                        <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                       <li><a href="manage-courses.php">Manage Courses</a></li>
-                       <li><a href="manage-onlinetest.php">Manage Tests</a></li>
-                       <?php } else {?>
-                        <li><a href="visited-courses.php">Visited Courses</a></li>
-                       <?php  } ?>
+                                        
+                                             <!-- Page : Manage Courses -->
+                                             <?php   if($page=="ManageCourses") {?>
+                                                    <li class="active"><a href="manage-courses.php">Manage Courses</a></li>
+                                             <?php } else { ?>
+                                                    <li><a href="manage-courses.php">Manage Courses</a></li>
+                                             <?php } ?>
+                                                    
+                                              <!-- Page : Manage Tests -->  
+                                              <?php   if($page=="ManageTest") {?>
+                                                    <li class="active"><a href="manage-onlinetest.php">Manage Tests</a></li>
+                                              <?php } else { ?>
+                                                    <li><a href="manage-onlinetest.php">Manage Tests</a></li>
+                                              <?php } ?>
+                                                        
+                        <?php } else {?>
+                                           <!-- Page : Visited Courses --> 
+                                            <?php   if($page=="VisitedCourses") {?>
+                                                    <li class="active"><a href="visited-courses.php">Visited Courses</a></li>
+                                            <?php } else { ?>
+                                                    <li><a href="visited-courses.php">Visited Courses</a></li>
+                                            <?php } ?>     
+                                         
+                                        <?php  } ?>
                         
                          <?php  } else { ?>
                                 <li><a href="index.php">Home</a></li>
