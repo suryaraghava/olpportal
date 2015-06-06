@@ -376,7 +376,43 @@
                          }
                           else if(link==='Assessment')
                             {
-                          window.location.href='assessment.php';
+                                
+                                // Check for All PDF's are downloaded or not
+                                    var course='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>';
+                                    var userId='<?php if(isset($_SESSION[constant("SESSION_USER_REGID")])) echo $_SESSION[constant("SESSION_USER_REGID")]; ?>';
+                                    var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) echo $_SESSION[constant("SESSION_COURSEID")]; ?>';
+                                    // Check for Displaying Go for Assessment Option
+                                    // Inputs : courseId, userId
+                                    console.log("Course : "+course);
+                                    console.log("UserId : "+userId); 
+                                    console.log("courseId : "+courseId);
+                                    
+                                    var testresp="";
+                                         $.ajax({type: "GET", 
+                                                            async: false,
+                                                            url: 'php/dac.courses.php',
+                                                            data: { 
+                                                                userId :userId,
+                                                                course : courseId,
+                                                                action : 'checkForAssessmentTest'
+                                                            },
+                                                            success: function(resp)
+                                                            {
+                                                                  testresp=resp;
+                                                            }
+                                                           });
+
+                                                           console.log("testResp :"+testresp);
+
+                                    if(testresp==='Done')
+                                    {
+                                        window.location.href='assessment.php';
+                                    }
+                                    else
+                                    {
+                                         popupOpen();
+                                         document.getElementById("popcontent").innerHTML='<h3>You have not downloaded and read all PDFs. <br/> Please do it first to access Assessment Test</h3>';
+                                    }
                             }
                        
                         
