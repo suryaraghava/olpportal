@@ -158,7 +158,7 @@
       </div>
   <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php $page='';
+            <?php $page='PreviousTestResults';
             include 'templates/Navigation.php';?>
             <!-- End Navigation -->
    </div>

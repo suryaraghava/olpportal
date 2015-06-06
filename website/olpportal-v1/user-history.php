@@ -127,7 +127,7 @@ content+='<td>Farm Pond</td>
       </div>
       <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php $page='';
+            <?php $page='UserHistory';
             include 'templates/Navigation.php';?>
             <!-- End Navigation -->
        

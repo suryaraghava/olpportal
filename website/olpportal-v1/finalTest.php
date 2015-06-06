@@ -1,6 +1,6 @@
 <?php session_start();
  require 'php/define.php';
- if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
+ if(isset($_SESSION[constant("SESSION_USER_USERNAME")]) && isset($_SESSION[constant("SESSION_COURSENAME")]))
  {
 ?>
 <!DOCTYPE html>

@@ -59,7 +59,7 @@
       </div>
   <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php $page='';
+            <?php $page='ManageCourses';
             include 'templates/Navigation.php';?>
             <!-- End Navigation -->
    </div>

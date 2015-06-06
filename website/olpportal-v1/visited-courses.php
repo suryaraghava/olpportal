@@ -106,7 +106,7 @@
       </div>
   <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php $page='';
+            <?php $page='VisitedCourses';
             include 'templates/Navigation.php';?>
             <!-- End Navigation -->
    </div>

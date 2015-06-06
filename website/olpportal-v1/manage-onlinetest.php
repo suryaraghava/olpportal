@@ -90,7 +90,7 @@
       </div>
   <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php $page='';
+            <?php $page='ManageTest';
             include 'templates/Navigation.php';?>
             <!-- End Navigation -->
    </div>

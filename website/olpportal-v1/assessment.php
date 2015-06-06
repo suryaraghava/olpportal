@@ -1,6 +1,6 @@
 <?php session_start();
  require 'php/define.php';
- if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
+ if(isset($_SESSION[constant("SESSION_USER_USERNAME")]) && isset($_SESSION[constant("SESSION_COURSENAME")]))
  {
 ?>
 <!DOCTYPE html>
@@ -431,4 +431,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
-<?php } else {     header("location:index.php"); } ?>
+<?php } else {     header("location:user-landing.php"); } ?>

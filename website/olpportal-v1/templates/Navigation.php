@@ -94,8 +94,21 @@ and open the template in the editor.
                                         <?php  } ?>
                         
                          <?php  } else { ?>
-                                <li><a href="index.php">Home</a></li>
+                                    
+                             <!-- Page : Index Page -->
+                               <?php if($page=="Index") { ?>
+                                  <li class="active"><a href="index.php">Home</a></li>
+                               <?php } else { ?>  
+                                  <li><a href="index.php">Home</a></li> 
+                               <?php } ?>
+                                 
+                                 
+                             <!-- Page : Reports -->
+                             <?php if($page=="Report") { ?>
+                                <li class="active"><a href="reports.php">Reports</a></li>
+                               <?php } else { ?>
                                 <li><a href="reports.php">Reports</a></li>
+                               <?php } ?>
                          <?php } ?>
                 </ul>
              <?php  if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) { ?>

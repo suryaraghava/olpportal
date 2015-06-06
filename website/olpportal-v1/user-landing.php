@@ -472,7 +472,7 @@
       </div>
  <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php $page='';
+            <?php $page='Home';
             include 'templates/Navigation.php';?>
             <!-- End Navigation -->
    </div>
