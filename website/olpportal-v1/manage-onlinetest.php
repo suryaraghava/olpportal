@@ -1,6 +1,7 @@
 
 <?php session_start();
  require 'php/define.php';
+ if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -209,8 +210,9 @@
                 
                 
                 <div class="row">
-                     <div class="col-xs-12">
-                         <div id="leftMenuTable1" class=" panel panel-default">
+                     <div style="width:100px;">
+                         <!-- class="col-xs-12" class=" panel panel-default" -->
+                         <div id="leftMenuTable1" >
                     
                          </div>
                       </div>
@@ -450,3 +452,7 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+ <?php } else {
+     header("location:index.php");
+ }
+?>

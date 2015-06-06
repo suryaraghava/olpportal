@@ -190,7 +190,7 @@
                console.log("Pre Data : "+result);
                
               result=JSON.parse(result);
-              
+               //  
                var content='<table class="table table-responsiv table-bordered">';
                    content+='<thead>';
                    content+='<tr>';
@@ -210,17 +210,15 @@
                   console.log(result[index].testName);
                   console.log(result[index].testType);
                   console.log(result[index].testTime);
-                  console.log(result[index].totalquestions);
+                  console.log("Question :"+result[index].totalquestions+" Decode Question: "+decodeURI(result[index].totalquestions));
                   console.log(result[index].totalmarks);
                   console.log(result[index].passMarks);
+                  
                    content+='<tr>';
                    content+='<td>'+(index+1)+'</td>';
-                   
-               
                    content+='<th>'+result[index].testType+'</th>';
-               
                    content+='<th>'+result[index].testTime+'</th>';
-                   content+='<th>'+result[index].totalquestions+'</th>';
+                   content+='<th>'+decodeURI(result[index].totalquestions)+'</th>';
                    content+='<th>'+result[index].totalmarks+'</th>';
                    content+='<th>'+result[index].passMarks+'</th>';
                    content+='<th style="width:21%">';
@@ -413,19 +411,20 @@
                                    var res=JSON.parse(result);
                                    
                                    
-                                   
-               var content='<table class="table table-responsiv table-bordered">';
+                             //  class="table table-responsiv table-bordered"  
+                             /*
+               var content='<table style="width:100px;border:1px solid #000;">';
                    content+='<thead>';
-                   content+='<tr>';
-                   content+='<th>S. No.</th>';
-                   content+='<th>Test Type</th>';
-                   content+='<th>Question</th>';
-                   content+='<th>Option1</th>';
-                   content+='<th>Option2</th>';
-                   content+='<th>Option3</th>';
-                   content+='<th>Option4</th>';
-                   content+='<th>Answer</th>';
-                   content+='<th>Active</th>';
+                   content+='<tr style="border:1px solid #000;">';
+                   content+='<th  style="border:1px solid #000;">S. No.</th>';
+                   content+='<th  style="border:1px solid #000;">Test Type</th>';
+                   content+='<th style="border:1px solid #000;">Question</th>';
+                   content+='<th style="border:1px solid #000;">Option1</th>';
+                   content+='<th style="border:1px solid #000;">Option2</th>';
+                   content+='<th style="border:1px solid #000;">Option3</th>';
+                   content+='<th style="border:1px solid #000;">Option4</th>';
+                   content+='<th style="border:1px solid #000;">Answer</th>';
+                   content+='<th style="border:1px solid #000;">Active</th>';
                    content+='</tr>';
                    content+='</thead>';
                    content+='<tbody>';
@@ -435,16 +434,16 @@
                                    for(var ind=0;ind<res.length;ind++)
                                    {
                                        
-                                        content+='<tr>';
-                                        content+='<td>'+(ind+1)+'</td>';
-                                        content+='<td>'+res[ind].testType+'</td>';
-                                        content+='<td>'+res[ind].question+'</td>';
-                                        content+='<td>'+res[ind].option1+'</td>';
-                                        content+='<td>'+res[ind].option2+'</td>';
-                                        content+='<td>'+res[ind].option3+'</td>';
-                                        content+='<td>'+res[ind].option4+'</td>';
-                                        content+='<td>'+res[ind].answer+'</td>';
-                                        content+='<td>'+res[ind].active+'</td>';
+                                        content+='<tr  style="border:1px solid #000;">';
+                                        content+='<td  style="border:1px solid #000;">'+(ind+1)+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].testType+'</td>';
+                                        content+='<td  style="width:40px;border:1px solid #000;">'+res[ind].question+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option1+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option2+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option3+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option4+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].answer+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].active+'</td>';
                                         content+='</tr>'
                                     
                                         
@@ -455,8 +454,26 @@
                    content+='</tbody>';
                    content+='</table>';
                    content+='</div>';
-                                   
+                                   */
+                   // Data Table
                    
+                     var  table=$('#adminviewuserdetails').dataTable( {
+                   
+        	 "ajax":'php/dac.questions.php?action=GetTestQuestionstoDataTables',
+			//  "scrollY": "400px",
+    
+			 "columns": [{ "title": "S. No." , "class": "custom"},
+				     { "title": "Test Type" , "class": "center"},
+			             { "title": "Question", "type" : "string", "class": "center" },
+				     { "title": "Option1", "type" : "string", "class": "center" },
+                                     { "title": "Option2", "type" : "string", "class": "center" },
+                                     { "title": "Option3", "type" : "string", "class": "center" },
+                                     { "title": "Option4", "type" : "string", "class": "center" },
+                                     { "title": "Answer", "type" : "string", "class": "center" },
+                                     { "title": "Active", "type" : "string", "class": "center" }
+                                    ]
+				 } );
+                                 
                    document.getElementById("leftMenuTable1").innerHTML=content;
                                    
                                    
