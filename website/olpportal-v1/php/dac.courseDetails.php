@@ -30,6 +30,11 @@ require 'dal.courses.php';
     $engvideoLInk=$_POST["addcourse-EngVideoLink"];
     $hinvideoLInk=$_POST["addcourse-HinVideoLink"];
     $telvideoLInk=$_POST["addcourse-TelVideoLink"];
+    
+    $engvideoLInk=str_replace("watch?v=", "embed/",$engvideoLInk);
+    $hinvideoLInk=str_replace("watch?v=", "embed/",$hinvideoLInk);
+    $telvideoLInk=str_replace("watch?v=", "embed/",$telvideoLInk);
+    
     $engPDFLink= basename($_FILES["addcourse-EngBookLink"]["name"]);
     // Upload
     $target_file  = "../PDF-Text/Course-".$courseId."/".$engPDFLink;

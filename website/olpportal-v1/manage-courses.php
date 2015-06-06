@@ -1,6 +1,7 @@
 
 <?php session_start();
  require 'php/define.php';
+ if(isset($_SESSION["SESSION_USER_USERNAME"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -293,7 +294,7 @@
                  <div id="form-Div" class="row">
                     
                     <div class="col-xs-12">
-                        <input type="submit" id="CourseDetailsBttn" class="btn btn-default pull-right" onclick="addDetailsToCourse()" value="Add Course Details"/>
+                        <input type="submit" id="CourseDetailsBttn" class="btn btn-default pull-right" value="Add Course Details"/>
                     </div>
                 </div>
                 
@@ -349,3 +350,4 @@
     <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
+ <?php } else { header("location:index.php"); }?>
