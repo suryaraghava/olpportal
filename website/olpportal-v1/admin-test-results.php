@@ -124,7 +124,8 @@
    
        <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php include 'templates/Navigation.php';?>
+            <?php  $page='AdminTestResults';
+                   include 'templates/Navigation.php';?>
             <!-- End Navigation -->
             
    </div>
