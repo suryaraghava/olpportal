@@ -15,6 +15,7 @@ and open the template in the editor.
              #labelInput { margin-bottom:2%; }
         </style>
         <script>
+            
           function opendropdown(){
                 $(".dropdown-menu").dropdown("toggle");
               }
@@ -25,8 +26,16 @@ and open the template in the editor.
         <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                        <?php   if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) { ?>
-                       <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                       <li><a href="user-details.php">User Details</a></li>
+                             <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
+                    
+                                        <!-- Page : User Details -->
+                                        <?php   if($page=="UserDetails") {?>
+                                                <li class="active"><a href="user-details.php">User Details</a></li>
+                                        <?php } else { ?>
+                                                 <li><a href="user-details.php">User Details</a></li>
+                                        <?php } ?>
+                                     
+                                     
                        <li><a href="user-history.php">User History</a></li>
                        <li  class="active"><a href="admin-test-results.php">User Test Results</a></li>
                        <?php } else { ?>

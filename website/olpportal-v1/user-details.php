@@ -97,7 +97,8 @@
       </div>
         <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php include 'templates/Navigation.php';?>
+            <?php $page="UserDetails";
+              include 'templates/Navigation.php';?>
             <!-- End Navigation -->
        
           
