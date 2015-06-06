@@ -33,6 +33,10 @@
     </style>
      <script>
          var g_coursesList=new Array();
+         function moduleContent()
+         {
+             document.getElementById("userlanding-content").style.display='none';
+         }
         function getCoursesListAfterLogin()
         {
              var result="";
@@ -68,7 +72,7 @@
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'preTest\' )">';
                                  content+='Take a Pretest</span></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Details\' )">Details</a></li>';
-                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Module\' )">Go to Module</a></li>';
+                                 content+='<li><span class="course-subTag" onclick="javascript:moduleContent()">Go to Module</a></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Assessment\' )">Go for Assessment</a></li>';
                                  content+='</ul>';
                                  content+='</div>';
@@ -511,10 +515,20 @@
    <div class="col-xs-12">
       <h3 class="featurette-heading">COURSES</h3>
       <hr class="featurette-divider">
-         <p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
-<p>
-     "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"
-</p>
+         <p id="userlanding-content">"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people 
+             in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household 
+             whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. 
+             "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people
+             in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household 
+             whose adult members volunteer to do unskilled manual work"
+         
+            "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people 
+            in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose
+            adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi
+            National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas 
+            by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members 
+            volunteer to do unskilled manual work"
+        </p>
 <br/>
 </div>
 </div>
