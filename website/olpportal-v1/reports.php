@@ -182,17 +182,10 @@ content+='<td>Farm Pond</td>
             <span class="icon-bar"></span>
          </button>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-                <li><a href="index.php">Home</a></li>
-                <li class="active"><a href="reports.php">Reports</a></li>
-         </ul>
-          <ul class="nav navbar-nav navbar-right right-margin">
-            <li class="active"><a href="index.php"><span class="icon-login"></span>Login</a></li>
-            <li class="separator"></li>
-            <li class="active"><a href="index.php"><span class="icon-signup"></span>Sign Up</a></li>
-         </ul>
-      </div>
+      <!-- NAVIGATION BAR -->
+            <!-- Start Navigation -->
+            <?php include 'templates/Navigation.php';?>
+            <!-- End Navigation -->
    </div>
 </nav>
 
