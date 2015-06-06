@@ -90,7 +90,8 @@
       </div>
   <!-- NAVIGATION BAR -->
             <!-- Start Navigation -->
-            <?php include 'templates/Navigation.php';?>
+            <?php $page='';
+            include 'templates/Navigation.php';?>
             <!-- End Navigation -->
    </div>
 </nav>
