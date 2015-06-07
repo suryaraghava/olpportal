@@ -189,6 +189,16 @@ class Courses
     }
     
     
+    
+    function getAdminCourseLogs()
+    {
+                $sql="SELECT * FROM `uservisitedcourse`,`userregistration` WHERE  userregistration.idUserRegistration=uservisitedcourse.userId ORDER BY date  ASC";
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        return $json;
+    }
+    
+    
     function checkforTestDone($userId, $courseId, $testType)
     {
         $sql="SELECT `testTaken` FROM `usercoursetest` WHERE `userID`=".$userId." AND `courseID`=".$courseId." AND `testType`='".$testType."'";

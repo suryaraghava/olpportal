@@ -28,6 +28,10 @@
      <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/dataTables.bootstrap.css" rel="stylesheet">
+    <!--link href="https://www.datatables.net/release-datatables/media/css/jquery.dataTables.css"-->
+    <link href="media/css/TableTools.css">
+    <script type="text/javascript" src="https://www.datatables.net/release-datatables/extensions/TableTools/js/dataTables.tableTools.js"></script>
+    <script type="text/javascript" src="https://www.datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
     <style>
         thead{
             background-color: #0075b0;
@@ -39,66 +43,20 @@
         {
              $('input[type="search"]').addClass('form-control');
              
-             
-               var  table=$('#adminviewuserdetails').dataTable( {
-			 "ajax":'php/dac.useraccounts.php?action=GetAdminUserReports',
-			 "scrollY": "400px",
-			 "columns": [{ "title": "FULL NAME" , "class": "center"},
-				     { "title": "DESIGNATION" , "class": "center"},
-			             { "title": "COURSE NAME", "type" : "string", "class": "center" },
-                                     { "title": "TYPE OF TEST", "type" : "string", "class": "center" },
-                                     { "title": "SCORE", "type" : "string", "class": "center" }
-                                    ]
+      
+        var  table=$('#adminviewuserdetails').dataTable( {
+		         "ajax":"php/dac.AdminVisitedPage.php",
+                      
+			 "columns": [{ "title": "Username" , "class": "center"},
+				     { "title": "Viewed Date" , "class": "center"},
+                                     { "title": "Viewed Time" , "class": "center"},
+			             { "title": "Course Name",  "class": "center" },
+                                     { "title": "Description",  "class": "center" },
+                                     { "title": "IP Address", "class": "center" }
+                                    ] 
 				 } );
-            // Name
-           // Staff ID
-           // Designation
-           //  State
-           // Course Name
-           // Type of Test
-            // Status
-          /*  var content='';
-             content+=''; 
-             content+='<table class="table table-responsiv table-bordered">'
-             content+='<thead>';
-             content+='<tr>';
-             content+='<th>Name</th>
-             content+='<th>Staff ID</th>
-             content+='<th>Designation</th>
-             content+='<th>State</th>
-             content+='<th>Course Name</th>
-             content+='<th>Type of Test</th>
-             content+='<th>Status</th>
-             content+='</tr>
-content+='</thead>
-content+='<tbody>
-content+='<tr>
-content+='<td>002</td>
-content+='<td>Farm Pond</td>
-<td>Farm Pond</td>
-<td>Post Test</td>
-<td>80</td>
-<td>Pass</td>
-</tr>
-<tr class="info">
-<td>001</td>
-<td>Deep Ploughing</td>
-<td>Deep Ploughing</td>
-<td>Post Test</td>
-<td>50</td>
-<td>Fail</td>
-</tr>
-<tr>
-<td>003</td>
-<td>Deep Ploughing</td>
-<td>Deep Ploughing</td>
-<td>Pre Test</td>
-<td>70</td>
-<td>Pass</td>
-</tr>
-</tbody>
-</table>
-            document.getElementById("report-container").innerHTML=''; */
+                                 
+       
         }
     </script>
   </head>
@@ -140,9 +98,7 @@ content+='<td>Farm Pond</td>
 <!--   ---------------------- Start Home Page About Content -----------------------    -->
 <br/>
 <div class="col-xs-12">
-    <!--a href="dashboard.php"> 
-        <button class="btn btn-default pull-right">View Dashboard</button>
-    </a-->
+   
 </div>
 <br/>
 <div class="container">
@@ -152,6 +108,11 @@ content+='<td>Farm Pond</td>
 </div>
 </div>
 <div class="container">
+    <div class="col-xs-12">
+        <a href="Excel-Output/User-History.xlsx">
+        <input type="button" class="btn btn-primary pull-right" value="Download Excel"/>
+        </a>
+    </div>
 <div class="col-xs-12">
  <table id="adminviewuserdetails" class="table table-responsiv table-bordered">
         

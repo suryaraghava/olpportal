@@ -66,12 +66,14 @@
                {
                 content+='<tr class="info">';
             } 
+            var ip=res[index].IPAddress;
+                 
                 content+='<td>'+res[index].date+'</td>';
                 content+='<td>'+res[index].course+'</td>';
                 content+='<td>'+res[index].status+'</td>';
                 
                 content+='<td>'+res[index].startTime+'</td>';
-                 content+='<td>'+res[index].IPAddress+'</td>';
+                 content+='<td>'+ip.replace("%0A", "")+'</td>';
                 content+='</tr>';
 
             }

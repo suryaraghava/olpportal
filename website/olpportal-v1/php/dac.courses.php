@@ -39,7 +39,7 @@ else if($action=='AddcourseVisited')
     $startTime=date("h:i:sa");
     $status=$_GET["status"];
     
-    $ipaddress=$_GET["ipaddress"];
+    $ipaddress=urlencode($_GET["ipaddress"]);
     echo $courseObj->addCourseLogs($course, $date, $startTime, $status, $userId, $ipaddress);
 }
 
@@ -52,6 +52,8 @@ else if($action=='courseVisited')
     $json=$course->getCourseLogs($userId);
     echo $json; 
 }
+
+
 else if($action=='viewCourseDetails')
 {
     $courseID=$_GET["courseID"];

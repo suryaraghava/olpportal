@@ -81,7 +81,7 @@ and open the template in the editor.
         <!-- POP-UP CONTENT -->
         <div id="PopupLogoutBackground"></div> 
         <div id="PopupLogoutFrontEnd">
-            <a href="#" onclick="javascript:popupClose();">
+            <a href="#" onclick="javascript:popupLogoutClose();">
                          <img id="PopupLogoutCloseButton" src="images/stuff/button.jpg"/> 
              </a>
             <div id="popLogoutcontent" align="center" class="col-xs-12"></div>
