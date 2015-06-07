@@ -109,7 +109,7 @@
 </div>
 <div class="container">
     <div class="col-xs-12">
-        <a href="Excel-Output/User-History.xlsx">
+        <a href="php/dac.userHistoryExcel.php">
         <input type="button" class="btn btn-primary pull-right" value="Download Excel"/>
         </a>
     </div>
