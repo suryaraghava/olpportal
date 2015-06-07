@@ -137,17 +137,41 @@ else if($action=='GetUserReports')
         $data.="[";       
         $data.="\"".$dejson[$ind]->{'firstName'}." ".$dejson[$ind]->{'lastName'}."\",";
         $data.="\"".$dejson[$ind]->{'designation'}."\",";
-        $data.="\"".$dejson[$ind]->{'staffID'}."\",";
         $data.="\"".$dejson[$ind]->{'state'}."\",";
         $data.="\"".$dejson[$ind]->{'courseName'}."\",";
         $data.="\"".$dejson[$ind]->{'testType'}."\",";
-        $data.="\"".$dejson[$ind]->{'marksResults'}."\"";
+        $data.="\"".$dejson[$ind]->{'marksResults'}."\",";
+        $data.="\"".$dejson[$ind]->{'ExamStatus'}."\"";
         $data.="],";
     }
     $data=chop($data, ",");
       $data.="]}";
     echo $data;
 }
+
+else if($action=='GetUserReportDesignationFilter')
+{
+    $acc=new UserAccounts();
+    $json=$acc->userCourseDesignationReports();
+    echo $json;
+}
+
+else if($action=='GetUserReportStateFilter')
+{
+    $acc=new UserAccounts();
+    $json=$acc->userCourseStateReports();
+    echo $json;
+}
+
+else if($action=='GetUserReportCourseNameFilter')
+{
+    $acc=new UserAccounts();
+    $json=$acc->userCourseCourseNameReports();
+    echo $json;
+}
+
+
+
 else if($action=='GetAdminUserReports')
 {
     $acc=new UserAccounts();

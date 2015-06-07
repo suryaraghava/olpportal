@@ -216,14 +216,43 @@ class UserAccounts
             }
             
             
+            /* Reports : Page */
             function userCourseReports()
             {
-                $sql="SELECT * FROM usercoursetest, userregistration, courses WHERE usercoursetest.userID=userregistration.idUserRegistration AND courses.idCourses=usercoursetest.courseID";
+                $sql="SELECT * FROM usercoursetest, userregistration, courses WHERE usercoursetest.userID=userregistration.idUserRegistration AND courses.idCourses=usercoursetest.courseID AND usercoursetest.testType='Assessment'";
             
                 $dbObj=new InteractDatabase();
                 $json= $dbObj->getJSONData($sql);
                 return $json;  
             }
+            
+            function userCourseDesignationReports()
+            {
+                $sql="SELECT DISTINCT designation FROM usercoursetest, userregistration, courses WHERE usercoursetest.userID=userregistration.idUserRegistration AND courses.idCourses=usercoursetest.courseID";
+            
+                $dbObj=new InteractDatabase();
+                $json= $dbObj->getJSONData($sql);
+                return $json;  
+            }
+            
+            function userCourseStateReports()
+            {
+                $sql="SELECT DISTINCT state FROM usercoursetest, userregistration, courses WHERE usercoursetest.userID=userregistration.idUserRegistration AND courses.idCourses=usercoursetest.courseID";
+            
+                $dbObj=new InteractDatabase();
+                $json= $dbObj->getJSONData($sql);
+                return $json;  
+            }
+            
+            function userCourseCourseNameReports()
+            {
+                $sql="SELECT DISTINCT courseName FROM usercoursetest, userregistration, courses WHERE usercoursetest.userID=userregistration.idUserRegistration AND courses.idCourses=usercoursetest.courseID";
+            
+                $dbObj=new InteractDatabase();
+                $json= $dbObj->getJSONData($sql);
+                return $json;  
+            }
+            
             
 }
 
