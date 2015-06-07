@@ -38,9 +38,61 @@
             color:#fff;
         }
     </style>
+    <script type="text/javascript" src="js/jquery.dataTables.columnFilter.js"></script>
    <script type="text/javascript">
+       
+       
         function reportloading()
         {
+            var filter_courseName=[];
+            var filter_description=[];
+       
+            /* Filtering : CourseName */ 
+                 var courseName="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'GetUserHistoryCourseNameFilter'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          courseName=resp;
+                                    }
+                                   });
+               console.log("answers : "+courseName);
+               
+               courseName=JSON.parse(courseName);
+               
+               for(var index=0;index<courseName.length;index++)
+               {
+                   filter_courseName[index]=courseName[index].courseName;
+               }
+               
+              /* Description Filter : */
+             //  
+              var description="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        action : 'GetUserHistoryDescriptionFilter'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          description=resp;
+                                    }
+                                   });
+               console.log("answers : "+description);
+               
+               description=JSON.parse(description);
+               
+               for(var index=0;index<description.length;index++)
+               {
+                   filter_description[index]=description[index].status;
+               }
+               
+               
              $('input[type="search"]').addClass('form-control');
              
       
@@ -54,7 +106,17 @@
                                      { "title": "Description",  "class": "center" },
                                      { "title": "IP Address", "class": "center" }
                                     ] 
-				 } );
+				 } ).columnFilter({
+                                     sPlaceHolder: "head:after",
+                                     
+                                     aoColumns:[null,
+                                                null,
+                                                null,
+                                               {  type:"select", values:filter_courseName },
+                                               {  type:"select", values:filter_description },
+                                                null
+                                              ]
+         });
                                  
        
         }

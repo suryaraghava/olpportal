@@ -206,3 +206,18 @@ else if($action=='checkForAssessmentTest')
         echo "NotDone";
     }
 }
+
+/* UserHistory : Filters */
+else if($action=='GetUserHistoryCourseNameFilter')
+{
+    $course=new Courses();
+    $json=$course->getAdminCourseCourseNameLogs();
+    echo $json;
+}
+else if($action=='GetUserHistoryDescriptionFilter')
+{
+    $course=new Courses();
+    $json=$course->getAdminCourseDescriptionLogs();
+    echo $json;
+    
+}

@@ -189,10 +189,26 @@ class Courses
     }
     
     
-    
+    /* User History : Page */
     function getAdminCourseLogs()
     {
-                $sql="SELECT * FROM `uservisitedcourse`,`userregistration` WHERE  userregistration.idUserRegistration=uservisitedcourse.userId ORDER BY date  ASC";
+        $sql="SELECT * FROM `uservisitedcourse`,`userregistration` WHERE  userregistration.idUserRegistration=uservisitedcourse.userId ORDER BY date  ASC";
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        return $json;
+    }
+    
+    function getAdminCourseCourseNameLogs()
+    {
+        $sql="SELECT DISTINCT courseName FROM `courses`";
+        $dbObj=new InteractDatabase();
+        $json=$dbObj->getJSONData($sql);
+        return $json;
+    }
+    
+    function getAdminCourseDescriptionLogs()
+    {
+        $sql="SELECT DISTINCT status FROM `uservisitedcourse`,`userregistration` WHERE  userregistration.idUserRegistration=uservisitedcourse.userId ORDER BY date  ASC";
         $dbObj=new InteractDatabase();
         $json=$dbObj->getJSONData($sql);
         return $json;
