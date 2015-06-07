@@ -23,8 +23,8 @@ and open the template in the editor.
              }
              #PopupLogoutFrontEnd {  
                 overflow:hidden;display: none;position: fixed;
-                margin-left:305px;  margin-top: 180px;
-                width: 740px;height: 200px;
+                margin-left:20%;  margin-top: 180px;
+                width: 55%;
                 padding: 16px;border: 4px solid #C75314;
                 border-bottom-left-radius: 5px;
                 border-bottom-right-radius: 5px;
@@ -33,12 +33,22 @@ and open the template in the editor.
                 background-color: white;
                 z-index:1002;
              }
+             
+             @media screen and (max-width: 1440px) and (min-width:801px) {
+              #PopupLogoutCloseButton{ left: 80%;}
+              #PopupLogoutFrontEnd { height: 200px;}
+             }
+             
+             @media screen and (max-width: 800px)  {  
+             #PopupLogoutCloseButton{ left: 70%; }
+              #PopupLogoutFrontEnd { height: 40%;}
+             }
              #PopupLogoutCloseButton
             {
                height:28px;
                width:30px; 
                position:fixed;
-               left: 1120px;
+               
                margin-top:-28px;
                z-index:-1;
                overflow: hidden;
@@ -54,7 +64,11 @@ and open the template in the editor.
             {
                 document.getElementById("PopupLogoutFrontEnd").style.display='block';
                 document.getElementById("PopupLogoutBackground").style.display='block';
-                
+            }
+    
+            function logout()
+            {
+               popupLogoutOpen();
                 var content='<B>Are you sure to logout from SAMARTHYA ONLINE PORTAL?</B>';
                 content+='<br/>';
                 content+='<a href="php/logout.php" onclick="popupLogoutClose()">';
@@ -74,6 +88,43 @@ and open the template in the editor.
             }
           function opendropdown(){
                 $(".dropdown-menu").dropdown("toggle");
+              }
+              
+              function resetPassword()
+              { 
+                  var pwd=document.getElementById("input-Pwd").value;
+                  var repwd=document.getElementById("input-RePwd").value;
+                  
+                  if(pwd.length>0 && repwd.length>0)
+                  {
+                      if(pwd==repwd)
+                      {
+                           popupLogoutOpen();
+                          var content='<B>Are you sure to reset your password of SAMARTHYA ONLINE PORTAL?</B>';
+                            content+='<br/>';
+                            content+='<a href="#" onclick="">';
+                            content+='<input type="button" class="btn btn-danger" value="Yes"/>';
+                            content+='</a>';
+                            content+='<a href="#"  onclick="popupLogoutClose()">';
+                            content+='<input type="button" class="btn btn-danger" value="cancel"/>';
+                            content+='</a>';
+                          document.getElementById("popLogoutcontent").innerHTML=content;
+                      }
+                      else
+                      {
+                         popupLogoutOpen();
+                          var content='<B>Password and confirm password doesn\'t match. Please re-enter to reset your password of SAMARTHYA ONLINE PORTAL</B>';
+   
+                        document.getElementById("popLogoutcontent").innerHTML=content;
+                      }
+                  }
+                  else
+                  {
+                      popupLogoutOpen();
+                       var content='<B>Please enter password/confirm password to reset your password of SAMARTHYA ONLINE PORTAL</B>';
+   
+                        document.getElementById("popLogoutcontent").innerHTML=content;
+                  }
               }
         </script>
     </head>
@@ -182,7 +233,7 @@ and open the template in the editor.
              
              
                  <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
-                 <li><a href="#" onclick="popupLogoutOpen();">Logout</a></li>
+                 <li><a href="#" onclick="logout();">Logout</a></li>
                  
                  <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" data-toggle="dropdown">
@@ -200,7 +251,7 @@ and open the template in the editor.
                                            <input id="input-RePwd" type="password" class="form-control" placeholder="Enter Re-enter password ... "  onclick="opendropdown()"/>
                                         </div>
                                         <div  id="label" class="col-xs-12">
-                                            <button class="btn btn-danger pull-right">Reset Password</button>
+                                            <input type="button" class="btn btn-danger pull-right" value="Reset Password" onclick="javascript:resetPassword()"/>
                                         </div>
                                  </div>
                             </a>

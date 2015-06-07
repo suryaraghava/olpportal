@@ -103,7 +103,7 @@
 				     { "title": "Viewed Date" , "class": "center"},
                                      { "title": "Viewed Time" , "class": "center"},
 			             { "title": "Course Name",  "class": "center" },
-                                     { "title": "Description",  "class": "center" },
+                                     { "title": "User Activity",  "class": "center" },
                                      { "title": "IP Address", "class": "center" }
                                     ] 
 				 } ).columnFilter({
