@@ -7,7 +7,7 @@
  */
 
 header('Content-type: application/excel');  
-header("Content-Disposition: attachment;Filename=user-history".date('d-m-Y').".csv");
+header("Content-Disposition: attachment;Filename=user-history-".date('d-m-Y').".csv");
 
 
 require_once 'dal.courses.php';

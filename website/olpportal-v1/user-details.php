@@ -124,39 +124,15 @@
 </div>
 </div>
 <div class="container">
+    <div class="col-xs-12">
+        <a href="php/dac.userDetailExcel.php">
+            <input type="button" class="btn btn-primary pull-right" value="Download Excel"/>
+        </a>
+    </div>
 <div class="col-xs-12">
 <!--div  class="panel panel-default"-->
 <table id="adminviewuserdetails" class="table table-responsiv table-bordered">
-<!--thead>
-<tr>
-<th>Full Name</th>
-<th>Education Qualification</th>
-<th class="sortable">Community</th>
-<th class="sortable">Gender</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vinod.B</td>
-<td>B.Tech</td>
-<td>BC</td>
-<td>Male</td>
-<td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td>
-</tr>
-<tr class="info">
-<td>Balu Venkat.G</td>
-<td>B.Sc</td>
-<td>OC</td>
-<td>Male</td>
-<td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td></tr>
-<tr>
-<td>Ramesh .S</td>
-<td>B.Sc</td>
-<td>OC</td>
-<td>Male</td>
-<td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td></tr>
-</tbody-->
+
 </table>
 <!--/div-->
 <!--button class="btn btn-default pull-right">Download Data</button-->
