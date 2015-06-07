@@ -81,6 +81,8 @@ else if($action=='updateRegistration')
      $emailMsg=$emsg->signupGreeting($username, $d_pwd);
      mail($emailID,"Samarthya Online learning Portal ::: Signup Process",$emailMsg);
 }
+
+/* User Details : Page */
 else if($action=='getUserDetails')
 {
   $data="{\"data\": [";
@@ -105,6 +107,27 @@ else if($action=='getUserDetails')
     $data.="]}";
     echo $data;
 }
+
+else if($action=='getUserDetailsDesignationFilter')
+{
+  
+    $acc=new UserAccounts();
+    $json=$acc->adminGetUserDetailsDesignation();
+    echo $json;
+
+}
+
+
+else if($action=='getUserDetailsStateFilter')
+{
+  
+    $acc=new UserAccounts();
+    $json=$acc->adminGetUserDetailsState();
+    echo $json;
+
+}
+
+
 else if($action=='sendForgotPassword')
 {
      $acc=new UserAccounts();

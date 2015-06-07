@@ -204,7 +204,7 @@ class UserAccounts
             }
             
             
-            
+            /* UserDetails : Page */
             
             function adminGetUserDetails()
             {
@@ -215,6 +215,24 @@ class UserAccounts
                 return $json;  
             }
             
+            function adminGetUserDetailsDesignation()
+            {
+                $sql="SELECT DISTINCT designation FROM `userlogin`, `userregistration` WHERE `userlogin`.idUserRegistration=`userregistration`.idUserRegistration";
+           
+                $dbObj=new InteractDatabase();
+                $json= $dbObj->getJSONData($sql);
+                return $json;  
+            }
+            
+            
+            function adminGetUserDetailsState()
+            {
+                $sql="SELECT DISTINCT state FROM `userlogin`, `userregistration` WHERE `userlogin`.idUserRegistration=`userregistration`.idUserRegistration";
+           
+                $dbObj=new InteractDatabase();
+                $json= $dbObj->getJSONData($sql);
+                return $json;  
+            }
             
             /* Reports : Page */
             function userCourseReports()

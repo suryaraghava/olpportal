@@ -110,7 +110,7 @@
 <div class="container">
     <div class="col-xs-12">
         <a href="php/dac.userHistoryExcel.php">
-        <input type="button" class="btn btn-primary pull-right" value="Download Excel"/>
+        <input type="button" class="btn btn-primary pull-right" value="Download Complete Information"/>
         </a>
     </div>
 <div class="col-xs-12">
