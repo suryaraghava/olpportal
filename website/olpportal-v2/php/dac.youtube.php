@@ -21,6 +21,8 @@ function youtubeBuilder($courseID)
     $html='';
     for($ind=0;$ind<count($dejson);$ind++)
     {
+        $subcourseId=$dejson[$ind]->{'idCourseLinks'};
+        $courseId=$dejson[$ind]->{'courseID'};
         $title=$dejson[$ind]->{'title'};
         $engVideo=$dejson[$ind]->{'courseEngVideoLink'};
         $hindiVideo=$dejson[$ind]->{'courseEngVideoLink'};
@@ -34,28 +36,30 @@ function youtubeBuilder($courseID)
         if(isset($engVideo))
         {
             $html.='<div id="englishVideo" align="center" class="video-frame">';
-            $html.='<iframe width="92%" height="80%" src="'.$engVideo.'&output=embed" frameborder="0" allowfullscreen></iframe>';
+            $html.='<iframe width="92%" height="80%" src="'.$engVideo.'" frameborder="0" allowfullscreen></iframe>';
             $html.='</div>';
         }
         
         else if(isset($hindiVideo))
         {
             $html.='<div id="hindiVideo" align="center" class="video-frame">';
-            $html.='<iframe width="92%" height="80%" src="'.$hindiVideo.'&output=embed" frameborder="0" allowfullscreen></iframe>';
+            $html.='<iframe width="92%" height="80%" src="'.$hindiVideo.'" frameborder="0" allowfullscreen onclick="alert(\"English Video\")"></iframe>';
             $html.='</div>';
         }
         
         else if(isset($telVideo))
         {
             $html.='<div id="teluguVideo" align="center" class="video-frame">';
-            $html.='<iframe width="92%" height="80%" src="'.$telVideo.'&output=embed" frameborder="0" allowfullscreen></iframe>';
+            $html.='<a href="'.$telVideo.'"';
+            $html.='<iframe width="92%" height="80%" src="'.$telVideo.'" frameborder="0" allowfullscreen></iframe>';
+            $html.='</a>';
             $html.='</div>';
         }
         $html.='<div>';
         $html.='<a href="'.$engVideo.'" target="new"><div class="english"></div></a>';
         $html.='<a href="'.$hindiVideo.'" target="new"><div class="hindi"></div></a>';
         $html.='<a href="'.$telVideo.'" target="new"><div class="telugu"></div></a>';
-        $html.='<a href="'.$engPDF.'" target="new">';
+        $html.='<a href="'.$engPDF.'" target="new" onclick="pdfDownloadLogs(\''.$title.'\',\''.$subcourseId.'\',\''.$courseId.'\')">';
         $html.='<div class="pdf-download"></div>';
         $html.='</a>';
         $html.='</div>';

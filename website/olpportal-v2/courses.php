@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+ require 'php/define.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,17 +84,11 @@
             <span class="icon-bar"></span>
          </button>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-            <li class="active"><a style="color:#FFF" href="index.php">Home</a></li>
-            <li><a href="reports.php">Reports</a></li>
-         </ul>
-         <ul class="nav navbar-nav navbar-right right-margin">
-            <li class="active"><a href="index.php"><span class="icon-login"></span>Login</a></li>
-            <li class="separator"></li>
-            <li class="active"><a href="index.php"><span class="icon-signup"></span>Sign Up</a></li>
-         </ul>
-      </div>
+       <!-- NAVIGATION BAR -->
+            <!-- Start Navigation -->
+            <?php $page='';
+            include 'templates/Navigation.php';?>
+            <!-- End Navigation -->
    </div>
 </nav>
 

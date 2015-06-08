@@ -20,6 +20,15 @@ if($action=='TestDetailsByTest')
     $json=$q->getTestDetails($testName);
     echo $json;
 }
+else if($action=='GetTestQuestionstoDataTables')
+{
+    $testName=$_GET["courseName"];
+    $q=new Questions();
+    $json=$q->getTestDetails($testName);
+    echo $json;
+}
+
+
 if($action=='TestDetails')
 {
     $testName=$_GET["courseName"];

@@ -52,6 +52,78 @@ session_start();
         {
              $('input[type="search"]').addClass('form-control');
              
+             /* Filters Declaration : */
+              var filter_designation=[];
+              var filter_state=[];
+              var filter_courseName=[];
+              
+             /* Get Filters : GetUserReportFilter */
+              
+            var designation="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        action : 'GetUserReportDesignationFilter'
+                                 
+                                    },
+                                    success: function(resp)
+                                    {
+                                          designation=resp;
+                                    }
+                                   });
+               console.log("Results : "+designation);
+               designation=JSON.parse(designation);
+             
+             for(var index=0;index<designation.length;index++)
+             {
+                 filter_designation[index]=designation[index].designation;
+             }
+             
+             /* Get Filters : GetUserReportStateFilter */
+             var state="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        action : 'GetUserReportStateFilter'
+                                 
+                                    },
+                                    success: function(resp)
+                                    {
+                                          state=resp;
+                                    }
+                                   });
+               console.log("Results : "+state);
+               state=JSON.parse(state);
+             
+             for(var index=0;index<state.length;index++)
+             {
+                 filter_state[index]=state[index].state;
+             }
+             
+             /* Get Filter : GetUserReportCourseNameFilter */
+              var courseName="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        action : 'GetUserReportCourseNameFilter'
+                                 
+                                    },
+                                    success: function(resp)
+                                    {
+                                          courseName=resp;
+                                    }
+                                   });
+               console.log("Results : "+courseName);
+               courseName=JSON.parse(courseName);
+             
+             for(var index=0;index<courseName.length;index++)
+             {
+                 filter_courseName[index]=courseName[index].courseName;
+             }
+             
              // Type of Test Assessment
              // State Filtering
              // CourseName Filtering
@@ -59,13 +131,13 @@ session_start();
              // Add a Status at Last column and Add Filter
              // Remove Staff-ID Column
              
-             var filter_fullName=[ 'Super Administrator', 'Super Tester'];
-             var filter_designation=[];
+           /*  var filter_fullName;
+            
              var filter_staffId=[];
-             var filter_state=[];
-             var filter_courseName=[];
+            
+             
              var filter_testType=[];
-             var filter_score=[];
+             var filter_score=[]; */
            /*  
               $('#adminviewuserdetails thead tr#filterrow th').each( function () {
         var title = $('#adminviewuserdetails thead th').eq( $(this).index() ).text();
@@ -83,24 +155,24 @@ session_start();
         	 "ajax":'php/dac.useraccounts.php?action=GetUserReports',
 			//  "scrollY": "400px",
     
-			 "columns": [{ "title": "FULL NAME" , "class": "custom"},
+			 "columns": [{ "title": "FULL NAME" , "width":"60px", "class": "custom"},
 				     { "title": "DESIGNATION" , "class": "center"},
-			             { "title": "STAFF-ID", "type" : "string", "class": "center" },
 				     { "title": "STATE", "type" : "string", "class": "center" },
                                      { "title": "COURSE NAME", "type" : "string", "class": "center" },
                                      { "title": "TYPE OF TEST", "type" : "string", "class": "center" },
-                                     { "title": "SCORE", "type" : "string", "class": "center" }
+                                     { "title": "SCORE", "type" : "string", "width":"60px", "class": "center" },
+                                     { "title": "RESULT", "type" : "string", "class": "center" }
                                     ]
 				 } ).columnFilter({
                                      sPlaceHolder: "head:after",
                                      
                                      aoColumns:[null,
                                                {  type:"select", values:filter_designation },
-                                              null,
                                                {  type:"select", values:filter_state },
                                                {  type:"select", values:filter_courseName },
                                                null,
-                                               null
+                                               null,
+                                               {  type:"select", values:["PASSED", "FAILED"] }
                                               /* {  type:"select", values:filter_courseName } */
                                               ]
          });
@@ -182,17 +254,11 @@ content+='<td>Farm Pond</td>
             <span class="icon-bar"></span>
          </button>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-                <li><a href="index.php">Home</a></li>
-                <li class="active"><a href="reports.php">Reports</a></li>
-         </ul>
-          <ul class="nav navbar-nav navbar-right right-margin">
-            <li class="active"><a href="index.php"><span class="icon-login"></span>Login</a></li>
-            <li class="separator"></li>
-            <li class="active"><a href="index.php"><span class="icon-signup"></span>Sign Up</a></li>
-         </ul>
-      </div>
+      <!-- NAVIGATION BAR -->
+            <!-- Start Navigation -->
+            <?php $page='Report';
+            include 'templates/Navigation.php';?>
+            <!-- End Navigation -->
    </div>
 </nav>
 
@@ -211,18 +277,7 @@ content+='<td>Farm Pond</td>
 <div id="table-container" class="col-xs-12">
 <!--div id="report-container" class="panel panel-default"-->
     <table id="adminviewuserdetails" class="table table-responsiv table-bordered">
-        
-        <tfoot>
-		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-                        <th></th>
-			<th></th>
-		</tr>
-	</tfoot>
+       
     </table>
 <!--/div-->
 <p class="report-descriptive"></p>

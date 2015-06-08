@@ -35,6 +35,7 @@
             color:#fff;
         }
     </style>
+    <script type="text/javascript" src="js/jquery.dataTables.columnFilter.js"></script>
     <script>
         //function getuserDetailsByAdmin()
       //  {
@@ -42,22 +43,54 @@
           
         $('input[type="search"]').addClass('form-control');
           
+          var filter_designation=[];
+          var filter_state=[];
+              
           
-          
-          
-             var result="";
+          /* Filtering : Designation */
+             var designation="";
                  $.ajax({type: "GET", 
                                     async: false,
                                     url: 'php/dac.useraccounts.php',
                                     data: { 
-                                        action : 'getUserDetails'
+                                        action : 'getUserDetailsDesignationFilter'
                                     },
                                     success: function(resp)
                                     {
-                                          result=resp;
+                                          designation=resp;
                                     }
                                    });
-               console.log("answers : "+result);
+               console.log("answers : "+designation);
+               
+               designation=JSON.parse(designation);
+               
+               for(var index=0;index<designation.length;index++)
+               {
+                   filter_designation[index]=designation[index].designation;
+               }
+               
+               /* Filtering : State */ 
+                 var state="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.useraccounts.php',
+                                    data: { 
+                                        action : 'getUserDetailsStateFilter'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          state=resp;
+                                    }
+                                   });
+               console.log("answers : "+state);
+               
+               state=JSON.parse(state);
+               
+               for(var index=0;index<state.length;index++)
+               {
+                   filter_state[index]=state[index].state;
+               }
+               
                
                var  table=$('#adminviewuserdetails').dataTable( {
 			 "ajax":'php/dac.useraccounts.php?action=getUserDetails',
@@ -67,7 +100,18 @@
 			             { "title": "STAFF-ID", "type" : "string", "class": "center" },
 				     { "title": "MOBILE NUMBER", "type" : "string", "class": "center" },
                                      { "title": "STATE", "type" : "string", "class": "center" }]
-				 } );
+				 } ).columnFilter({
+                                     sPlaceHolder: "head:after",
+                                     
+                                     aoColumns:[null,
+                                               {  type:"select", values:filter_designation },
+                                                 null,
+                                                   null,
+                                               {  type:"select", values:filter_state }
+                                               
+                                              /* {  type:"select", values:filter_courseName } */
+                                              ]
+         });
                              //   $('#adminviewuserdetails').dataTable() .columnFilter();
          
         });
@@ -95,42 +139,11 @@
             <span class="icon-bar"></span>
          </button>
       </div>
-  <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-                <li><a href="user-landing.php">Home</a></li>
-                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li class="active"><a href="user-details.php">User Details</a></li>
-                <li><a href="user-history.php">User History</a></li>
-                <li><a href="admin-test-results.php">User Test Results</a></li>
-                <?php } else { ?>
-                <li><a href="previous-test-results.php">Test Results</a></li>
-                <?php  } ?>
-
-                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="manage-courses.php">Manage Courses</a></li>
-                <li><a href="manage-onlinetest.php">Manage Tests</a></li>
-                <?php } else {?>
-                 <li><a href="visited-courses.php">Visited Courses</a></li>
-                <?php  } ?>
-         </ul>
-         <ul class="nav navbar-nav navbar-right right-margin">
-             <li class="user-info">Welcome  <span class="user-name">
-                 <?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?>
-                 </span></li>
-         <li><a href="php/logout.php">Logout</a></li>
-            <li class="active dropdown">
-                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                    <span class="icon-cog"></span>Settings<span class="caret"></span></a>
-             <ul class="dropdown-menu" role="menu" data-toggle="dropdown">
-                    <li class="mychangedrop">
-                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                           <?php include 'templates/changePassword.php';?>
-                         </a>
-                    </li>
-                 </ul>
-            </li>
-         </ul>
-      </div>
+        <!-- NAVIGATION BAR -->
+            <!-- Start Navigation -->
+            <?php $page="UserDetails";
+              include 'templates/Navigation.php';?>
+            <!-- End Navigation -->
        
           
    
@@ -155,39 +168,15 @@
 </div>
 </div>
 <div class="container">
+    <div class="col-xs-12">
+        <a href="php/dac.userDetailExcel.php">
+            <input type="button" class="btn btn-primary pull-right" value="Download Complete Information"/>
+        </a>
+    </div>
 <div class="col-xs-12">
 <!--div  class="panel panel-default"-->
 <table id="adminviewuserdetails" class="table table-responsiv table-bordered">
-<!--thead>
-<tr>
-<th>Full Name</th>
-<th>Education Qualification</th>
-<th class="sortable">Community</th>
-<th class="sortable">Gender</th>
-<th>Actions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vinod.B</td>
-<td>B.Tech</td>
-<td>BC</td>
-<td>Male</td>
-<td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td>
-</tr>
-<tr class="info">
-<td>Balu Venkat.G</td>
-<td>B.Sc</td>
-<td>OC</td>
-<td>Male</td>
-<td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td></tr>
-<tr>
-<td>Ramesh .S</td>
-<td>B.Sc</td>
-<td>OC</td>
-<td>Male</td>
-<td><button class="action-btn"><img src="images/edit-icon.png" /><span class="edit-txt">Edit</span></button><button class="action-btn"><img src="images/delete-icon.png" /><span class="delete-txt">Delete</span></button></td></tr>
-</tbody-->
+
 </table>
 <!--/div-->
 <!--button class="btn btn-default pull-right">Download Data</button-->

@@ -37,10 +37,10 @@ else if($action=='AddcourseVisited')
     $course=$_GET["course"];
     $date=date("d/m/Y");
     $startTime=date("h:i:sa");
-    $endTime='';
+    $status=$_GET["status"];
     
-    $ipaddress='';
-    echo $courseObj->addCourseLogs($course, $date, $startTime, $endTime, $userId, $ipaddress);
+    $ipaddress=urlencode($_GET["ipaddress"]);
+    echo $courseObj->addCourseLogs($course, $date, $startTime, $status, $userId, $ipaddress);
 }
 
 
@@ -52,6 +52,8 @@ else if($action=='courseVisited')
     $json=$course->getCourseLogs($userId);
     echo $json; 
 }
+
+
 else if($action=='viewCourseDetails')
 {
     $courseID=$_GET["courseID"];
@@ -138,4 +140,84 @@ else if($action=='DeleteCourseDetails')
      
      $course=new Courses();
      $course->deleteCourseLink($idCourseLinks, $courseName, $title);
+}
+
+else if($action=='AddUserVisitedHistory')
+{
+    $courseLinksID=$_GET["courseLinksID"];
+    $userID=$_GET["userID"];
+    $CourseID=$_GET["CourseID"];
+    $View='1';
+    $course=new Courses();
+    $course->activateCoursesDetails($courseLinksID, $userID, $CourseID, $View);
+}
+
+else if($action=='checkForAssessmentTest')
+{
+    $userId=$_GET["userId"];
+    $courseId=$_GET["course"];
+    
+    $course=new Courses();
+    
+    $json=$course->viewCourseFullDetails($courseId);  // from courselink table
+    $userjson=$course->getListOfActivatedCourseDetails($userId, $courseId); // from courseuserview table
+    
+    $dejson=json_decode($json);
+    $deuserjson=json_decode($userjson);
+    
+    /*
+    echo "JSON : ".$json;
+    echo "USER-JSON : ".$userjson;
+    */
+    
+    $count=array();
+    for($subcourseInd=0;$subcourseInd<count($dejson);$subcourseInd++)
+    {
+        
+        for($userlistInd=0;$userlistInd<count($deuserjson);$userlistInd++)
+        {
+            if($dejson[$subcourseInd]->{'idCourseLinks'}==$deuserjson[$userlistInd]->{'courseLinksID'})
+            {
+                $trigger=false;
+                for($countInd=0;$countInd<count($count);$countInd++)
+                {
+                    if($count[$countInd]==$dejson[$subcourseInd]->{'idCourseLinks'})
+                    {
+                        $trigger=true;
+                    }
+                    
+                }
+                if(!$trigger)
+                {
+                    $count[]=$dejson[$subcourseInd]->{'idCourseLinks'};
+                } 
+            }
+        }  
+        
+    }
+        
+                
+    if(count($count)==count($dejson))
+    {
+        echo "Done";
+    }
+    else
+    {
+        echo "NotDone";
+    }
+}
+
+/* UserHistory : Filters */
+else if($action=='GetUserHistoryCourseNameFilter')
+{
+    $course=new Courses();
+    $json=$course->getAdminCourseCourseNameLogs();
+    echo $json;
+}
+else if($action=='GetUserHistoryDescriptionFilter')
+{
+    $course=new Courses();
+    $json=$course->getAdminCourseDescriptionLogs();
+    echo $json;
+    
 }

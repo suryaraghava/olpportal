@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2015 at 09:29 AM
+-- Generation Time: Jun 08, 2015 at 01:29 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.5.12
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `courselinks` (
   `courseTeluguVideoLink` varchar(250) NOT NULL,
   `courseTeluguPDFLink` varchar(250) NOT NULL,
   PRIMARY KEY (`idCourseLinks`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `courselinks`
@@ -634,62 +634,14 @@ CREATE TABLE IF NOT EXISTS `uservisitedcourse` (
   `userId` int(11) NOT NULL,
   `IPAddress` varchar(16) NOT NULL,
   PRIMARY KEY (`viewId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `uservisitedcourse`
 --
 
 INSERT INTO `uservisitedcourse` (`viewId`, `course`, `date`, `startTime`, `status`, `userId`, `IPAddress`) VALUES
-(1, 'Natural Resources Management', '05/06/2015', '10:18:43pm', 'Page Visited', 2, '175.101.18.19\n'),
-(2, 'Natural Resources Management', '05/06/2015', '10:21:43pm', 'Downloaded Watershed Interventions', 2, '175.101.18.19\n'),
-(3, 'Natural Resources Management', '05/06/2015', '10:21:46pm', 'Page Visited', 2, '175.101.18.19\n'),
-(4, 'Natural Resources Management', '05/06/2015', '10:30:32pm', 'Downloaded Watershed Interventions', 2, '175.101.18.19\n'),
-(5, 'Natural Resources Management', '05/06/2015', '10:30:41pm', 'Page Visited', 2, '175.101.18.19\n'),
-(6, 'Natural Resources Management', '05/06/2015', '10:31:44pm', 'Page Visited', 2, '175.101.18.19\n'),
-(7, 'Natural Resources Management', '05/06/2015', '10:31:51pm', 'Downloaded Watershed Interventions', 2, '175.101.18.19\n'),
-(8, 'Natural Resources Management', '05/06/2015', '10:38:00pm', 'Page Visited', 2, '---'),
-(9, 'Natural Resources Management', '05/06/2015', '10:56:20pm', 'Page Visited', 2, '175.101.18.19\n'),
-(10, 'Natural Resources Management', '05/06/2015', '10:56:21pm', 'Downloaded Watershed Interventions', 2, '175.101.18.19\n'),
-(11, 'Natural Resources Management', '05/06/2015', '10:56:44pm', 'Page Visited', 2, '---'),
-(12, 'Natural Resources Management', '05/06/2015', '11:54:36pm', 'Page Visited', 2, '175.101.18.19\n'),
-(13, 'Natural Resources Management', '05/06/2015', '11:56:14pm', 'Page Visited', 2, '---'),
-(14, 'Natural Resources Management', '05/06/2015', '11:57:54pm', 'Page Visited', 2, '175.101.18.19\n'),
-(15, 'Natural Resources Management', '05/06/2015', '11:58:52pm', 'Page Visited', 2, '175.101.18.19\n'),
-(16, 'Natural Resources Management', '05/06/2015', '11:59:15pm', 'Downloaded Continuous Contour Trench', 2, '175.101.18.19\n'),
-(17, 'Natural Resources Management', '05/06/2015', '11:59:23pm', 'Page Visited', 2, '175.101.18.19\n'),
-(18, 'Natural Resources Management', '06/06/2015', '12:01:29am', 'Downloaded Diversion Drains', 2, ''),
-(19, 'Natural Resources Management', '06/06/2015', '12:01:36am', 'Downloaded Diversion Drains', 2, '175.101.18.19\n'),
-(20, 'Natural Resources Management', '06/06/2015', '12:01:47am', 'Downloaded Diversion Drains', 2, '175.101.18.19\n'),
-(21, 'Natural Resources Management', '06/06/2015', '12:01:50am', 'Downloaded Diversion Drains', 2, '175.101.18.19\n'),
-(22, 'Natural Resources Management', '06/06/2015', '12:01:54am', 'Downloaded Diversion Drains', 2, '175.101.18.19\n'),
-(23, 'Natural Resources Management', '06/06/2015', '12:01:55am', 'Downloaded Loose Boulder Check', 2, '175.101.18.19\n'),
-(24, 'Natural Resources Management', '06/06/2015', '12:02:03am', 'Downloaded Loose Boulder Check', 2, '175.101.18.19\n'),
-(25, 'Natural Resources Management', '06/06/2015', '12:02:30am', 'Page Visited', 2, '175.101.18.19\n'),
-(26, 'Natural Resources Management', '06/06/2015', '12:02:38am', 'Downloaded Diversion Drains', 2, '175.101.18.19\n'),
-(27, 'Natural Resources Management', '06/06/2015', '12:02:42am', 'Page Visited', 2, ''),
-(28, 'Natural Resources Management', '06/06/2015', '12:03:06am', 'Downloaded Gabion Structure', 2, '175.101.18.19\n'),
-(29, 'Natural Resources Management', '06/06/2015', '12:03:17am', 'Downloaded Drop Spillway', 2, '175.101.18.19\n'),
-(30, 'Natural Resources Management', '06/06/2015', '12:03:26am', 'Downloaded Drop Spillway', 2, '175.101.18.19\n'),
-(31, 'Natural Resources Management', '06/06/2015', '12:03:47am', 'Downloaded Drop Spillway', 2, '---'),
-(32, 'Natural Resources Management', '06/06/2015', '12:04:00am', 'Page Visited', 2, '175.101.18.19\n'),
-(33, 'Natural Resources Management', '06/06/2015', '12:04:07am', 'Downloaded Contour Bunding', 2, '175.101.18.19\n'),
-(34, 'Natural Resources Management', '06/06/2015', '12:04:19am', 'Downloaded Farm Pond', 2, '175.101.18.19\n'),
-(35, 'Natural Resources Management', '06/06/2015', '12:04:23am', 'Downloaded Farm Pond', 2, '175.101.18.19\n'),
-(36, 'Natural Resources Management', '06/06/2015', '12:04:54am', 'Page Visited', 2, '---'),
-(37, 'Natural Resources Management', '06/06/2015', '12:05:49am', 'Downloaded Earthen Dam', 2, '175.101.18.19\n'),
-(38, 'Natural Resources Management', '06/06/2015', '12:06:22am', 'Downloaded Stone Bund', 2, '---'),
-(39, 'Natural Resources Management', '06/06/2015', '12:06:29am', 'Page Visited', 2, '175.101.18.19\n'),
-(40, 'Natural Resources Management', '06/06/2015', '12:09:01am', 'Page Visited', 2, '175.101.18.19\n'),
-(41, 'Natural Resources Management', '06/06/2015', '12:15:15am', 'Page Visited', 2, '175.101.18.19\n'),
-(42, 'Natural Resources Management', '06/06/2015', '12:16:11am', 'Page Visited', 2, '175.101.18.19\n'),
-(43, 'Natural Resources Management', '06/06/2015', '12:17:14am', 'Page Visited', 2, '---'),
-(44, 'Natural Resources Management', '06/06/2015', '12:19:09am', 'Page Visited', 2, '175.101.18.19\n'),
-(45, 'Natural Resources Management', '06/06/2015', '12:20:04am', 'Page Visited', 2, '175.101.18.19\n'),
-(46, 'Natural Resources Management', '06/06/2015', '12:20:46am', 'Page Visited', 2, '175.101.18.19\n'),
-(47, 'Natural Resources Management', '06/06/2015', '12:23:16am', 'Page Visited', 2, '175.101.18.19\n'),
-(48, 'Natural Resources Management', '06/06/2015', '12:23:42am', 'Page Visited', 2, '175.101.18.19\n'),
-(49, 'Natural Resources Management', '06/06/2015', '12:39:58am', 'Page Visited', 2, '175.101.18.19\n');
+(1, 'Natural Resources Management', '07/06/2015', '12:44:55pm', 'Page Visited', 2, '175.101.18.19%0A');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

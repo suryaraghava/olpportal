@@ -6,6 +6,7 @@
 
  var coursesList;
    
+      /* This function invokes on Manage-onlinetest.php loads */
       function managecoursesload()
       {
           var result;
@@ -23,47 +24,11 @@
                                    console.log(result);
                                    var res=JSON.parse(result);
           coursesList=res;
-          viewLeftMenu1();
+          viewLeftMenu1();  /* Displays first Menu */
           
       }
       
-      function viewLeftMenu1()
-      {
-          document.getElementById("leftMenuContainer1").style.display='block';
-          document.getElementById("leftMenuContainer2").style.display='none';
-          document.getElementById("leftMenuContainer3").style.display='none';
-          document.getElementById("leftMenuContainer4").style.display='none';
-          
-          // Build Dynamic Course-List
-          
-          var courseListing=document.getElementById("view-courseName");
-          var p_option = document.createElement("option");
-			 p_option.id = "";
-			p_option.text = "Select a Course";
-			p_option.value = "";
-			courseListing.add(p_option);
-            var res=coursesList;
-            for(var ind=0;ind<res.length;ind++)
-           {
-                var option = document.createElement("option");
-			option.id = res[ind].courseName;
-			option.text = res[ind].courseName;
-			option.value = res[ind].courseName;
-			courseListing.add(option);
-               console.log("courseName : "+res[ind].courseName);
-           }
-            
-          
-          
-      //    adminGetCourseList();
-          
-          
-          $("#leftMenu-1").addClass("active");
-          $("#leftMenu-2").removeClass("active");
-          $("#leftMenu-3").removeClass("active");
-          $("#leftMenu-4").removeClass("active");
-      }
-      
+     
       function adminGetCourseList()
         {
             var result;
@@ -87,64 +52,17 @@
            
         }
       
-      
-      function viewLeftMenu2()
-      {
-          document.getElementById("leftMenuContainer1").style.display='none';
-          document.getElementById("leftMenuContainer2").style.display='block';
+     
+      /* Menu 1 : Manage Examination */
+       function viewLeftMenu1()
+       {
+          document.getElementById("leftMenuContainer1").style.display='block';
+         /* document.getElementById("leftMenuContainer2").style.display='none';
           document.getElementById("leftMenuContainer3").style.display='none';
-          document.getElementById("leftMenuContainer4").style.display='none';
-          // Dynamic Mmenu
-          
-          var courseListing=document.getElementById("courseList");
-          var p_option = document.createElement("option");
-			 p_option.id = "";
-			p_option.text = "Select a Course";
-			p_option.value = "";
-			courseListing.add(p_option);
-            var res=coursesList;
-            for(var ind=0;ind<res.length;ind++)
-           {
-                var option = document.createElement("option");
-			option.id = res[ind].courseName;
-			option.text = res[ind].courseName;
-			option.value = res[ind].courseName;
-			courseListing.add(option);
-               console.log("courseName : "+res[ind].courseName);
-           }
-            
+          document.getElementById("leftMenuContainer4").style.display='block'; */
           
           $("#leftMenu-1").removeClass("active");
           $("#leftMenu-2").addClass("active");
-          $("#leftMenu-3").removeClass("active");
-          $("#leftMenu-4").removeClass("active");
-      }
-      
-      
-       function viewLeftMenu3()
-       {
-          document.getElementById("leftMenuContainer1").style.display='none';
-          document.getElementById("leftMenuContainer2").style.display='none';
-          document.getElementById("leftMenuContainer3").style.display='block';
-          document.getElementById("leftMenuContainer4").style.display='none';
-          
-          $("#leftMenu-1").removeClass("active");
-          $("#leftMenu-2").removeClass("active");
-          $("#leftMenu-3").addClass("active");
-          $("#leftMenu-4").removeClass("active");
-       }
-      
-       function viewLeftMenu4()
-       {
-          document.getElementById("leftMenuContainer1").style.display='none';
-          document.getElementById("leftMenuContainer2").style.display='none';
-          document.getElementById("leftMenuContainer3").style.display='none';
-          document.getElementById("leftMenuContainer4").style.display='block';
-          
-          $("#leftMenu-1").removeClass("active");
-          $("#leftMenu-2").removeClass("active");
-          $("#leftMenu-3").removeClass("active");
-          $("#leftMenu-4").addClass("active");
           
           // View viewTestDetailsTable
            
@@ -190,7 +108,7 @@
                console.log("Pre Data : "+result);
                
               result=JSON.parse(result);
-              
+               //  
                var content='<table class="table table-responsiv table-bordered">';
                    content+='<thead>';
                    content+='<tr>';
@@ -210,21 +128,20 @@
                   console.log(result[index].testName);
                   console.log(result[index].testType);
                   console.log(result[index].testTime);
-                  console.log(result[index].totalquestions);
+                  console.log("Question :"+result[index].totalquestions+" Decode Question: "+decodeURI(result[index].totalquestions));
                   console.log(result[index].totalmarks);
                   console.log(result[index].passMarks);
+                  
                    content+='<tr>';
                    content+='<td>'+(index+1)+'</td>';
-                   
-               
                    content+='<th>'+result[index].testType+'</th>';
-               
                    content+='<th>'+result[index].testTime+'</th>';
                    content+='<th>'+result[index].totalquestions+'</th>';
                    content+='<th>'+result[index].totalmarks+'</th>';
                    content+='<th>'+result[index].passMarks+'</th>';
                    content+='<th style="width:21%">';
-                   content+='<input type="button" class="btn btn-primary" value="Edit"  onclick="manageAddEditTestDetails(\'Edit\')"/>';
+                   content+='<input type="button" class="btn btn-primary" value="Edit"';
+                   content+=' onclick="manageAddEditTestDetails(\'Edit\',\''+result[index].testType+'\',\''+result[index].testTime+'\',\''+result[index].totalquestions+'\',\''+result[index].totalmarks+'\',\''+result[index].passMarks+'\')"/>';
                    content+='<input type="button" class="btn btn-danger" value="Delete"/>';
                    content+='</th>';
                    content+='</tr>';
@@ -233,7 +150,7 @@
               content+='</table>';
               
               content+='<div class="col-xs-12">';
-              content+='<input type="button" id="Bttn_AddExamDetails" class="btn btn-success pull-right" value="Add Exam Details" onclick="manageAddEditTestDetails(\'Add\')"/>';          
+              content+='<input type="button" id="Bttn_AddExamDetails" class="btn btn-success pull-right" value="Add Exam Details" onclick="manageAddEditTestDetails(\'Add\',\'\',\'\',\'\',\'\',\'\')"/>';          
               content+='</div>';
               
               document.getElementById("viewTestDetailsTable").innerHTML=content;
@@ -242,11 +159,25 @@
               
       }
       
-      function manageAddEditTestDetails(operate)
+      function manageAddEditTestDetails(operate,testType,testTime,totalquestions,totalmarks,passMarks)
       {
           document.getElementById("Add_viewExamDetails").style.display='block';
+          document.getElementById("AddViewExamDetails_TestType").value=testType;
+          
+          // Split by ';'
+          var array=testTime.split(":");
+          
+          document.getElementById("AddViewExamDetails_TestDurationHour").value=array[0];
+          document.getElementById("AddViewExamDetails_TestDurationMinute").value=array[1];
+          document.getElementById("AddViewExamDetails_TestDurationSecond").value=array[2];
+          
+          document.getElementById("AddViewExamDetails_TotalQuestion").value=totalquestions;
+          document.getElementById("AddViewExamDetails_TotalMarks").value=totalmarks;
+          document.getElementById("AddViewExamDetails_PassMarks").value=passMarks;
+          
           if(operate==='Add')
           {
+               document.getElementById("operation_mode").value='Add';
               document.getElementById("AddViewExamDetails_header").innerHTML='<B>Add Examination Details</B>';
               document.getElementById("AddViewExamDetails_submit").value='Add Exam Details';
               
@@ -254,12 +185,108 @@
           }
           else if(operate==='Edit')
           {
+            document.getElementById("operation_mode").value='Edit';
             document.getElementById("AddViewExamDetails_header").innerHTML='<B>Edit Examination Details</B>';  
             document.getElementById("AddViewExamDetails_submit").value='Edit Exam Details';
+            
           }
       }
       
-      
+      function addupdateExamDetails()
+      {
+          // 
+         
+         var courseName=document.getElementById("view-OnlineTest-courseName").value;
+          var mode=document.getElementById("operation_mode").value;
+          var testype=document.getElementById("AddViewExamDetails_TestType").value;
+          
+          var testDurationHour=document.getElementById("AddViewExamDetails_TestDurationHour").value;
+          var testDurationMin=document.getElementById("AddViewExamDetails_TestDurationMinute").value;
+          var testDurationSec=document.getElementById("AddViewExamDetails_TestDurationSecond").value;
+          
+          if(testDurationHour.length==1)  { testDurationHour="0"+testDurationHour; }
+          if(testDurationMin.length==1)  { testDurationMin="0"+testDurationMin; }
+          if(testDurationSec.length==1)  { testDurationSec="0"+testDurationSec; }
+          
+          if(testDurationHour.length==0)  { document.getElementById("AddViewExamDetails_TestDurationHour").value="00"; }
+          if(testDurationMin.length==0)  { document.getElementById("AddViewExamDetails_TestDurationMinute").value="00"; }
+          if(testDurationSec.length==0)  { document.getElementById("AddViewExamDetails_TestDurationSecond").value="00"; }
+            
+            testDurationHour=document.getElementById("AddViewExamDetails_TestDurationHour").value;
+            testDurationMin=document.getElementById("AddViewExamDetails_TestDurationMinute").value;
+            testDurationSec=document.getElementById("AddViewExamDetails_TestDurationSecond").value;
+            
+          var testDuration=testDurationHour+":"+testDurationMin+":"+testDurationSec;
+          
+          var totalQuestions=document.getElementById("AddViewExamDetails_TotalQuestion").value;
+          var totalMarks=document.getElementById("AddViewExamDetails_TotalMarks").value;
+          var passMarks=document.getElementById("AddViewExamDetails_PassMarks").value;
+     
+     
+     
+     
+           console.log("mode : "+mode);
+           console.log("courseName : "+courseName);
+           console.log("testype : "+testype);
+           console.log("testDuration : "+testDuration);
+           console.log("totalQuestions : "+totalQuestions);
+           console.log("totalMarks : "+totalMarks);
+           console.log("passMarks : "+passMarks);
+           
+             // Validation ::
+           if(testype.length==0)
+           {
+                popupLogoutOpen();
+                var content='<B>Please Select the Type of Test.</B>';
+                document.getElementById("popLogoutcontent").innerHTML=content;
+           }
+           
+           else if(testDurationHour.length==0 || testDurationMin==0)
+           {
+               popupLogoutOpen();
+               var content='<B>Please Enter the Test Duration.</B>';
+               document.getElementById("popLogoutcontent").innerHTML=content;
+           }
+           
+           else if(totalQuestions.length==0)
+           {
+                popupLogoutOpen();
+               var content='<B>Please Enter the total number of Questions.</B>';
+               document.getElementById("popLogoutcontent").innerHTML=content;
+           }
+           
+           else if(totalMarks.length==0)
+           {
+                popupLogoutOpen();
+               var content='<B>Please Enter the total Marks.</B>';
+               document.getElementById("popLogoutcontent").innerHTML=content;
+           }
+           
+           else if(passMarks.length==0)
+           {
+                popupLogoutOpen();
+               var content='<B>Please Enter the Test Pass Marks.</B>';
+               document.getElementById("popLogoutcontent").innerHTML=content;
+           }
+           else
+           {
+                
+                if(mode=='Add')
+                {
+                    // Add to Table
+                    
+                }
+                else if(mode=='Edit')
+                {
+
+                }
+           }
+           
+           
+        
+         
+          
+      }
       
       
         function AddQuestionOnSubmit()
@@ -413,19 +440,20 @@
                                    var res=JSON.parse(result);
                                    
                                    
-                                   
-               var content='<table class="table table-responsiv table-bordered">';
+                             //  class="table table-responsiv table-bordered"  
+                             /*
+               var content='<table style="width:100px;border:1px solid #000;">';
                    content+='<thead>';
-                   content+='<tr>';
-                   content+='<th>S. No.</th>';
-                   content+='<th>Test Type</th>';
-                   content+='<th>Question</th>';
-                   content+='<th>Option1</th>';
-                   content+='<th>Option2</th>';
-                   content+='<th>Option3</th>';
-                   content+='<th>Option4</th>';
-                   content+='<th>Answer</th>';
-                   content+='<th>Active</th>';
+                   content+='<tr style="border:1px solid #000;">';
+                   content+='<th  style="border:1px solid #000;">S. No.</th>';
+                   content+='<th  style="border:1px solid #000;">Test Type</th>';
+                   content+='<th style="border:1px solid #000;">Question</th>';
+                   content+='<th style="border:1px solid #000;">Option1</th>';
+                   content+='<th style="border:1px solid #000;">Option2</th>';
+                   content+='<th style="border:1px solid #000;">Option3</th>';
+                   content+='<th style="border:1px solid #000;">Option4</th>';
+                   content+='<th style="border:1px solid #000;">Answer</th>';
+                   content+='<th style="border:1px solid #000;">Active</th>';
                    content+='</tr>';
                    content+='</thead>';
                    content+='<tbody>';
@@ -435,16 +463,16 @@
                                    for(var ind=0;ind<res.length;ind++)
                                    {
                                        
-                                        content+='<tr>';
-                                        content+='<td>'+(ind+1)+'</td>';
-                                        content+='<td>'+res[ind].testType+'</td>';
-                                        content+='<td>'+res[ind].question+'</td>';
-                                        content+='<td>'+res[ind].option1+'</td>';
-                                        content+='<td>'+res[ind].option2+'</td>';
-                                        content+='<td>'+res[ind].option3+'</td>';
-                                        content+='<td>'+res[ind].option4+'</td>';
-                                        content+='<td>'+res[ind].answer+'</td>';
-                                        content+='<td>'+res[ind].active+'</td>';
+                                        content+='<tr  style="border:1px solid #000;">';
+                                        content+='<td  style="border:1px solid #000;">'+(ind+1)+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].testType+'</td>';
+                                        content+='<td  style="width:40px;border:1px solid #000;">'+res[ind].question+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option1+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option2+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option3+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].option4+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].answer+'</td>';
+                                        content+='<td  style="border:1px solid #000;">'+res[ind].active+'</td>';
                                         content+='</tr>'
                                     
                                         
@@ -455,8 +483,26 @@
                    content+='</tbody>';
                    content+='</table>';
                    content+='</div>';
-                                   
+                                   */
+                   // Data Table
                    
+                     var  table=$('#adminviewuserdetails').dataTable( {
+                   
+        	 "ajax":'php/dac.questions.php?action=GetTestQuestionstoDataTables',
+			//  "scrollY": "400px",
+    
+			 "columns": [{ "title": "S. No." , "class": "custom"},
+				     { "title": "Test Type" , "class": "center"},
+			             { "title": "Question", "type" : "string", "class": "center" },
+				     { "title": "Option1", "type" : "string", "class": "center" },
+                                     { "title": "Option2", "type" : "string", "class": "center" },
+                                     { "title": "Option3", "type" : "string", "class": "center" },
+                                     { "title": "Option4", "type" : "string", "class": "center" },
+                                     { "title": "Answer", "type" : "string", "class": "center" },
+                                     { "title": "Active", "type" : "string", "class": "center" }
+                                    ]
+				 } );
+                                 
                    document.getElementById("leftMenuTable1").innerHTML=content;
                                    
                                    

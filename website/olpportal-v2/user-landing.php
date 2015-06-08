@@ -1,3 +1,4 @@
+<!-- VERSION -1 -->
 <?php session_start();
  require 'php/define.php';
  if(isset($_SESSION[constant("SESSION_USER_USERNAME")]))
@@ -16,6 +17,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/popup.js"></script>
+    <script src="js/roman.js"></script>
     <link href="css/popup.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,6 +42,10 @@
          }
          
          
+         function moduleContent()
+         {
+             document.getElementById("userlanding-content").style.display='none';
+         }
         function getCoursesListAfterLogin()
         {
              var result="";
@@ -60,10 +66,12 @@
                              var content='';
                              for(var index=0;index<res.length;index++)
                              {
+              
                                  g_coursesList[index]=res[index].courseName;
                                  content+='<div id="course-content" class="col-xs-12 col-xs-6 col-md-3">';  
                                  content+='<div class="course-box">';     
-                                 content+='<div class="course-header"><h5 class="course-title">Course '+res[index].idCourses+'</h5></div>';
+                                
+                                 content+='<div class="course-header"><h5 class="course-title">Course '+getRomanNumber(res[index].idCourses)+'</h5></div>';
                                  content+='<div align="center" class="course-img"><img src="'+res[index].courseImage+'" />';
                                  content+='</div>';
                                  content+='<div class="course-footer"><a href="#">'+res[index].courseName+'<img src="images/course-arrow.png" class="pull-right" /></a></div>';
@@ -71,9 +79,9 @@
                                  content+='<div class="course-menu">';
                                  content+='<ul>';
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'preTest\' )">';
-                                 content+='Take a Pre-Test</span></li>';
+                                 content+='Take a Pretest</span></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Details\' )">Details</a></li>';
-                                 content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Module\' )">Go to Module</a></li>';
+                                 content+='<li><span class="course-subTag" onclick="javascript:moduleContent()">Go to Module</a></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Assessment\' )">Go for Assessment</a></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:CourseTesting(\'postTest\' )">Go for Post-Test</a></li>';
                                  content+='</ul>';
@@ -97,7 +105,7 @@
                                     data: { 
                                         action : 'TestDetails',
                                         courseName : lastCourseName,
-                                        testType :'postTest'
+                                        testType :'Assessment'
                                     },
                                     success: function(resp)
                                     {
@@ -283,8 +291,12 @@
         
         function preTestforCourse(courseName, courseId, link)
         {
-                                                      
-           
+                 /* Added on June 8 */                                     
+           if(link==='preTest')
+           {
+              window.location.href='pre-test.php'; 
+           }
+           else {
             var progress=courseValidation(courseName, courseId, link);
             
             console.log("Progress : "+progress);
@@ -382,7 +394,43 @@
                          }
                           else if(link==='Assessment')
                             {
-                          window.location.href='assessment.php';
+                                
+                                // Check for All PDF's are downloaded or not
+                                    var course='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>';
+                                    var userId='<?php if(isset($_SESSION[constant("SESSION_USER_REGID")])) echo $_SESSION[constant("SESSION_USER_REGID")]; ?>';
+                                    var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) echo $_SESSION[constant("SESSION_COURSEID")]; ?>';
+                                    // Check for Displaying Go for Assessment Option
+                                    // Inputs : courseId, userId
+                                    console.log("Course : "+course);
+                                    console.log("UserId : "+userId); 
+                                    console.log("courseId : "+courseId);
+                                    
+                                    var testresp="";
+                                         $.ajax({type: "GET", 
+                                                            async: false,
+                                                            url: 'php/dac.courses.php',
+                                                            data: { 
+                                                                userId :userId,
+                                                                course : courseId,
+                                                                action : 'checkForAssessmentTest'
+                                                            },
+                                                            success: function(resp)
+                                                            {
+                                                                  testresp=resp;
+                                                            }
+                                                           });
+
+                                                           console.log("testResp :"+testresp);
+
+                                    if(testresp==='Done')
+                                    {
+                                        window.location.href='assessment.php';
+                                    }
+                                    else
+                                    {
+                                         popupOpen();
+                                         document.getElementById("popcontent").innerHTML='<h3>You have not downloaded and read all PDFs. <br/> Please do it first to access Assessment Test</h3>';
+                                    }
                             }
                        
                         
@@ -390,7 +438,7 @@
             
             }
         }
-        
+        }
         function checkpreTestCompletedOrNot()
         {
             
@@ -436,38 +484,11 @@
             <span class="icon-bar"></span>
          </button>
       </div>
-  <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-                <li class="active"><a href="user-landing.php">Home</a></li>
-                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="user-details.php">User Details</a></li>
-                <li><a href="user-history.php">User History</a></li>
-                <li><a href="admin-test-results.php">User Test Results</a></li>
-                <?php } else { ?>
-                <li><a href="previous-test-results.php">Test Results</a></li>
-                <?php  } ?>
-
-                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="manage-courses.php">Manage Courses</a></li>
-                <li><a href="manage-onlinetest.php">Manage Tests</a></li>
-                <?php } else {?>
-                 <li><a href="visited-courses.php">Visited Courses</a></li>
-                <?php  } ?>
-         </ul>
-         <ul class="nav navbar-nav navbar-right right-margin">
-             <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
-         <li><a href="php/logout.php">Logout</a></li>
-            <li class="active dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"><span class="icon-cog"></span>Settings<span class="caret"></span></a>
-                 <ul class="dropdown-menu" role="menu" data-toggle="dropdown">
-                    <li class="mychangedrop">
-                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                           <?php include 'templates/changePassword.php';?>
-                         </a>
-                    </li>
-                 </ul>
-            </li>
-         </ul>
-      </div>
+ <!-- NAVIGATION BAR -->
+            <!-- Start Navigation -->
+            <?php $page='Home';
+            include 'templates/Navigation.php';?>
+            <!-- End Navigation -->
    </div>
 </nav>
 
@@ -480,10 +501,20 @@
    <div class="col-xs-12">
       <h3 class="featurette-heading">COURSES</h3>
       <hr class="featurette-divider">
-         <p>"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"</p>
-<p>
-     "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members volunteer to do unskilled manual work"
-</p>
+         <p id="userlanding-content">"Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people 
+             in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household 
+             whose adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. 
+             "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people
+             in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household 
+             whose adult members volunteer to do unskilled manual work"
+         
+            "Mahatma Gandhi National Rural Employment Guarantee Act aims at enhancing the livelihood security of people 
+            in rural areas by guaranteeing hundred days of wage employment in a financial year to a rural household whose
+            adult members volunteer to do unskilled manual work" © 2015 NIRD Inc. All rights reserved. "Mahatma Gandhi
+            National Rural Employment Guarantee Act aims at enhancing the livelihood security of people in rural areas 
+            by guaranteeing hundred days of wage employment in a financial year to a rural household whose adult members 
+            volunteer to do unskilled manual work"
+        </p>
 <br/>
 </div>
 </div>

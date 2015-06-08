@@ -392,55 +392,6 @@ var coursesList;
       }
       
       
-       function addDetailsToCourse()
-                {
-                    var courseName=document.getElementById("view-courseName2").value;
-                    var titleName=document.getElementById("addcourse-titleName").value;
-                    
-                    var engVideoLink=document.getElementById("addcourse-EngVideoLink").value;
-                    var hinVideoLink=document.getElementById("addcourse-HinVideoLink").value;
-                    var telVideoLink=document.getElementById("addcourse-TelVideoLink").value;
-                
-                    var engBookLink=document.getElementById("addcourse-EngBookLink").value;
-                    var hinBookLink=document.getElementById("addcourse-HinBookLink").value;
-                    var telBookLink=document.getElementById("addcourse-TelBookLink").value;
-                    
-             
-                    var result="";
-                            $.ajax({type: "GET", 
-                                    async: false,
-                                    url: 'php/dac.courses.php',
-                                    data: { 
-                                      courseId:courseName,
-                                      title:titleName,
-                                      courseEngVideo:engVideoLink,
-                                      courseEngPDF:engBookLink,
-                                      courseHinVideo:hinVideoLink,
-                                      courseHinPDF:hinBookLink,
-                                      courseTelVideo:telVideoLink,
-                                      courseTelPDF:telBookLink,
-                                      action : 'AddNewCourseDetails'
-                                    },
-                                  success: function(resp)
-                                    {
-                                          result=resp;
-                                    }
-                                   });
-                                   
-                        console.log("Res : "+result);
-                      
-                    document.getElementById("view-courseName2").value="";
-                    document.getElementById("addcourse-titleName").value="";
-                    
-                    document.getElementById("addcourse-EngVideoLink").value="";
-                    document.getElementById("addcourse-HinVideoLink").value="";
-                    document.getElementById("addcourse-TelVideoLink").value="";
-                
-                    document.getElementById("addcourse-EngBookLink").value="";
-                    document.getElementById("addcourse-HinBookLink").value="";
-                    document.getElementById("addcourse-TelBookLink").value="";
-                       
-                    viewLeftMenu3();
-                }
+      
 
 

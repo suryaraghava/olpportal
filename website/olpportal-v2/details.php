@@ -22,7 +22,7 @@
   
     <![endif]-->
       <style>
-       
+       #AssessmentTestBttn { display:none; }
         #course-details-view
         {
             margin-top:4%;
@@ -31,13 +31,66 @@
         {
             cursor:pointer;
         }
+        #note { color:#cc0033;}
     </style>
     <script>
-        function pageOnlOad()
+        var g_userId;
+        var g_course;
+        function getIPAddress()
         {
+            // Get UserIP Address
+            var ipaddress='';
+              $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.util.php',
+                                    data: { 
+                                        action :'GetUserIP'},
+                                    success: function(resp)
+                                    {
+                                          ipaddress=resp;
+                                    }
+                                   });
+            return ipaddress;
+        }
+         function pageOnload()
+        {
+               var ipaddress=getIPAddress();
+            
+               console.log("ipaddress : "+ipaddress);
+                
             var course='<?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>';
             var userId='<?php if(isset($_SESSION[constant("SESSION_USER_REGID")])) echo $_SESSION[constant("SESSION_USER_REGID")]; ?>';
+            var courseId='<?php if(isset($_SESSION[constant("SESSION_COURSEID")])) echo $_SESSION[constant("SESSION_COURSEID")]; ?>';
+            // Check for Displaying Go for Assessment Option
+            // Inputs : courseId, userId
+            var testresp="";
+                 $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        userId :userId,
+                                        course : courseId,
+                                        action : 'checkForAssessmentTest'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          testresp=resp;
+                                    }
+                                   });
+                                   
+                                   console.log("testResp :"+testresp);
+            
+            if(testresp==='Done')
+            {
+                document.getElementById("AssessmentTestBttn").style.display='block';
+            }
+            
+            
+            
             // Add logs to Course Visited
+            g_course=course;
+            g_userId=userId;
+           
              var result="";
                  $.ajax({type: "GET", 
                                     async: false,
@@ -45,6 +98,8 @@
                                     data: { 
                                         userId :userId,
                                         course : course,
+                                        ipaddress :ipaddress,
+                                        status :'Page Visited',
                                         action : 'AddcourseVisited'
                                     },
                                     success: function(resp)
@@ -56,11 +111,52 @@
                                    console.log("result :"+result);
                        
         }
-      
+      function pdfDownloadLogs(title, subcourseId, courseId)
+      {
+          var ipaddress=getIPAddress();
+          
+                   var result="";
+                            $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        userId :g_userId,
+                                        course : g_course,
+                                        ipaddress :ipaddress,
+                                        status :'Downloaded '+title,
+                                        action : 'AddcourseVisited'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          result=resp;
+                                    }
+                                   });
+                               console.log("result :"+result);
+                               
+           /* Adding to visited link */
+           var userID='<?php if(isset($_SESSION["SESSION_USER_REGID"])) { echo $_SESSION["SESSION_USER_REGID"]; } ?>';
+           var response="";
+                     $.ajax({type: "GET", 
+                                    async: false,
+                                    url: 'php/dac.courses.php',
+                                    data: { 
+                                        courseLinksID :subcourseId,
+                                        CourseID : courseId,
+                                        userID :userID,
+                                        action : 'AddUserVisitedHistory'
+                                    },
+                                    success: function(resp)
+                                    {
+                                          response=resp;
+                                    }
+                                   });
+         
+                 console.log("response : "+response);                  
+      }
     </script>
         
   </head>
-<body onload="pageOnlOad()">
+  <body onload="pageOnload()">
 
    <div class="container page-wrapper">
 
@@ -83,40 +179,11 @@
             <span class="icon-bar"></span>
          </button>
       </div>
-      <div id="navbar" class="navbar-collapse collapse">
-         <ul class="nav navbar-nav">
-                <li><a href="user-landing.php">Home</a></li>
-                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li><a href="user-details.php">User Details</a></li>
-                <li><a href="user-history.php">User History</a></li>
-                <li><a href="admin-test-results.php">User Test Results</a></li>
-                <?php } else { ?>
-                <li><a href="previous-test-results.php">Test Results</a></li>
-                <?php  } ?>
-
-                <?php   if($_SESSION[constant("SESSION_USER_USERNAME")]=='Administrator') { ?>
-                <li class="active"><a href="manage-courses.php">Manage Courses</a></li>
-                <li><a href="manage-onlinetest.php">Manage Tests</a></li>
-                <?php } else {?>
-                 <li><a href="visited-courses.php">Visited Courses</a></li>
-                <?php  } ?>
-         </ul>
-         <ul class="nav navbar-nav navbar-right right-margin">
-             <li class="user-info">Welcome  <span class="user-name"><?php if(isset($_SESSION[constant("SESSION_USER_USERNAME")])) echo $_SESSION[constant("SESSION_USER_USERNAME")]; ?></span></li>
-         <li><a href="php/logout.php">Logout</a></li>
-            <li class="active dropdown">
-                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                    <span class="icon-cog"></span>Settings<span class="caret"></span></a>
-                 <ul class="dropdown-menu" role="menu" data-toggle="dropdown">
-                    <li class="mychangedrop">
-                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                           <?php include 'templates/changePassword.php';?>
-                         </a>
-                    </li>
-                 </ul>
-            </li>
-         </ul>
-      </div>
+      <!-- NAVIGATION BAR -->
+            <!-- Start Navigation -->
+            <?php $page='';
+            include 'templates/Navigation.php';?>
+            <!-- End Navigation -->
    </div>
 </nav>
 
@@ -131,8 +198,17 @@
               <?php if(isset($_SESSION[constant("SESSION_COURSENAME")])) echo $_SESSION[constant("SESSION_COURSENAME")]; ?>
           </span></h3>
       <hr class="featurette-divider">
-         <p>The National Rural Employment Guarantee Act 2005 (or, NREGA No 42) was later renamed as the "Mahatma Gandhi National Rural Employment Guarantee Act" (or, MGNREGA), is an Indian labour law and social security measure that aims to guarantee the 'right to work'. It aims to ensure livelihood security in rural areas by providing at least 100 days of wage employment in a financial year to every household whose adult members volunteer to do unskilled manual work.It is one of the important scheme being implemented by government to achive inclusive growth.
-</p>
+      <p>
+          <span id="note">Note:</span><B><I>Download all PDF's to get Access for the Assessment Exam</I></B><br/>
+             The National Rural Employment Guarantee Act 2005 (or, NREGA No 42) was later renamed as the 
+             "Mahatma Gandhi National Rural Employment Guarantee Act" (or, MGNREGA), is an Indian labour 
+             law and social security measure that aims to guarantee the 'right to work'. 
+             It aims to ensure livelihood security in rural areas by providing at least 100 days of 
+             wage employment in a financial year to every household whose adult members volunteer to do 
+             unskilled manual work.It is one of the important scheme being implemented by government to 
+             achive inclusive growth.
+             
+      </p>
    </div>
 </div>
 <!--   ---------------------- Start Details Page video Content -----------------------    -->
@@ -144,7 +220,7 @@
    
     <div class="col-xs-12">
         <a href="assessment.php">
-        <button class="btn btn-default pull-right">Go for Assesment</button>
+        <input id="AssessmentTestBttn" class="btn btn-default pull-right" value="Go for Assesment"/>
         </a>
     </div>
     
