@@ -207,7 +207,7 @@
              }
             if(q_cindex<q_lindex)
             {
-                document.getElementById("qtest-question").innerHTML=q_json[q_cindex].question;
+                document.getElementById("qtest-question").innerHTML=decodeURI(q_json[q_cindex].question);
             
                 q_qId=q_json[q_cindex].idTestQuestions;
                 q_quesId.push(q_qId);

@@ -44,6 +44,7 @@ if($action=='GetQuestions')
     $qtotal=$_GET["qtotal"];
     $q=new Questions();
     $json=$q->getQuestions($testDetailsId, '1', $qtotal);
+	$json=urldecode($json);
     echo $json;
 }
 
