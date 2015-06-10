@@ -83,7 +83,7 @@
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Details\' )">Details</a></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:moduleContent()">Go to Module</a></li>';
                                  content+='<li><span class="course-subTag" onclick="javascript:preTestforCourse(\''+res[index].courseName+'\',\''+res[index].idCourses+'\',\'Assessment\' )">Go for Assessment</a></li>';
-                                 content+='<li><span class="course-subTag" onclick="javascript:CourseTesting(\'postTest\' )">Go for Post-Test</a></li>';
+                                // content+='<li><span class="course-subTag" onclick="javascript:CourseTesting(\'postTest\' )">Go for Post-Test</a></li>';
                                  content+='</ul>';
                                  content+='</div>';
                                  content+='</div>';
@@ -291,6 +291,20 @@
         
         function preTestforCourse(courseName, courseId, link)
         {
+            var result="";
+                                $.ajax({type: "GET", 
+                                                   async: false,
+                                                   url: 'php/sessions.php',
+                                                   data: { 
+                                                       action : 'SetCourseSession',
+                                                       courseName : courseName,
+                                                       courseId : courseId
+                                                   },
+                                                   success: function(resp)
+                                                   {
+                                                         result=resp;
+                                                   }
+                                                  });
                  /* Added on June 8 */                                     
            if(link==='preTest')
            {
@@ -332,20 +346,7 @@
                       
                  }
             }
-            var result="";
-                                $.ajax({type: "GET", 
-                                                   async: false,
-                                                   url: 'php/sessions.php',
-                                                   data: { 
-                                                       action : 'SetCourseSession',
-                                                       courseName : courseName,
-                                                       courseId : courseId
-                                                   },
-                                                   success: function(resp)
-                                                   {
-                                                         result=resp;
-                                                   }
-                                                  });
+            
              
         
                         

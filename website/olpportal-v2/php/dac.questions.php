@@ -44,8 +44,27 @@ if($action=='GetQuestions')
     $qtotal=$_GET["qtotal"];
     $q=new Questions();
     $json=$q->getQuestions($testDetailsId, '1', $qtotal);
-    $json=urldecode($json);
-    echo $json;
+    $dejson=json_decode($json);
+    // Decode and Build JSON
+    $jsonbuilder="[";
+     for($ind=0;$ind<count($dejson);$ind++)
+     {
+         
+         
+         $jsonbuilder.="{";
+         $jsonbuilder.="\"idTestQuestions\":"."\"".chop(urldecode($dejson[$ind]->{'idTestQuestions'})," ")."\",";
+         $jsonbuilder.="\"question\":"."\"".chop(urldecode($dejson[$ind]->{'question'})," ")."\",";
+         $jsonbuilder.="\"option1\":"."\"".chop(urldecode($dejson[$ind]->{'option1'})," ")."\",";
+         $jsonbuilder.="\"option2\":"."\"".chop(urldecode($dejson[$ind]->{'option2'})," ")."\",";
+         $jsonbuilder.="\"option3\":"."\"".chop(urldecode($dejson[$ind]->{'option3'})," ")."\",";
+         $jsonbuilder.="\"option4\":"."\"".chop(urldecode($dejson[$ind]->{'option4'})," ")."\"";
+         $jsonbuilder.="},";
+     }
+    
+    $jsonbuilder=chop($jsonbuilder,",");
+    $jsonbuilder.="]";
+   // $json=urldecode($json);
+    echo $jsonbuilder;
 }
 
 if($action=='viewQuestions')
